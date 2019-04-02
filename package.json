@@ -1,0 +1,15 @@
+{
+  "name": "xdh-form-builder",
+  "version": "1.0.0",
+  "description": "#### Description 可视化自定义表单工具",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/newgateway/xdh-form-builder.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
