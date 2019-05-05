@@ -86,6 +86,11 @@ module.exports = {
   dll: ['vue', 'vue-router', 'vuex', 'axios', 'path-to-regexp', 'element-ui', 'nprogress'],
   
   /**
+   * 预先加载编译好的主题
+   */
+  preloadTheme: true,
+  
+  /**
    * node_modules 仓库
    */
   install: {
@@ -139,18 +144,12 @@ module.exports = {
       '/src/mock',
       '/src/router',
       '/src/store',
-      '/src/style/components',
-      '/src/style/skins',
-      '/src/style/variables',
-      '/src/style/index.scss',
-      '/src/style/base.scss',
-      '/src/style/_vars.scss',
-      '/src/style/element.scss',
+      '/src/style/variables/_custom.scss',
       '/src/views',
       '/src/config.js',
       '/src/main.js',
       '/src/App.vue',
-      '/config/',
+      '/config/index.js',
       '/test/',
       '/coder/schemas',
       '/coder/config.js',

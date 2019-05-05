@@ -1,15 +1,4 @@
-<script>
-import XdhSkeleton from '@/widgets/xdh-skeleton'
-export default {
-  components: {
-    XdhSkeleton
-  },
-  data() {
-    return {
-    }
-  }
-};
-</script>
+
 ## Skeleton 加载占位图组件
 
 在需要等待加载内容的位置提供一个占位图。适用于网络较慢，需要长时间等待加载处理的情况下,图文信息内容较多的列表/卡片中。

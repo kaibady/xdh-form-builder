@@ -1,33 +1,3 @@
-<script>
-  import XdhPieGauge from 'E/charts/pie/xdh-pie-gauge'
-  import XdhPieSemiring from 'E/charts/pie/xdh-pie-semiring'
-
-  export default {
-    components: {
-      XdhPieGauge,
-      XdhPieSemiring
-    },
-    data() {
-      return {
-        data1: {
-           '省纪委': 2450,
-            '南京': 2250,
-            '无锡': 2220,
-            '徐州': 2142,
-            '常州': 800,
-            '苏州': 1690,
-            '南通': 1590,
-            '连云港': 1387
-        },
-        data2: {
-           label: '核查',
-           count: 321,
-           total: 564
-        }
-      }
-    }
-  }
-</script>
 
 ## 饼图 Pie
 

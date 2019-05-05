@@ -1,3 +1,24 @@
+
+
+## 自定义虚线样式的el-tree组件
+
+通过自定义样式给el-tree 组件添加 虚线连线的效果
+
+### 用法
+
+:::demo  只需要在使用 'el-tree' 组件时，在其父节点上添加 ‘xdh-tree’类名即可。注意：使用虚线模式的el-tree组件，必须使用固定的 indent值（18px）
+```html
+
+<template>
+  <div class=" xdh-tree ">
+    <el-tree :data="data" node-key:="label" show-checkbox>
+    </el-tree>
+    <hr/>
+    <el-tree :data="data2" node-key:="label" show-checkbox>
+    </el-tree>
+  </div>
+</template>
+
 <script>
   export default {
     data() {
@@ -131,79 +152,6 @@
             label: '一级 2'
           }
         ]
-      }
-    },
-    methods: {
-    }
-  }
-</script>
-
-## 自定义虚线样式的el-tree组件
-
-通过自定义样式给el-tree 组件添加 虚线连线的效果
-
-### 用法
-
-:::demo  只需要在使用 'el-tree' 组件时，在其父节点上添加 ‘xdh-tree’类名即可。注意：使用虚线模式的el-tree组件，必须使用固定的 indent值（18px）
-```html
-
-<template>
-  <div class=" xdh-tree ">
-    <el-tree :data="data" node-key:="label" show-checkbox>
-    </el-tree>
-    <hr/>
-    <el-tree :data="data2" node-key:="label" show-checkbox>
-    </el-tree>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        data: [{
-          label: '一级 1',
-          children: [{
-            label: '二级 1-1',
-            children: [{
-              label: '三级 1-1-1',
-              children: [
-                { label: '四级 1-1-1-1' },
-                { label: '四级 1-1-1-2' }
-              ]
-            }, {
-              label: '三级 1-1-2'
-            }]
-          }, {
-            label: '二级 1-2'
-          }]
-        }, {
-          label: '一级 2',
-          children: [{
-            label: '二级 2-1',
-            children: [{
-              label: '三级 2-1-1'
-            }]
-          }, {
-            label: '二级 2-2',
-            children: [{
-              label: '三级 2-2-1'
-            }]
-          }]
-        }, {
-          label: '一级 3',
-          children: [{
-            label: '二级 3-1',
-            children: [{
-              label: '三级 3-1-1'
-            }]
-          }, {
-            label: '二级 3-2',
-            children: [{
-              label: '三级 3-2-1'
-            }]
-          }]
-        }]
       }
     },
     methods: {

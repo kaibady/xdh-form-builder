@@ -1,43 +1,36 @@
 <template>
   <div
-          class="demo-block"
-          :class="[blockClass, { 'hover': hovering }]"
-          @mouseenter="hovering = true"
-          @mouseleave="hovering = false">
-    <slot name="source"></slot>
+    class="demo-block"
+    :class="[blockClass, { 'hover': hovering }]"
+    @mouseenter="hovering = true"
+    @mouseleave="hovering = false">
+    <div class="source">
+      <slot name="source"></slot>
+    </div>
     <div class="meta" ref="meta">
       <div class="description" v-if="$slots.default">
         <slot></slot>
       </div>
-      <slot name="highlight"></slot>
+      <div class="highlight">
+        <slot name="highlight"></slot>
+      </div>
     </div>
     <div
-            class="demo-block-control"
-            ref="control"
-            :class="{ 'is-fixed': fixedControl }"
-            @click="isExpanded = !isExpanded">
+      class="demo-block-control"
+      ref="control"
+      :class="{ 'is-fixed': fixedControl }"
+      @click="isExpanded = !isExpanded">
       <transition name="arrow-slide">
         <i :class="[iconClass, { 'hovering': hovering }]"></i>
       </transition>
       <transition name="text-slide">
         <span v-show="hovering">{{ controlText }}</span>
       </transition>
-      <el-tooltip effect="dark" :content="langConfig['tooltip-text']" placement="right">
-        <transition name="text-slide">
-          <el-button
-                  v-show="hovering || isExpanded"
-                  size="small"
-                  type="text"
-                  class="control-button">
-            {{ langConfig['button-text'] }}
-          </el-button>
-        </transition>
-      </el-tooltip>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .demo-block {
     border: solid 1px #ebebeb;
     border-radius: 3px;
@@ -95,12 +88,11 @@
         height: 18px;
         line-height: 18px;
       }
-
     }
 
     .highlight {
-      font-size: 12px;
-      line-height: 1.5em;
+      text-align: left;
+
       pre {
         margin: 0;
       }
@@ -114,7 +106,6 @@
         &::before {
           content: none;
         }
-
       }
     }
 
@@ -131,6 +122,12 @@
       cursor: pointer;
       position: relative;
 
+      &.is-fixed {
+        position: fixed;
+        bottom: 0;
+        width: 868px;
+      }
+
       i {
         font-size: 16px;
         line-height: 44px;
@@ -139,11 +136,9 @@
         &.hovering {
           transform: translateX(-40px);
         }
-
       }
 
       > span {
-        position: absolute;
         transform: translateX(-30px);
         font-size: 14px;
         line-height: 44px;
@@ -156,8 +151,8 @@
         background-color: #f9fafc;
       }
 
-      &.text-slide-enter,
-      &.text-slide-leave-active {
+      & .text-slide-enter,
+      & .text-slide-leave-active {
         opacity: 0;
         transform: translateX(10px);
       }
@@ -171,12 +166,12 @@
         padding-left: 5px;
         padding-right: 25px;
       }
-
     }
   }
 </style>
 
-<script>
+<script type="text/babel">
+
 
   export default {
     name: 'DemoBlock',
@@ -186,93 +181,95 @@
         isExpanded: false,
         fixedControl: false,
         scrollParent: null
-      };
+      }
     },
 
-    props: {},
-
     methods: {
+
       scrollHandler() {
-        const {top, bottom, left} = this.$refs.meta.getBoundingClientRect();
+        const {top, bottom, left} = this.$refs.meta.getBoundingClientRect()
         this.fixedControl = bottom > document.documentElement.clientHeight &&
-            top + 44 <= document.documentElement.clientHeight;
-        // this.$refs.control.style.left = this.fixedControl ? `${ left }px` : '0';
-        this.$refs.control.style.left = '0'
+          top + 44 <= document.documentElement.clientHeight
+        this.$refs.control.style.left = this.fixedControl ? `${left}px` : '0'
       },
 
       removeScrollHandler() {
-        this.scrollParent && this.scrollParent.removeEventListener('scroll', this.scrollHandler);
+        this.scrollParent && this.scrollParent.removeEventListener('scroll', this.scrollHandler)
       }
     },
 
     computed: {
       lang() {
-        return this.$route.path.split('/')[1];
+        return 'zh-CN'
       },
 
       langConfig() {
         return {
-          "hide-text": "隐藏代码",
-          "show-text": "显示代码",
-          "button-text": "",
-          "tooltip-text": "前往 jsfiddle.net 运行此示例"
+          'hide-text': '隐藏代码',
+          'show-text': '显示代码',
+          'button-text': '在线运行',
+          'tooltip-text': '前往 codepen.io 运行此示例'
         }
       },
 
       blockClass() {
-        return `demo-${ this.lang } demo-${ this.$router.currentRoute.path.split('/').pop() }`;
+        return `demo-${this.lang} demo-${this.$router.currentRoute.path.split('/').pop()}`
       },
 
       iconClass() {
-        return this.isExpanded ? 'el-icon-caret-top' : 'el-icon-caret-bottom';
+        return this.isExpanded ? 'el-icon-caret-top' : 'el-icon-caret-bottom'
       },
 
       controlText() {
-        return this.isExpanded ? this.langConfig['hide-text'] : this.langConfig['show-text'];
+        return this.isExpanded ? this.langConfig['hide-text'] : this.langConfig['show-text']
       },
 
       codeArea() {
-        return this.$el.getElementsByClassName('meta')[0];
+        return this.$el.getElementsByClassName('meta')[0]
       },
 
       codeAreaHeight() {
         if (this.$el.getElementsByClassName('description').length > 0) {
           return this.$el.getElementsByClassName('description')[0].clientHeight +
-              this.$el.getElementsByClassName('highlight')[0].clientHeight + 20;
+            this.$el.getElementsByClassName('highlight')[0].clientHeight + 20
         }
-        return this.$el.getElementsByClassName('highlight')[0].clientHeight;
+        return this.$el.getElementsByClassName('highlight')[0].clientHeight
       }
     },
 
     watch: {
       isExpanded(val) {
-        this.codeArea.style.height = val ? `auto` : '0';
+        this.codeArea.style.height = val ? `${this.codeAreaHeight + 1}px` : '0'
         if (!val) {
-          this.fixedControl = false;
-          this.$refs.control.style.left = '0';
-          this.removeScrollHandler();
-          return;
+          this.fixedControl = false
+          this.$refs.control.style.left = '0'
+          this.removeScrollHandler()
+          return
         }
         setTimeout(() => {
-          this.scrollParent = document.querySelector('.page-component__scroll > .el-scrollbar__wrap');
-          this.scrollParent && this.scrollParent.addEventListener('scroll', this.scrollHandler);
-          this.scrollHandler();
-        }, 200);
+          this.scrollParent = document.querySelector('.page-component__scroll > .el-scrollbar__wrap')
+          this.scrollParent && this.scrollParent.addEventListener('scroll', this.scrollHandler)
+          this.scrollHandler()
+        }, 200)
       }
+    },
+
+    created() {
+
     },
 
     mounted() {
       this.$nextTick(() => {
-        let highlight = this.$el.getElementsByClassName('highlight')[0];
+        let highlight = this.$el.getElementsByClassName('highlight')[0]
         if (this.$el.getElementsByClassName('description').length === 0) {
-          highlight.style.width = '100%';
-          highlight.borderRight = 'none';
+          highlight.style.width = '100%'
+          highlight.borderRight = 'none'
         }
-      });
+      })
     },
 
     beforeDestroy() {
-      this.removeScrollHandler();
+      this.removeScrollHandler()
     }
-  };
+  }
 </script>

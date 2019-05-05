@@ -1,19 +1,3 @@
-<script>
-export default {
-  data() {
-    return {
-      images: [],
-      value: null
-    }
-  },
-  created() {
-    for(let i=0; i<20; i++) {
-      this.images.push(require(`D/assets/icons/${(i+1)}.png`))
-    }
-  }
-}
-</script>
-
 ## ImagePicker 图片选择器
 
 ### 基础用法。文档： [xdh-image-picker](#/src/widgets%2Fmodule-widgets_xdh-image-picker.html)

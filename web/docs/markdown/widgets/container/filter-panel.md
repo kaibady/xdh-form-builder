@@ -1,24 +1,3 @@
-<script>
-export default {
-  data() {
-    return {
-      model: {
-        keyword: '',
-        title: ''
-      },
-       model2: {
-        keyword: '',
-        title: ''
-       }
-    }
-  },
-  methods: {
-    handleQuery(model) {
-      console.log(model)
-    }
-  }
-}
-</script>
 
 ## FilterPanel 查询条件面板
 

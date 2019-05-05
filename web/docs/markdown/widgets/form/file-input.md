@@ -1,28 +1,3 @@
-<script>
-import XdhFileInput from '@/widgets/xdh-file-input'
-export default {
-  components: {
-    XdhFileInput
-  },
-  data() {
-    return {
-      fileName1: '',
-      fileName2: ''
-    }
-  },
-  methods: {
-    fileChange(files) {
-      // 获取选中文件数据
-      console.log('当前选择文件数据', files)
-    },
-    fileUpload(files) {
-      // 点击上传按钮触发
-      console.log('开始上传文件', files)
-      
-    }
-  }
-};
-</script>
 
 ## FileInput 上传输入框
 
@@ -36,7 +11,11 @@ export default {
 </template>
 
 <script>
+  import XdhFileInput from '@/widgets/xdh-file-input'
   export default {
+    components: {
+      XdhFileInput
+    },
     data() {
       return {
         fileName1: ''
@@ -61,7 +40,11 @@ export default {
 </template>
 
 <script>
+  import XdhFileInput from '@/widgets/xdh-file-input'
   export default {
+    components: {
+      XdhFileInput
+    },
     data() {
       return {
         fileName1: ''
@@ -86,7 +69,11 @@ export default {
 </template>
 
 <script>
+  import XdhFileInput from '@/widgets/xdh-file-input'
   export default {
+    components: {
+      XdhFileInput
+    },
     data() {
       return {
         fileName1: ''
@@ -106,7 +93,11 @@ export default {
 </template>
 
 <script>
+  import XdhFileInput from '@/widgets/xdh-file-input'
   export default {
+    components: {
+      XdhFileInput
+    },
     data() {
       return {
         fileName2: ''
@@ -148,7 +139,11 @@ export default {
 </template>
 
 <script>
+  import XdhFileInput from '@/widgets/xdh-file-input'
   export default {
+    components: {
+      XdhFileInput
+    },
     data() {
       return {
         fileName2: ''

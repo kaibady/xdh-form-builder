@@ -1,15 +1,4 @@
-<script>
-  export default {
-    data() {
-      return {
-        container: null
-      }
-    },
-    mounted() {
-       this.container = document.getElementsByClassName('app-layout__content')[0]
-    }
-  }
-</script>
+
 ## Affix 图钉组件
 
 使用图钉，可以将内容固定在屏幕上，并且不随页面的滚动而滚动。常用于侧边菜单等。

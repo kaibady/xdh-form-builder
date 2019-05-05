@@ -1,18 +1,4 @@
-<script>
-  import XdhWaterwave from 'E/charts/other/xdh-waterwave'
-  import dark from '@/widgets/xdh-echarts/themes/dark.js'
 
-  export default {
-    components: {
-      XdhWaterwave
-    },
-    data() {
-      return {
-        theme: dark
-      }
-    }
-  }
-</script>
 
 ## 其它图表 Other
 
@@ -48,6 +34,7 @@
         theme: dark
     }
   }
+}
 </script>
 ```
 :::

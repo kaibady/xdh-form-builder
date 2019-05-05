@@ -9,7 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const AutoDllPlugin = require('autodll-webpack-plugin')
 const HTMLInjectTheme = require('../../build/plugins/html-inject-theme')
 const HTMLInjectConfig = require('../../build/plugins/html-inject-config')
-const vueMarkdownOptions = require('../../build/plugins/vue-markdown-options')
+// const vueMarkdownOptions = require('../../build/plugins/vue-markdown-options')
 const baseConfig = require('./base.config')
 const config = require('../index')
 
@@ -75,15 +75,5 @@ module.exports = merge(baseConfig, {
       plugins: plugins
     })
     
-  },
-  chainWebpack: config => {
-    config.module.rule('md')
-      .test(/\.md/)
-      .use('vue-loader')
-      .loader('vue-loader')
-      .end()
-      .use('vue-markdown-loader')
-      .loader('vue-markdown-loader/lib/markdown-compiler')
-      .options(vueMarkdownOptions)
   }
 })

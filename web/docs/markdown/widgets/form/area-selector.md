@@ -1,85 +1,3 @@
-<script>
-  export default {
-    data() {
-      return {
-        value1: [],
-        value2: [],
-        value31: [],
-        value32: [],
-        value4: ['110000', '110101', '110101001000'],
-        value5: [],
-        value6: [],
-        value7: [],
-        customData: [
-          {
-            value: 100,
-            label: '广东省',
-            children: [
-              {
-                value: 1001,
-                label: '广州市',
-                children: [
-                  {
-                    value: 10011,
-                    label: '越秀区'
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            value: 101,
-            label: '湖南省',
-            children: [
-              {
-                value: 1011,
-                label: '长沙市',
-                children: [
-                  {
-                    value: 10011,
-                    label: '岳麓区'
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        selectProps: {
-          size: 'mini'
-        },
-        rules: {
-          value1: {type: 'array', required: true, trigger: 'change'},
-          value2: {type: 'array', required: true, trigger: 'change'}
-        },
-        formModel: {
-          value1: [],
-          value2: []
-        }
-      }
-    },
-    methods: {
-      handleChange(val) {
-        console.log('page', val)
-      },
-      handleSubmit() {
-        this.$refs.ruleForm.validate((valid) => {
-          if (valid) {
-            alert('submit!');
-            console.log(JSON.stringify(this.formModel))
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      }
-    }
-  }
-</script>
-<style lang="scss" scoped>
-  .mod {
-    padding: 20px;
-  }
-</style>
 
 ## AreaSelector 中国行政区级联选择
 ### 基础用法(读取系统默认数据)
@@ -97,6 +15,7 @@
 </template>
 
 <script>
+import xdhAreaSelector from '@/widgets/xdh-area-selector'
 export default {
     components: {xdhAreaSelector},
     data() {
@@ -112,6 +31,13 @@ export default {
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .mod {
+    padding: 20px;
+  }
+</style>
+
 ```
 :::
 
@@ -126,6 +52,7 @@ export default {
 </template>
 
 <script>
+import xdhAreaSelector from '@/widgets/xdh-area-selector'
 export default {
     components: {xdhAreaSelector},
     data() {
@@ -184,6 +111,7 @@ export default {
 </template>
 
 <script>
+import xdhAreaSelector from '@/widgets/xdh-area-selector'
 export default {
     components: {xdhAreaSelector},
     data() {
@@ -208,6 +136,7 @@ export default {
 </template>
 
 <script>
+import xdhAreaSelector from '@/widgets/xdh-area-selector'
 export default {
     components: {xdhAreaSelector},
     data() {
@@ -244,6 +173,7 @@ export default {
 </template>
 
 <script>
+import xdhAreaSelector from '@/widgets/xdh-area-selector'
 export default {
     components: {xdhAreaSelector},
     data() {

@@ -32,11 +32,6 @@ export default [
         'icon': 'el-icon-document'
       },
       {
-        'path': '/widgets/layout/timeline',
-        'text': 'Timeline 时间轴排版',
-        'icon': 'el-icon-document'
-      },
-      {
         'path': '/widgets/layout/layout',
         'text': 'Layout 布局',
         'icon': 'el-icon-document'
@@ -59,11 +54,6 @@ export default [
       {
         'path': '/widgets/layout/image-text',
         'text': 'ImageText 图文排版',
-        'icon': 'el-icon-document'
-      },
-      {
-        'path': '/widgets/layout/calendar',
-        'text': 'Calendar 日历',
         'icon': 'el-icon-document'
       }
     ]
@@ -454,11 +444,6 @@ export default [
     'text': 'J 其他',
     'icon': 'iconfont icon-split-screen-compare',
     'children': [
-      {
-        'path': '/widgets/other/async-img',
-        'text': '异步图片',
-        'icon': 'el-icon-document'
-      },
       {
         'path': '/widgets/other/affix',
         'text': 'Affix 图钉',

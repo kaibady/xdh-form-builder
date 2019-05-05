@@ -1,16 +1,4 @@
-<script>
-  import icons from '@/base/icons'
-  export default {
-    data() {
-      return {
-        icons: icons,
-        value1: null,
-        value2: null,
-        value3: null
-      }
-    }
-  }
-</script>
+
 ## IconPicker 图标选择器
 
 ### 基础用法

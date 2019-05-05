@@ -53,6 +53,26 @@ module.exports = {
         'CK': resolve('ckeditor'),
         'vue$': process.env.NODE_ENV === 'production' ? 'vue' : 'vue/dist/vue.esm.js'
       }
+    },
+    module: {
+      rules: [
+        {
+          test: /\.md$/,
+          use: [
+            {
+              loader: 'vue-loader',
+              options: {
+                compilerOptions: {
+                  preserveWhitespace: false
+                }
+              }
+            },
+            {
+              loader: resolve('build/plugins/md-loader/index.js')
+            }
+          ]
+        }
+      ]
     }
   }
 }

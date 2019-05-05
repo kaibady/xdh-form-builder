@@ -1,21 +1,4 @@
-<script>
- import {cron} from 'vue-cron';
 
-  export default {
-      components: { cron },
-      data() {
-        return {
-            cronPopover: false,
-            cron: ''
-        }
-      },
-      methods: {
-        changeCron(val){
-            this.cron = val
-        }
-      }
-  }
-</script>
 ## vue-cron
 
 这是一个cron表达式生成插件,基于vue与element-ui实现

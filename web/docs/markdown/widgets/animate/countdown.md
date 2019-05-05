@@ -1,45 +1,3 @@
-<script>
-  import XdhCountdown  from '@/widgets/xdh-countdown'
-  export default {
-    components: {XdhCountdown},
-    data() {
-      return {
-        style:'',
-        target1:new Date().getTime() + 3900000,
-        target2:new Date().getTime() + 70000
-      }
-    },
-    methods: {
-      format(time) {
-        if(time <= 0) {
-          this.style = 'color:#999999'
-          return '倒计时结束!'
-        }
-        const fixedZero = val => {
-          return val * 1 < 10 ? `0${val}` : val;
-        }
-        const s = Math.floor(time / 1000);
-        return `倒计时: ${fixedZero(s)} 秒`
-      },
-      onChange(time) {
-        if(time < 60000){
-           this.style = 'color:#f56c6c'
-        }else {
-           this.style = 'color:#999999'
-        }
-      },
-      onEnd() {
-        console.log('倒计时结束')
-      }
-    }
-  }
-</script>
-
-<style lang="scss" scoped>
-  .countdown{
-    font-size: 32px;
-  }
-</style>
 
 ## 倒计时
 
@@ -52,7 +10,7 @@
 </template>
 
 <script>
-  import XdhCountdown from 'widgets/xdh-countdown'
+  import XdhCountdown from '@/widgets/xdh-countdown'
 
   export default {
     components: {
@@ -83,7 +41,7 @@
 </template>
 
 <script>
-  import XdhCountdown from 'widgets/xdh-countdown'
+  import XdhCountdown from '@/widgets/xdh-countdown'
 
   export default {
     components: {

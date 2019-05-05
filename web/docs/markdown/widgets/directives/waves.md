@@ -1,19 +1,4 @@
-<script>
-  import waves from '@/utils/directives/waves'
-  export default {
-    directives: {
-      waves
-    },
-    data() {
-      return {
-        waves: {
-          type: 'center',
-          color: 'rgba(248, 4, 4, 0.6)'
-        }
-      }
-    }
-  }
-</script>
+
 
 ## v-waves
 

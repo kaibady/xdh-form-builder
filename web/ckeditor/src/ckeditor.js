@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md.
+ * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
 // The editor creator to use.
@@ -19,7 +19,7 @@ import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import Code from '@ckeditor/ckeditor5-basic-styles/src/code';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote';
-
+// import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 import EasyImage from '@ckeditor/ckeditor5-easy-image/src/easyimage';
 import Heading from '@ckeditor/ckeditor5-heading/src/heading';
 import Image from '@ckeditor/ckeditor5-image/src/image';
@@ -31,105 +31,106 @@ import Link from '@ckeditor/ckeditor5-link/src/link';
 import List from '@ckeditor/ckeditor5-list/src/list';
 import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
+import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 
-
 // import './theme.css'
 
-export default class ClassicEditor extends ClassicEditorBase {
-}
+export default class ClassicEditor extends ClassicEditorBase {}
 
 // Plugins to include in the build.
 ClassicEditor.builtinPlugins = [
-  Essentials,
-  Alignment,
-  FontSize,
-  FontFamily,
-  Highlight,
-  // UploadAdapter,
-  Autoformat,
-  Bold,
-  Italic,
-  Code,
-  Strikethrough,
-  Underline,
-  BlockQuote,
-  EasyImage,
-  Heading,
-  Image,
-  ImageCaption,
-  ImageStyle,
-  ImageToolbar,
-  ImageUpload,
-  Link,
-  List,
-  MediaEmbed,
-  Paragraph,
-  Table,
-  TableToolbar
+	Essentials,
+	Alignment,
+	FontSize,
+	FontFamily,
+	Highlight,
+	// UploadAdapter,
+	Autoformat,
+	Bold,
+	Italic,
+	Code,
+	Strikethrough,
+	Underline,
+	BlockQuote,
+	// CKFinder,
+	EasyImage,
+	Heading,
+	Image,
+	ImageCaption,
+	ImageStyle,
+	ImageToolbar,
+	ImageUpload,
+	Link,
+	List,
+	MediaEmbed,
+	Paragraph,
+	PasteFromOffice,
+	Table,
+	TableToolbar
 ];
 
 // Editor configuration.
 ClassicEditor.defaultConfig = {
-  fontFamily: {
-    options: [
-      'default',
-      'Arial, sans-serif',
-      'Courier New, Courier, monospace',
-      'Microsoft YaHei, 微软雅黑, Arial, sans-serif'
-    ]
-  },
-  toolbar: {
-    items: [
-      'heading',
-      '|',
-      'fontsize',
-      'fontfamily',
-      '|',
-      'bold',
-      'italic',
-      'underline',
-      'strikethrough',
-      'code',
-      'highlight',
-      '|',
-      'alignment',
-      '|',
-      'numberedList',
-      'bulletedList',
-      '|',
-      'link',
-      'blockquote',
-      'imageUpload',
-      'insertTable',
-      'mediaEmbed',
-      '|',
-      'undo',
-      'redo'
-    ]
-  },
-  image: {
-    styles: [
-      'full',
-      'alignLeft',
-      'alignRight'
-    ],
-    toolbar: [
-      'imageStyle:alignLeft',
-      'imageStyle:full',
-      'imageStyle:alignRight',
-      '|',
-      'imageTextAlternative'
-    ]
-  },
-  table: {
-    contentToolbar: [
-      'tableColumn',
-      'tableRow',
-      'mergeTableCells'
-    ]
-  },
-  // This value must be kept in sync with the language defined in webpack.config.js.
-  language: 'zh-cn'
+	fontFamily: {
+		options: [
+			'default',
+			'Arial, sans-serif',
+			'Courier New, Courier, monospace',
+			'Microsoft YaHei, 微软雅黑, Arial, sans-serif'
+		]
+	},
+	toolbar: {
+		items: [
+			'heading',
+			'|',
+			'fontsize',
+			'fontfamily',
+			'|',
+			'bold',
+			'italic',
+			'underline',
+			'strikethrough',
+			'code',
+			'highlight',
+			'|',
+			'alignment',
+			'|',
+			'numberedList',
+			'bulletedList',
+			'|',
+			'link',
+			'blockquote',
+			'imageUpload',
+			'insertTable',
+			'mediaEmbed',
+			'|',
+			'undo',
+			'redo'
+		]
+	},
+	image: {
+		styles: [
+			'full',
+			'alignLeft',
+			'alignRight'
+		],
+		toolbar: [
+			'imageStyle:alignLeft',
+			'imageStyle:full',
+			'imageStyle:alignRight',
+			'|',
+			'imageTextAlternative'
+		]
+	},
+	table: {
+		contentToolbar: [
+			'tableColumn',
+			'tableRow',
+			'mergeTableCells'
+		]
+	},
+	// This value must be kept in sync with the language defined in webpack.config.js.
+	language: 'zh-cn'
 };

@@ -1,25 +1,4 @@
-<script>
-import XdhPager from '@/widgets/xdh-pager/xdh-pager.vue'
-export default {
-  data() {
-    return {
-      pageInfo: {
-          limit: 5,
-          total: 50,
-          currentpage: 1
-        }
-    }
-  },
-  components: {
-    XdhPager
-  },
-  methods: {
-      pageChange(val) {
-        this.pageInfo.currentpage = val;
-      }
-  }
-};
-</script>
+
 ## Pager 分页组件
 
 简化el-pagination。文档： [xdh-pager](#/src/widgets%2Fmodule-widgets_xdh-pager.html)
@@ -55,7 +34,11 @@ export default {
   </div>
 </template>
 <script>
+import XdhPager from '@/widgets/xdh-pager'
 export default {
+  components: {
+    XdhPager
+  },
   data() {
     return {
       pageInfo: {

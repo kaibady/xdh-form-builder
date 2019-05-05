@@ -98,7 +98,7 @@ Element 内应用在部分组件的过渡动画，你也可以直接使用。在
 
 ### collapse 展开折叠
 
-使用 `el-collapse-transition` 组件实现折叠展开效果。
+使用 el-collapse-transition 组件实现折叠展开效果。
 
 :::demo
 ```html
@@ -153,28 +153,3 @@ import Vue from 'vue'
 
 Vue.component(CollapseTransition.name, CollapseTransition)
 ```
-
-<style>
-  .transition-box {
-    margin-bottom: 10px;
-    width: 200px;
-    height: 100px;
-    border-radius: 4px;
-    background-color: #409EFF;
-    text-align: center;
-    color: #fff;
-    padding: 40px 20px;
-    margin-right: 20px;
-    box-sizing: border-box;
-  }
-</style>
-
-<script>
-  module.exports = {
-    data: () => ({
-      show: true,
-      show2: true,
-      show3: true
-    })
-  }
-</script>

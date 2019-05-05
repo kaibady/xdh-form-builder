@@ -1,24 +1,3 @@
-<script>
-  import XdhLogin from 'E/xdh-login'
-
-  export default {
-    data() {
-      return {
-        align: '',
-        theme: 'light',
-        showPki: false
-      }
-    },
-    components: {
-      XdhLogin
-    },
-    methods: {
-      handleLogin(model) {
-        this.$message.success(`登录成功！用户名：${model.user}，密码：${model.password}`);
-      }
-    }
-  }
-</script>
 
 
 ## 登录页

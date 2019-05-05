@@ -1,87 +1,3 @@
-<script>
-  export default {
-    data() {
-      return {
-        data: [
-                {
-                  ids: '1',
-                  label: '一级 1',
-                  children: [{
-                    ids: '2',
-                    label: '二级 1-1',
-                    children: [{
-                      ids: '3',
-                      label: '三级 1-1-1',
-                      children: [
-                        {
-                          ids: '4', label: '四级 1-1-1-1'
-                        },
-                        {
-                          ids: '5', label: '四级 1-1-1-2'
-                        }
-                      ]
-                    }, {
-
-                      ids: '7',
-                      label: '三级 1-1-2'
-                    }]
-                  }, {
-                    ids: '8',
-                    label: '二级 1-2'
-                  }]
-                },
-                {
-                  ids: '9',
-                  label: '一级 2',
-                  children: [{
-                    ids: '10',
-                    label: '二级 2-1',
-                    children: [{
-                      ids: '11',
-                      label: '三级 2-1-1'
-                    }]
-                  }, {
-                    ids: '12',
-                    label: '二级 2-2',
-                    children: [{
-                      ids: '13',
-                      label: '三级 2-2-1'
-                    }]
-                  }]
-                },
-                {
-                  ids: '14',
-                  label: '一级 3',
-                  children: [{
-                    ids: '15',
-                    label: '二级 3-1',
-                    children: [{
-                      ids: '16',
-                      label: '三级 3-1-1'
-                    }]
-                  }, {
-                    ids: '17',
-                    label: '二级 3-2',
-                    children: [{
-                      ids: '18',
-                      label: '三级 3-2-1'
-                    }]
-                  }]
-                }
-              ]
-      }
-    },
-    methods: {
-      getCheckedNodes() {
-         console.log(this.$refs.tree.$refs.tree.getCheckedNodes());
-      },
-      getCheckedNodesParent() {
-        console.log(this.$refs.tree.getCheckedNodesParent());
-      }
-    }
-  }
-</script>
-
 ## Tree树形组件
 
 用清晰的层级结构展示信息，可展开或折叠。此控件是在 Element-UI Tree控件上的用法的拓展,基础用法参照官方
@@ -99,7 +15,7 @@
 </template>
 
 <script>
-  import XdhTree from '../widgets/xdh-tree'
+  import XdhTree from '@/widgets/xdh-tree'
   export default {
     components: {
       XdhTree
@@ -174,7 +90,7 @@
 </template>
 
 <script>
-  import XdhTree from '../widgets/xdh-tree'
+  import XdhTree from '@/widgets/xdh-tree'
   export default {
     components: {
       XdhTree
@@ -233,8 +149,6 @@
           }]
         }]
       }
-    },
-    methods: {
     }
   }
 </script>

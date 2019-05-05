@@ -15,18 +15,13 @@ export default [
         'icon': 'el-icon-document'
       },
       {
-        'path': '/element/color',
-        'text': 'Color 色彩',
-        'icon': 'el-icon-document'
-      },
-      {
-        'path': '/element/typography',
-        'text': 'Typography 字体',
-        'icon': 'el-icon-document'
-      },
-      {
         'path': '/element/button',
         'text': 'Button 按钮',
+        'icon': 'el-icon-document'
+      },
+      {
+        'path': '/element/link',
+        'text': 'Link 文字链接',
         'icon': 'el-icon-document'
       }
     ]
@@ -252,6 +247,26 @@ export default [
       {
         'path': '/element/collapse',
         'text': 'Collapse 折叠面板',
+        'icon': 'el-icon-document'
+      },
+      {
+        'path': '/element/timeline',
+        'text': 'Timeline 时间线',
+        'icon': 'el-icon-document'
+      },
+      {
+        'path': '/element/divider',
+        'text': 'Divider 分割线',
+        'icon': 'el-icon-document'
+      },
+      {
+        'path': '/element/calendar',
+        'text': 'Calendar 日历',
+        'icon': 'el-icon-document'
+      },
+      {
+        'path': '/element/image',
+        'text': 'Image 图片',
         'icon': 'el-icon-document'
       }
     ]

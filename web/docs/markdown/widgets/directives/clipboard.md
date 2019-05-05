@@ -1,35 +1,3 @@
-<script>
-import clipboard from '@/utils/directives/clipboard'
-export default {
-  directives: {
-    clipboard
-  },
-  data() {
-    return {
-      input: null,
-      options: null,
-      cutoptions: null
-    }
-  },
-  mounted() {
-    this.options = {
-      target: this.$refs.input.$refs.input,
-      action: 'copy',
-      success: function (e) {
-        console.log(`剪切板内容为：${e.text}`)
-      }
-    },
-    this.cutoptions = {
-      target: this.$refs.inputs.$refs.input,
-      action: 'cut',
-      success: function (e) {
-        console.log(`剪切板内容为：${e.text}`)
-      }
-    }
-  }
-
-}
-</script>
 
 ## v-clipboard
 元素复制到粘贴板指令
@@ -43,7 +11,7 @@ export default {
       </div>
 </template>
 <script>
-import draggable from '@/utils/directives/clipboard'
+import clipboard from '@/utils/directives/clipboard'
 export default {
   directives: {
     clipboard
@@ -106,16 +74,13 @@ export default {
   },
   data() {
     return {
-      options: null
+      cutoptions: null
     }
   },
   mounted() {
-    this.options = {
+    this.cutoptions = {
       target: this.$refs.inputs.$refs.input,
-      // 可以使用函数
-      action: function () {
-        return 'cut'
-      },
+      action: 'cut',
       success: function (e) {
         console.log(`剪切板内容为：${e.text}`)
       }

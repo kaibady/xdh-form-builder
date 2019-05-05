@@ -2,46 +2,6 @@
 
 选项卡组件, 支持拖拽排序、新增、删除、异步加载组件, 兼容el-tabs组件。文档： [xdh-tabs](#/src/widgets%2Fmodule-widgets_xdh-tabs.html)
 
-<script>
-export default {
-  data() {
-    return {
-        data1: [
-          {label:'Tab 1', content:'Content 1'},
-          {label:'Tab 2', content:'Content 2'},
-          {label:'Tab 3', content:'Content 3'},
-          {label:'Tab 4', content:'Content 4'}
-        ],
-        data2: [
-          {label: 'Panel 1', component: 'XdhPanel', props:{title:'Panel Title 1'}},
-          {label: 'Panel 2', component: 'XdhPanel', props:{title:'Panel Title 2'}, keepAlive: true},
-          {label: 'Panel 3', component: 'XdhPanel', props:{title:'Panel Title 3'}, disabled: true},
-          {label: 'Panel 4', component: 'XdhPanel', props:{title:'Panel Title 4'}, closable: true}
-        ],
-        data3: [
-          {label: 'Panel 1', component: 'XdhPanel', props:{title:'Panel Title 1'}},
-          {label: 'Panel 2', component: 'XdhPanel', props:{title:'Panel Title 2'}},
-          {label: 'Panel 3', component: 'XdhPanel', props:{title:'Panel Title 3'}},
-          {label: 'Panel 4', component: 'XdhPanel', props:{title:'Panel Title 4'}}
-        ],
-        data4: [
-          {label:'Tab 1', content:'Content 1'},
-          {label:'Tab 2', content:'Content 2'},
-          {label:'Tab 3', content:'Content 3'},
-          {label:'Tab 4', content:'Content 4'}
-        ],
-        data5: [
-          {label:'Tab 5', content:'Content 5'},
-          {label:'Tab 6', content:'Content 6'},
-          {label:'Tab 7', content:'Content 7'},
-          {label:'Tab 8', content:'Content 8'}
-        ],
-        sortable: {sort:true, group:'groupName'}
-    }
-  }
-}
-</script>
-
 ### 基础用法
 基本用法和el-tabs一致， 接口完全兼容
 :::demo

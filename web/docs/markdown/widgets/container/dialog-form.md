@@ -1,39 +1,3 @@
-<script>
-  export default {
-    data() {
-      return {
-        model: {
-          title: '',
-          remark: ''
-        },
-        model2: {
-          title: '我是标题',
-          remark: '备注文字说明'
-        },
-        rules: {
-          title: [{required:true, message:'标题是必填项'}]
-        },
-        closed: true,
-        closed2: true,
-        closed3: true
-      }
-    },
-    methods: {
-      handleInsert(data) {
-        // 回调表单数据
-        console.log(data)
-        // resolve 关闭对话框， reject 阻止关闭
-        return Promise.resolve()
-      },
-       handleUpdate(data) {
-        // 回调表单数据
-        console.log(data)
-        // resolve 关闭对话框， reject 阻止关闭
-        return Promise.resolve()
-      }
-    }
-  }
-</script>
 
 ## DialogForm 对话框表单
 

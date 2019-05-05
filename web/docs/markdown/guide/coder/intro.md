@@ -77,7 +77,7 @@ import user from '@/base/store/user'
 export default {user}
 ```
 
-:::demo
+
 ```html
 文件： /src/base/api/user.js
 <script>
@@ -190,9 +190,9 @@ export const removeUser = function (id, data) {
 }
 </script>
 ```
-:::
+
 ###
-:::demo
+
 ```html
 文件： /src/base/mock/user.js
 <script>
@@ -269,9 +269,9 @@ export default [{
 }]
 </script>
 ```
-:::
+
 ###
-:::demo
+
 ```html
 文件： /src/base/store/user.js
 <script>
@@ -414,7 +414,7 @@ export default {
 
 </script>
 ```
-:::
+
 
 ### 调用生成的代码
 

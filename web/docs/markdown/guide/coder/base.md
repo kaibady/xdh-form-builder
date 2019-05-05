@@ -1,6 +1,4 @@
-<script>
-export default {}
-</script>
+
 ## 模型配置
 
 一个标准的模型配置文件如下，建议相同的实体操作都在一个文件里配置。
@@ -14,13 +12,13 @@ module.exports = {
     title: '',            // 接口说明，用来生成注释文档
     prefix: '',           // 接口地址前缀，可选，默认为空, 名称必须要在 src/config.js中定义，否则报错
     methods: ['fetch', 'get', 'add', 'update', 'remove', 'batch'],  // 生成请求方法，默认全部，如需要自定义，设置为false
-    transform: ''         // 响应数据转换函数，可选，函数名称必须要在 src/mapping/index.js 中定义，否则会报错
+    transform: '',         // 响应数据转换函数，可选，函数名称必须要在 src/mapping/index.js 中定义，否则会报错
     options: {},          // ajax 参数选项，可选
     name:'',              // 自定义方法名称，methods为false，必须要设置
     columns: {},          // 模拟数据字段mock模板，可选
-    template: ''          // Mock自定义模板函数名称, 名称必须在/src/mock/templates.js中能找到，设置了该值，columns将失效
+    template: '',         // Mock自定义模板函数名称, 名称必须在/src/mock/templates.js中能找到，设置了该值，columns将失效
     method: '',           // 自定义方法按那种方式生成store或mixin，可选， 在 methods为false时有效,可选值：fetch/get/add/update/remove
-    state: ''             // 定义状态保存的名称，methods为false时并且method为空时，必须要设置state 和 name
+    state: '',             // 定义状态保存的名称，methods为false时并且method为空时，必须要设置state 和 name
     disabled: false,      // 是否禁用该配置项， 设置为true，代码生成器将忽略该配置
     cache: false          // 是否开启支持请求接口加入缓存功能
   }
@@ -67,7 +65,7 @@ module.exports = {
   model: {
     path: '/api/user',
     // 需要生成的方法，可以按需要设置
-    methods: ['fetch', 'get', 'add', 'update', 'remove']
+    methods: ['fetch', 'get', 'add', 'update', 'remove'],
     columns: {
       id: '@guid',
       name: '@cname'
@@ -178,7 +176,7 @@ module.exports = {
  * @param Mock Mock实例
  * @param url 请求的url
  * @param query 查询参数对象
- * @returns {{code: number, data: {list}, message: string}}
+ * @returns {Object}
  */
 export const createTree = function (Mock, url, query) {
   let root = Mock.mock({

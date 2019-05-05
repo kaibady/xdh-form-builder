@@ -1,159 +1,4 @@
-<script>
-import circleMenu from '@/widgets/xdh-go/menus/circle-menu'
-import goMenu from '@/widgets/xdh-go/go-menu'
-  export default {
-    components: {
-      goMenu,
-      circleMenu
-    },
-    data() {
-      return {
-         listData1: [
-        {
-          text: '菜单一',
-          icon: 'el-icon-menu',
-          subMenu: [{ text: '子菜单1_1' }, { text: '子菜单1_2' }, { text: '子菜单1_3' },{ text: '子菜单1_4' }, { text: '子菜单1_5' }, { text: '子菜单1_6' }, { text: '子菜单1_7' }]
-        },
-        { text: '菜单二',
-         icon: 'el-icon-delete',
-        subMenu: [{ text: '子菜单2_1' }, { text: '子菜单2_2' }] },
-        {
-          text: '菜单三',
-         icon: 'el-icon-edit',
-          subMenu: [{ text: '子菜单3_1' }, { text: '子菜单3_2', subMenu: [{text: '子菜单3_2_1'},{text: '子菜单3_2_2'}] }]
-        }
-       ],
-        listData3: [
-        {
-          text: '菜单一'
-        },
-        { text: '菜单二', subMenu: [{ text: '子菜单2_1' }, { text: '子菜单2_2' }] },
-        {
-          text: '菜单三',
-          subMenu: [{ text: '子菜单3_1' }, { text: '子菜单3_2' }]
-        }
-      ],
-        model: 'GraphLinksModel',
-        nodes: [
-          {key: 'A', category: 'a'},
-          {key: 'B', category: 'b'},
-          {key: 'C', category: 'c'}
-        ],
-        links: [
-          {from: 'A', to: 'B'},
-          {from: 'A', to: 'C'}
-        ]
-      }
-    },
-    methods: {
-      showMenu3() {
-        let left = document.documentElement.clientWidth;
-        let top = document.documentElement.clientHeight;
-        this.$refs.menu3.show({left: left/2, top: top - 40});
-      },
-      hideMenu3() {
-        this.$refs.menu3.hide()
-      },
-      tips(menus, levels) {
-         this.$message({type: 'info', message: '点击了操作按钮'})
-      },
-      config($, go) {
-        return {
-          initialContentAlignment: go.Spot.Center
-        }
-      },
-      config4($, go) {
-         return {
-           initialContentAlignment: go.Spot.Center,
-           click: () => {
-             this.$refs.menu4.hide();
-           }
-         }
-      },
-      itemClick(event, val) {
-           this.$message({type: 'info', message: `点击了${val.text}`});
-      },
-      nodeTemplate($, go, color) {
-        return $(go.Node, 'Horizontal', {background: color},
-          $(go.TextBlock, 'Default Text', {margin: 12, stroke: '#ffffff'}, new go.Binding('text', 'key'))
-        )
-      },
-      nodeTemplate1($, go, color) {
-        return $(go.Node, 'Horizontal', {background: color, contextMenu: this.$refs.menu1.bindMenu() },
-          $(go.TextBlock, 'Default Text', {margin: 12, stroke: '#ffffff'}, new go.Binding('text', 'key'))
-        )
-      },
-      nodeTemplate2($, go, color) {
-        return $(go.Node, 'Horizontal', {background: color, contextMenu: this.$refs.menu2.bindMenu() },
-          $(go.TextBlock, 'Default Text', {margin: 12, stroke: '#ffffff'}, new go.Binding('text', 'key'))
-        )
-      },
-      nodeTemplate3($, go, color) {
-        return $(go.Node, 'Horizontal', {background: color,            mouseHover: (inputEvent, obj) => {
-               let event = inputEvent.event;
-               this.$refs.menu4.show({left: event.pageX, top: event.pageY});
-            } 
-          },
-          $(go.TextBlock, 'Default Text', {margin: 12, stroke: '#ffffff'}, new go.Binding('text', 'key'))
-        )
-      },
-      linkTemplate($, go) {
-        return $(go.Link, {routing: go.Link.Orthogonal, corner: 5},
-          $(go.Shape, {strokeWidth: 3, stroke: '#555'})
-        )
-      },
-      nodeTemplateMap($, go) {
-        const a = this.nodeTemplate($, go, 'red')
-        const b = this.nodeTemplate($, go, 'blue')
-        const c = this.nodeTemplate($, go, 'green')
-        const map = new go.Map()
-        map.add('a', a)
-        map.add('b', b)
-        map.add('c', c)
-        return map
-      },
-      nodeTemplateMap1($, go) {
-        const a = this.nodeTemplate1($, go, 'red')
-        const b = this.nodeTemplate1($, go, 'blue')
-        const c = this.nodeTemplate1($, go, 'green')
-        const map = new go.Map()
-        map.add('a', a)
-        map.add('b', b)
-        map.add('c', c)
-        return map
-      },
-      nodeTemplateMap2($, go) {
-        const a = this.nodeTemplate2($, go, 'red')
-        const b = this.nodeTemplate2($, go, 'blue')
-        const c = this.nodeTemplate2($, go, 'green')
-        const map = new go.Map()
-        map.add('a', a)
-        map.add('b', b)
-        map.add('c', c)
-        return map
-      },
-      nodeTemplateMap3($, go) {
-        const a = this.nodeTemplate3($, go, 'red')
-        const b = this.nodeTemplate3($, go, 'blue')
-        const c = this.nodeTemplate3($, go, 'green')
-        const map = new go.Map()
-        map.add('a', a)
-        map.add('b', b)
-        map.add('c', c)
-        return map
-      },
-      layout($, go) {
-        return new go.TreeLayout()
-      }
-    },
-    mounted() {
-      setTimeout(() => {
-            this.nodes.push({key: 'D', category: 'c'})
-            this.links.push({from: 'C', to: 'D'})
-      }, 3000)
-    }
-  }
-</script>
+
 ## GoJS 图表
 ## go-menu
 
@@ -256,17 +101,9 @@ export default {
       }
     },
     nodeTemplate1($, go, color) {
-      return $(
-        go.Node,
-        'Horizontal',
-        { background: color, contextMenu: this.$refs.menu1.bindMenu() },
-        $(
-          go.TextBlock,
-          'Default Text',
-          { margin: 12, stroke: '#ffffff' },
-          new go.Binding('text', 'key')
+        return $(go.Node, 'Horizontal', {background: color, contextMenu: this.$refs.menu1.bindMenu() },
+          $(go.TextBlock, 'Default Text', {margin: 12, stroke: '#ffffff'}, new go.Binding('text', 'key'))
         )
-      )
     },
     linkTemplate($, go) {
       return $(
@@ -275,9 +112,10 @@ export default {
         $(go.Shape, { strokeWidth: 3, stroke: '#555' })
       )
     },
-    nodeTemplateMap1($, go) {m
-      const b = this.nodeTemplate($, go, 'blue')
-      const c = this.nodeTemplate($, go, 'green')
+    nodeTemplateMap1($, go) {
+      const a = this.nodeTemplate1($, go, 'red')
+      const b = this.nodeTemplate1($, go, 'blue')
+      const c = this.nodeTemplate1($, go, 'green')
       const map = new go.Map()
       map.add('a', a)
       map.add('b', b)
@@ -417,14 +255,15 @@ export default {
         $(go.Shape, { strokeWidth: 3, stroke: '#555' })
       )
     },
-    nodeTemplateMap2($, go) {m
-      const b = this.nodeTemplate($, go, 'blue')
-      const c = this.nodeTemplate($, go, 'green')
-      const map = new go.Map()
-      map.add('a', a)
-      map.add('b', b)
-      map.add('c', c)
-      return map
+    nodeTemplateMap2($, go) {
+        const a = this.nodeTemplate2($, go, 'red')
+        const b = this.nodeTemplate2($, go, 'blue')
+        const c = this.nodeTemplate2($, go, 'green')
+        const map = new go.Map()
+        map.add('a', a)
+        map.add('b', b)
+        map.add('c', c)
+        return map
     },
     layout($, go) {
       return new go.TreeLayout()
@@ -532,6 +371,13 @@ export default {
   },
   data() {
     return {
+       model: 'GraphLinksModel',
+       nodes: [
+              { key: 'A', category: 'a' },
+              { key: 'B', category: 'b' },
+              { key: 'C', category: 'c' }
+            ],
+       links: [{ from: 'A', to: 'B' }, { from: 'A', to: 'C' }],
        listData3: [
         {
           text: '菜单一'
@@ -579,7 +425,7 @@ export default {
       },
        layout($, go) {
         return new go.TreeLayout()
-      }
+      },
       itemClick(event, val) {
          this.$message({type: 'info', message: `点击了${val.text}`});
        },

@@ -200,7 +200,7 @@ nav-type 和 breadcrumb 可设置面包屑
              </xdh-grid-layout>
    </xdh-admin>
  </div>
-</template>
+
 ```
 :::
 
@@ -226,6 +226,6 @@ nav-type 和 breadcrumb 可设置面包屑
              </xdh-grid-layout>
    </xdh-admin>
  </div>
-</template>
+
 ```
 :::

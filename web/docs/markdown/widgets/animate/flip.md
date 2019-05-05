@@ -1,73 +1,4 @@
-<script>
-  export default {
-    data() {
-      return {
-        todayTimer: null,
-        todayTime: [],
-        timer: null,
-        firstNumber: 0,
-        secondNumber: 0,
-        baseTimer: null,
-        baseNumber: 9
-      }
-    },
-    methods: {
-      // 9到0倒计时
-      setBaseNumber() {
-        this.baseTimer = window.setInterval(() => {
-          this.baseNumber > 0 ? this.baseNumber-- : this.baseNumber = 9
-        }, 1000)
-      },
-      setTimes() {
-        // 计时器翻页
-        this.timer = window.setInterval(() => {
-          if (this.secondNumber < 9) this.secondNumber++
-          else {
-            if (this.secondNumber === 9) {
-              this.firstNumber < 9 ? this.firstNumber++ : this.firstNumber = 0
-            }
-            this.secondNumber = 0
-          }
-        }, 1000)
-      },
-      // 设置当前时间翻页
-      setTodayTime() {
-        this.todayTimer = window.setInterval(() => {
-          const time = new Date(),
-            hours = this.zeroPadding(time.getHours()),
-            minutes = this.zeroPadding(time.getMinutes()),
-            seconds = this.zeroPadding(time.getSeconds());
 
-          this.todayTime = hours.split('').concat(minutes.split('').concat(seconds.split('')))
-        }, 1000)
-      },
-      // 补全0
-      zeroPadding(num, digit = 2) {
-        let zero = '';
-        for (let i = 0; i < digit; i++) {
-          zero += '0';
-        }
-        return (zero + num).slice(-digit);
-      }
-    },
-    mounted() {
-      this.setBaseNumber()
-      this.setTimes()
-      this.setTodayTime()
-    },
-    beforeDestroy() {
-      window.clearInterval(this.timer)
-      window.clearInterval(this.todayTimer)
-      window.clearInterval(this.baseTimer)
-    }
-  }
-</script>
-
-<style lang="scss" type="text/scss" scoped>
-  .timer .xdh-flip /deep/ {
-    margin: 0 10px;
-  }
-</style>
 
 ## 翻牌时钟效果
 ### 基础用法
@@ -78,7 +9,7 @@
 </template>
 
 <script>
-  import XdhFlipTimer from '../widgets/xdh-flip'
+  import XdhFlipTimer from '@/widgets/xdh-flip'
 
   export default {
     components: {
@@ -125,7 +56,7 @@
 </template>
 
 <script>
-  import XdhFlipTimer from '../widgets/xdh-flip'
+  import XdhFlipTimer from '@/widgets/xdh-flip'
 
   export default {
     components: {
@@ -178,7 +109,7 @@
 </template>
 
 <script>
-  import XdhFlipTimer from '../widgets/xdh-flip'
+  import XdhFlipTimer from '@/widgets/xdh-flip'
 
   export default {
     components: {

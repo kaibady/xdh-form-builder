@@ -1,24 +1,4 @@
-<script>
-export default {
-  data() {
-    return {
-       closed1: true,
-       closed2: true,
-       minimized: false,
-       maximized: false,
-       closed3: true,
-       closed4: true
-    }
-  },
-  methods: {
-    openWindow2() {
-      this.minimized = false
-      this.maximized = false
-      this.closed2 = false
-    }
-  }
-}
-</script>
+
 
 ## Window 窗体组件
 
@@ -108,6 +88,16 @@ export default {
     </xdh-window>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+       closed3: true
+    }
+  }
+}
+</script>
+
 ```
 :::
 
@@ -146,6 +136,16 @@ export default {
     </xdh-window>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+       closed4: true
+    }
+  }
+}
+</script>
+
 ```
 :::
 

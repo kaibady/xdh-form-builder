@@ -1,23 +1,4 @@
-<script>
-  import XdhCropper from '@/widgets/xdh-cropper'
-  export default {
-    components: {
-      XdhCropper
-    },
-    data() {
-        return {
-          img:'',
-          img1:require('D/assets/hamburger.png'),
-          img2:''
-        }
-      },
-    methods: {
-      handleCrop(file) {
-        console.log(file)
-      }
-    }
-  }
-</script>
+
 
 ## ImageCropper 图片编辑器
 

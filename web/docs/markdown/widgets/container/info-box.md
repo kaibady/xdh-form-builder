@@ -1,15 +1,4 @@
-<script>
-import XdhInfoBox from '@/widgets/xdh-info-box'
-export default {
-  components: {
-    XdhInfoBox
-  },
-  data() {
-    return {
-    }
-  }
-};
-</script>
+
 
 ## InfoBox 信息框
 
@@ -55,6 +44,15 @@ export default {
     </el-col>
   </el-row>
 </template>
+<script>
+import XdhInfoBox from '@/widgets/xdh-info-box'
+export default {
+  components: {
+    XdhInfoBox
+  }
+}
+</script>
+
 ```
 :::
 
@@ -99,6 +97,14 @@ export default {
     </el-col>
   </el-row>
 </template>
+<script>
+import XdhInfoBox from '@/widgets/xdh-info-box'
+export default {
+  components: {
+    XdhInfoBox
+  }
+}
+</script>
 ```
 :::
 
@@ -142,6 +148,15 @@ export default {
     </el-col>
   </el-row>
 </template>
+<script>
+import XdhInfoBox from '@/widgets/xdh-info-box'
+export default {
+  components: {
+    XdhInfoBox
+  }
+}
+</script>
+
 ```
 :::
 
@@ -170,6 +185,15 @@ export default {
     </el-col>
   </el-row>
 </template>
+<script>
+import XdhInfoBox from '@/widgets/xdh-info-box'
+export default {
+  components: {
+    XdhInfoBox
+  }
+}
+</script>
+
 ```
 :::
 

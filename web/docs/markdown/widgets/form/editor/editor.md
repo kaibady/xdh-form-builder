@@ -1,32 +1,4 @@
-<script>
-import { content } from './content.js'
-export default {
-  data() {
-    return {
-      opt1: {
-        uiColor: '#429ED0',
-        height: '100'
-      },
-      opt2: {
-        height: '100'
-      },
-      opt3: content.opt3,
-      editorHTML1: content.sample1,
-      editorHTML2: content.sample2,
-      editorHTML3: content.sample3,
-      baseUpload: 'http://192.168.0.34:3000/imgUpload'
-    }
-  },
-  methods: {
-    edChangeHandle(data) {
-      console.log(data)
-    },
-    getData() {
-      alert(this.$refs.myEditor.getData())
-    }
-  }
-}
-</script>
+
 ## editor 富文本编辑器
 
 ### 基础用法双向绑定。文档： [xdh-editor](#/src/widgets%2Fmodule-widgets_xdh-editor.html)

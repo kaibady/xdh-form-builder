@@ -1,35 +1,4 @@
-<script>
-  import highlight from '@/utils/directives/highlight'
-  export default {
-    directives: {
-      highlight
-    },
-    data() {
-      return {
-        highlight: {
-          keyword:['xdh-web', '组件', '模拟数据']
-        },
-        highlight2: {
-          keyword:['xdh-web', '组件', '模拟数据'],
-          class: 'content-keyword'
-        },
-        highlight3: {
-          keyword:['xdh-web', '组件', '模拟数据'],
-          onclick: this.onKeyword
-        }
-      }
-    },
-    methods: {
-        onKeyword(val, item){
-          this.$message({
-            type:'success',
-            message:'点击了： ' + val
-          })
-          console.log('点击了：'+val, item)
-        }
-    }
-  }
-</script>
+
 ## v-highlight
 
 文本关键字高亮处理
@@ -110,8 +79,8 @@
         }
       }
     },
-    methods(){
-      onKeyword(val, item){
+    methods:{
+      onKeyword(val, item) {
         this.$message({
           type:'success',
           message:'点击了： ' + val

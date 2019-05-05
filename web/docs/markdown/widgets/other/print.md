@@ -1,132 +1,4 @@
-<script>
-import XdhPrint from '@/widgets/xdh-print/xdh-print.vue'
-import XdhEcharts from '@/widgets/xdh-echarts/xdh-echarts'
-import XdhGo from '@/widgets/xdh-go/xdh-go'
-export default {
-    components: {
-      XdhPrint,
-      XdhEcharts,
-      XdhGo
-    },
-    data() {
-        return {
-              parentDom: `<div class="my-container" style="border-width:0">
-                             <div class="my-wrapper"></div>
-                         </div>`,
-            transfer(dom, root) {
-               let title = root.createDom(`<div>自定义标题</div>`);
-                let ranges = dom.querySelectorAll('.print-range7');
-                for(let i = 0; i < ranges.length; i++) {
-                    let t = title.cloneNode(true);
-                    root.prependDom(ranges[i], t)
-;                }
-                return dom;
-            },
-             styleArray1: [
-                   {
-                     selector: '.wrapper1',
-                     style: {
-                        height: 'auto'
-                     }
-                   },
-                   {
-                     selector: 'ul>li',
-                     style: {
-                         color: 'blue'
-                     }
-                   }
-               ],
-            list: (function() {
-                let arr = [];
-                for(let i = 0; i < 50; i++) {
-                    arr.push({name: 'item' + i})
-                }
-                return arr;
-            })(),
-            genParentDom() {
-                let div = document.createElement('div');
-                div.innerHTML = `<div class="my-container" style="border-width:0;">
-                                <div class="my-wrapper">
-                                </div>
-                            </div>`;
-                                return div.childNodes[0];
-            },
-            tableData: (function() {
-                let arr = [];
-                for(let i = 0; i < 50; i++) {
-                    arr.push({
-                        name: '王小虎',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    });
-                }
-                return arr
-            })(),
-            model: 'GraphLinksModel',
-            nodes: [
-                {key: 'A', category: 'a'},
-                {key: 'B', category: 'b'},
-                {key: 'C', category: 'c'}
-            ],
-            links: [
-                {from: 'A', to: 'B'},
-                {from: 'A', to: 'C'}
-            ],
-            echartOptions: {
-                tooltip: {},
-                xAxis: {
-                data: ['广州', '汕头']
-                },
-                yAxis: {},
-                series: [{
-                name: '',
-                type: 'bar',
-                data: [12, 24]
-                }]
-            }
-        }
-    },
-      computed: {
-      tableData2() {
-          let arr = [];
-          let l = Math.ceil(this.tableData.length / 15);
-          for(let i = 0; i < l; i++) {
-              arr.push(this.tableData.slice(i * 15, (i + 1) * 15));
-          }
-          return arr;
-      }
-    },
-    methods: {
-            config($, go) {
-                return {
-                    initialContentAlignment: go.Spot.Center
-                }
-            },
-            nodeTemplate($, go, color) {
-                return $(go.Node, 'Horizontal', {background: color},
-                $(go.TextBlock, 'Default Text', {margin: 12, stroke: '#ffffff'}, new go.Binding('text', 'key'))
-                )
-            },
-            linkTemplate($, go) {
-                return $(go.Link, {routing: go.Link.Orthogonal, corner: 5},
-                $(go.Shape, {strokeWidth: 3, stroke: '#555'})
-                )
-            },
-            nodeTemplateMap($, go) {
-                const a = this.nodeTemplate($, go, 'red')
-                const b = this.nodeTemplate($, go, 'blue')
-                const c = this.nodeTemplate($, go, 'green')
-                const map = new go.Map()
-                map.add('a', a)
-                map.add('b', b)
-                map.add('c', c)
-                return map
-            },
-            layout($, go) {
-                return new go.TreeLayout()
-            }
-    }
-}
-</script>
+
 
 ## xdh-print
 
@@ -228,36 +100,41 @@ xdh-print 考虑到这些问题，进行了改进。该组件基于vue,其原理
  }
 </style>
 <script>
-    import XdhPrint from '@/widgets/xdh-print/xdh-print.vue'
-    export default {
-        data() {
-            return {
-                 tableData: (function() {
-               let arr = [];
-               for(let i = 0; i < 50; i++) {
-                   arr.push({
-                     name: '王小虎',
-                     address: '上海市普陀区金沙江路 1518 弄'
-                   });
-               }
-               return arr
-           })()
-            }
-        },
-        computed: {
-            tableData2() {
+import XdhPrint from '@/widgets/xdh-print/xdh-print.vue'
+import XdhEcharts from '@/widgets/xdh-echarts/xdh-echarts'
+import XdhGo from '@/widgets/xdh-go/xdh-go'
+export default {
+    components: {
+      XdhPrint,
+      XdhEcharts,
+      XdhGo
+    },
+    data() {
+        return {
+
+            tableData: (function() {
                 let arr = [];
-                let l = Math.ceil(this.tableData.length / 15);
-                for(let i = 0; i < l; i++) {
-                    arr.push(this.tableData.slice(i * 15, (i + 1) * 15));
+                for(let i = 0; i < 50; i++) {
+                    arr.push({
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    });
                 }
-                return arr;
+                return arr
+            })()
+        }
+    },
+      computed: {
+        tableData2() {
+            let arr = [];
+            let l = Math.ceil(this.tableData.length / 15);
+            for(let i = 0; i < l; i++) {
+                arr.push(this.tableData.slice(i * 15, (i + 1) * 15));
             }
-        },
-        components: {
-            XdhPrint
+            return arr;
         }
     }
+}
 </script>
 ```
 :::
@@ -292,42 +169,43 @@ xdh-print 考虑到这些问题，进行了改进。该组件基于vue,其原理
     </div>
 </template>
 <script>
-    import XdhPrint from '@/widgets/xdh-print/xdh-print.vue'
-    import XdhEcharts from '@/widgets/xdh-echarts/xdh-echarts'
-    import XdhGo from '@/widgets/xdh-go/xdh-go'
-    export default {
-        components: {
-          XdhPrint,
-          XdhEcharts,
-          XdhGo
-        },
-        data() {
-            return {
-                model: 'GraphLinksModel',
-                nodes: [
-                    {key: 'A', category: 'a'},
-                    {key: 'B', category: 'b'},
-                    {key: 'C', category: 'c'}
-                ],
-                links: [
-                    {from: 'A', to: 'B'},
-                    {from: 'A', to: 'C'}
-                ],
-                echartOptions: {
-                    tooltip: {},
-                    xAxis: {
-                    data: ['广州', '汕头']
-                    },
-                    yAxis: {},
-                    series: [{
-                    name: '',
-                    type: 'bar',
-                    data: [12, 24]
-                    }]
-                }
+import XdhPrint from '@/widgets/xdh-print/xdh-print.vue'
+import XdhEcharts from '@/widgets/xdh-echarts/xdh-echarts'
+import XdhGo from '@/widgets/xdh-go/xdh-go'
+export default {
+    components: {
+      XdhPrint,
+      XdhEcharts,
+      XdhGo
+    },
+    data() {
+        return {
+
+            model: 'GraphLinksModel',
+            nodes: [
+                {key: 'A', category: 'a'},
+                {key: 'B', category: 'b'},
+                {key: 'C', category: 'c'}
+            ],
+            links: [
+                {from: 'A', to: 'B'},
+                {from: 'A', to: 'C'}
+            ],
+            echartOptions: {
+                tooltip: {},
+                xAxis: {
+                data: ['广州', '汕头']
+                },
+                yAxis: {},
+                series: [{
+                name: '',
+                type: 'bar',
+                data: [12, 24]
+                }]
             }
-        },
-        methods: {
+        }
+    },
+    methods: {
             config($, go) {
                 return {
                     initialContentAlignment: go.Spot.Center
@@ -356,8 +234,8 @@ xdh-print 考虑到这些问题，进行了改进。该组件基于vue,其原理
             layout($, go) {
                 return new go.TreeLayout()
             }
-        }
     }
+}
 </script>
 ```
 :::
@@ -411,12 +289,17 @@ xdh-print 考虑到这些问题，进行了改进。该组件基于vue,其原理
   </div>
 </template>
 <script>
+import XdhPrint from '@/widgets/xdh-print/xdh-print.vue'
 export default {
+    components: {
+      XdhPrint
+    },
     data() {
         return {
-            parentDom: `<div class="my-container" style="border-width:0;">
-                            <div class="my-wrapper"></div>
-                        </div>`
+              parentDom: `<div class="my-container" style="border-width:0">
+                             <div class="my-wrapper"></div>
+                         </div>`
+    
         }
     }
 }

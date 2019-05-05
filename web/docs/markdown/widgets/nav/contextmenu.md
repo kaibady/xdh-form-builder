@@ -1,67 +1,5 @@
-<script>
 
-  import contextmenu from '@/utils/directives/contextmenu'
 
-  export default {
-    directives: {
-      contextmenu: contextmenu
-    },
-    data() {
-      return {
-        menu1: [
-          {
-            text: '菜单A'
-          },
-          {
-            icon: 'iconfont icon-role',
-            text: '菜单B',
-            divider: true,
-            children: [
-              {
-                icon: 'iconfont icon-role',
-                text: '菜单菜单菜单B-1'
-              },
-              {
-                icon: 'iconfont icon-role',
-                text: '菜单B-2'
-              },
-              {
-                icon: 'iconfont icon-role',
-                text: '菜单B-3'
-              }
-            ]
-          },
-          {
-            icon: 'iconfont icon-role',
-            text: '菜单C'
-          }
-        ]
-      }
-    },
-    methods: {
-      click1(item, vm, event) {
-        this.$message({
-          type:'success',
-          message:'点击了： '+item.text
-        })
-        // 处理点击菜单后的触发动作
-      }
-    }
-
-  }
-</script>
-<style lang="scss" scoped type="text/css">
-  .action-box {
-    height: 150px;
-    width: 100%;
-    text-align: center;
-    line-height: 150px;
-    font-size: 3rem;
-    background-color: #eee;
-    color: #fff;
-    font-weight: bold;
-  }
-</style>
 ## 鼠标右键菜单
 
 ### 基础用法。文档： [xdh-contextmenu](#/src/widgets%2Fmodule-widgets_xdh-contextmenu.html)
@@ -78,8 +16,8 @@
 </template>
 
 <script>
-  import XdhContextmenu from '../widgets/xdh-contextmenu'
-  import contextmenu from '../utils/directives/contextmenu'
+  import XdhContextmenu from '@/widgets/xdh-contextmenu'
+  import contextmenu from '@/utils/directives/contextmenu'
 
   export default {
     components: {
@@ -127,6 +65,19 @@
 
   }
 </script>
+<style lang="scss" scoped>
+  .action-box {
+    height: 150px;
+    width: 100%;
+    text-align: center;
+    line-height: 150px;
+    font-size: 3rem;
+    background-color: #eee;
+    color: #fff;
+    font-weight: bold;
+  }
+</style>
+
 ```
 :::
 

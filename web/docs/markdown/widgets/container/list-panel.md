@@ -1,73 +1,4 @@
-<script>
-import ajax from '@/utils/ajax'
-export default {
-  data() {
-    return {
-      mode: 'scroll',
-      state: {
-        total: 0,
-        list: []
-      },
-      state2: {
-        total: 0,
-        list: []
-      },
-      state3: {
-        total: 0,
-        list: []
-      },
-     state4: {
-        total: 0,
-        list: []
-      }
-    }
-  },
-  methods: {
-    loadData(page, limit) {
-       return ajax({
-          url: '/demo/api/user/list',
-          data: {page, limit}
-       }).then(res => {
-          this.state = res
-       })
-    },
-    loadData2(page, limit) {
-       return ajax({
-          url: '/demo/api/user/list',
-          data: {page, limit}
-       }).then(res => {
-          this.state2 = res
-       })
-    },
-    loadData3(page, limit) {
-       return ajax({
-          url: '/demo/api/user/list',
-          data: {page, limit}
-       }).then(res => {
-          this.state3 = res
-       })
-    },
-    loadData4(page, limit) {
-       return ajax({
-          url: '/demo/api/user/list',
-          data: {page, limit}
-       }).then(res => {
-         if(this.mode === 'scroll') {
-           this.state4 = {
-              list: this.state4.list.concat(res.list),
-              total: res.total
-           }
-         } else {
-           this.state4 = res
-         }
-       })
-    },
-    handleClick() {
-       this.$refs.listPanel.loadData()
-    }
-  }
-}
-</script>
+
 
 ## ListPanel 列表面板
 
@@ -231,6 +162,7 @@ import ajax from '@/utils/ajax'
 export default {
   data() {
     return {
+      mode: 'scroll',
       state4: {
         total: 0,
         list: []

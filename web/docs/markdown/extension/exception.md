@@ -1,15 +1,4 @@
-<script>
-  import Xdh403 from 'E/exception/xdh-403'
-  import Xdh404 from 'E/exception/xdh-404'
-  import Xdh500 from 'E/exception/xdh-500'
-  export default {
-    components: {
-      Xdh403,
-      Xdh404,
-      Xdh500
-    }
-  }
-</script>
+
 
 ## 异常页面
 ### 403 异常页面

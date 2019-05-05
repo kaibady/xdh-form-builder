@@ -9,13 +9,16 @@ html, body {
 
 .app-layout {
   background: $--color-white;
+
   .xdh-layout__wrapper > .xdh-layout__west {
     position: relative;
   }
+
   &__main {
     height: calc(100vh - 100px);
     overflow: hidden;
   }
+
   &__content {
     overflow: auto;
     height: calc(100% - 71px);
@@ -59,9 +62,11 @@ code {
   border-radius: 4px;
   border-left: #50bfff 5px solid;
   margin: 20px 0;
+
   p {
     margin: 0;
   }
+
   code {
     background-color: rgba(255, 255, 255, .7);
     color: #445368;
@@ -74,9 +79,11 @@ code {
   border-radius: 4px;
   border-left: #FE6C6F 5px solid;
   margin: 20px 0;
+
   p {
     margin: 0;
   }
+
   code {
     background-color: rgba(255, 255, 255, .7);
     color: #445368;
@@ -84,37 +91,39 @@ code {
 
 }
 
-.table {
-  border-collapse: collapse;
-  width: 100%;
-  background-color: #fff;
-  font-size: 14px;
-  margin-bottom: 45px;
-  line-height: 1.5em;
+.content {
+  > table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #fff;
+    font-size: 14px;
+    margin-bottom: 45px;
+    line-height: 1.5em;
 
-  strong {
-    font-weight: normal;
-  }
+    strong {
+      font-weight: normal;
+    }
 
-  td, th {
-    border: 1px solid #d8d8d8;
-    padding: 10px;
-    max-width: 250px;
-  }
+    td, th {
+      border: 1px solid #d8d8d8;
+      padding: 10px;
+      max-width: 250px;
+    }
 
-  th {
-    text-align: left;
-    white-space: nowrap;
-    color: #666;
-    font-weight: normal;
-  }
+    th {
+      text-align: left;
+      white-space: nowrap;
+      color: #666;
+      font-weight: normal;
+    }
 
-  td {
-    color: #333;
-  }
+    td {
+      color: #333;
+    }
 
-  th:first-child, td:first-child {
-    padding-left: 10px;
+    th:first-child, td:first-child {
+      padding-left: 10px;
+    }
   }
 }
 
@@ -126,9 +135,11 @@ code {
     color: #1f2d3d;
     margin: 0;
   }
+
   h3 {
     font-size: 22px;
   }
+
   h2, h3, h4, h5 {
     font-weight: normal;
     color: #1f2f3d;
@@ -206,6 +217,7 @@ code {
       color: #666;
       font-weight: normal;
     }
+
     td {
       color: #333;
     }
@@ -221,6 +233,7 @@ code {
   h4 {
     font-size: 16px;
   }
+
   li {
     line-height: 1.5em;
     font-size: 14px;
@@ -250,7 +263,15 @@ code {
 
 .page-code > pre {
   margin: 0;
+
   .hljs {
     margin-bottom: 0;
   }
+}
+
+.demo-block {
+  .el-row, .block {
+    margin-bottom: 20px;
+  }
+
 }

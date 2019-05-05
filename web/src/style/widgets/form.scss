@@ -1,7 +1,75 @@
+@import "../vars";
+
 .xdh-form {
   &--inline {
     .el-form-item, .xdh-form-append {
       display: inline-block;
+    }
+  }
+}
+
+.xdh-form {
+  .xdh-form-item {
+    &.is-custom-width {
+      width: auto !important;
+    }
+  }
+
+  &.el-form--label-top {
+    .el-select, .el-input, .el-cascader {
+      width: 100%;
+    }
+
+    .el-form-item__label {
+      padding: 0;
+    }
+  }
+
+  &.is-inline-size {
+    .el-select, .el-input, .el-cascader {
+      width: 100%;
+    }
+  }
+
+  &.is-inline-medium {
+    > .xdh-form-item {
+      width: 500px;
+    }
+  }
+
+  &.is-inline-small {
+    > .xdh-form-item {
+      width: 300px;
+    }
+  }
+
+  &.is-inline-large {
+    > .xdh-form-item {
+      width: 600px;
+    }
+  }
+
+  &__footer {
+    margin-bottom: 0;
+
+    &.is-border {
+      border-top: 1px solid $--border-color-light;
+      padding: 10px 0;
+    }
+
+    &.is-center {
+      text-align: center;
+      display: block;
+    }
+
+    &.is-right {
+      text-align: right;
+      display: block;
+    }
+
+    &.is-left {
+      text-align: left;
+      display: block;
     }
   }
 }

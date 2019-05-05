@@ -1,27 +1,4 @@
-<script>
-import userMixin from 'D/base/mixin/user'
-export default {
-  data() {
-    return {
-      query: {
-        keyword: ''
-      },
-      model: {
-        name: '',
-        title: ''
-      },
-      query2: {
-        keyword: ''
-      },
-      model2: {
-        name: '',
-        title: ''
-      },
-      userMixin: userMixin
-    }
-  }
-}
-</script>
+
 ## Curd 增删查改
 
 ### 基础用法。文档： [xdh-curd](#/src/widgets%2Fmodule-widgets_xdh-curd.html)
@@ -84,8 +61,8 @@ export default {
 :::demo 需要与代码生成器配合，该示例采用 `mixin`  模式生成 `user`  Mixin
 ```html
 <template>
- <div style="height:600px" style="height:600px">
-    <xdh-curd :mixin="userMixin" name="user" :query.sync="query2" :model="model2">
+ <div style="height:600px">
+    <xdh-curd :mixin="userMixin" name="user" :query.sync="query" :model="model">
 
       <!-- 查询表单 -->
       <template slot="filter-items">
@@ -121,10 +98,10 @@ import userMixin from 'D/base/mixin/user'
 export default {
   data() {
     return {
-      query2: {
+      query: {
         keyword: ''
       },
-      model2: {
+      model: {
         name: '',
         title: ''
       },

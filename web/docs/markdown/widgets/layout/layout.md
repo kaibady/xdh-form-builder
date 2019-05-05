@@ -1,34 +1,4 @@
-<script>
-  export default {
-    data() {
-      return {
-        collapsed: false,
-        north: {
-          height: '100px',
-          split: true
-        },
-        west: {
-          split: true
-        },
-        east: {
-          split: true
-        },
-        south: {
-          height: '100px',
-          split: true
-        }
-      }
-    },
-    methods: {
-      handleResize(region, e) {
-        console.log(region, e)
-      },
-      handleCollapsed() {
-        this.collapsed = !this.collapsed
-      }
-    }
-  }
-</script>
+
 
 ## Layout 布局
 
@@ -75,6 +45,37 @@
 
   </div>
 </template>
+<script>
+  export default {
+    data() {
+      return {
+        collapsed: false,
+        north: {
+          height: '100px',
+          split: true
+        },
+        west: {
+          split: true
+        },
+        east: {
+          split: true
+        },
+        south: {
+          height: '100px',
+          split: true
+        }
+      }
+    },
+    methods: {
+      handleResize(region, e) {
+        console.log(region, e)
+      },
+      handleCollapsed() {
+        this.collapsed = !this.collapsed
+      }
+    }
+  }
+</script>
 <style lang="scss">
 .layout-demo {
   width: 100%;
@@ -127,7 +128,37 @@
       <div slot="south">South</div>
     </xdh-layout>
 </template>
-
+<script>
+  export default {
+    data() {
+      return {
+        collapsed: false,
+        north: {
+          height: '100px',
+          split: true
+        },
+        west: {
+          split: true
+        },
+        east: {
+          split: true
+        },
+        south: {
+          height: '100px',
+          split: true
+        }
+      }
+    },
+    methods: {
+      handleResize(region, e) {
+        console.log(region, e)
+      },
+      handleCollapsed() {
+        this.collapsed = !this.collapsed
+      }
+    }
+  }
+</script>
 <style lang="scss">
 .layout-demo2{
   .xdh-layout__north, .xdh-layout__south {
@@ -176,7 +207,37 @@
     </xdh-layout>
    </div>
 </template>
-
+<script>
+  export default {
+    data() {
+      return {
+        collapsed: false,
+        north: {
+          height: '100px',
+          split: true
+        },
+        west: {
+          split: true
+        },
+        east: {
+          split: true
+        },
+        south: {
+          height: '100px',
+          split: true
+        }
+      }
+    },
+    methods: {
+      handleResize(region, e) {
+        console.log(region, e)
+      },
+      handleCollapsed() {
+        this.collapsed = !this.collapsed
+      }
+    }
+  }
+</script>
 <style lang="scss">
 .layout-demo3{
    height: 400px;

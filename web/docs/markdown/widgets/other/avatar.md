@@ -1,13 +1,4 @@
-<script>
-  const avatar = require('D/assets/avatar.jpg')
-  export default {
-    data() {
-      return {
-        avatar: avatar
-      }
-    }
-  }
-</script>
+
 ## Avatar 头像
 
 用来代表用户或事物，支持图片、图标或字符展示。文档： [xdh-avatar](#/src/widgets%2Fmodule-widgets_xdh-avatar.html)

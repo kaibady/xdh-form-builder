@@ -1,44 +1,4 @@
-<script>
-export default {
-  data() {
-    return {
-      collapse: false,
-      menus: [{
-        id: 1,
-        text:'处理中心',
-        icon: 'el-icon-goods'
-      },{
-        id: 2,
-        text:'我的工作台',
-        icon: 'el-icon-setting',
-        children: [{
-          id: 21,
-          text: '选项一'
-        }, {
-          id: 22,
-          text: '选项二'
-        }, {
-           id: 23,
-           text: '选项三'
-         }]
-      }, {
-        id: 3,
-        text: '消息中心',
-        icon: 'el-icon-phone'
-      }, {
-        id: 4,
-        text: '订单管理',
-        icon: 'el-icon-news'
-      }]
-    }
-  },
-  methods: {
-    toggle() {
-      this.collapse = !this.collapse
-    }
-  }
-}
-</script>
+
 
 ## MenuToggle 可以展开收起的导航菜单
 

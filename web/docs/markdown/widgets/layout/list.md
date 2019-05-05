@@ -1,56 +1,4 @@
-<script>
-  import ajax from '@/utils/ajax'
 
-  export default {
-    data() {
-      return {
-        data: [
-          {
-            title: 'Title 1',
-            description: '内容描述 this is description.this is description.this is description.this is description'
-          },
-          {
-            title: 'Title 2',
-            description: '内容描述 this is description.this is description.this is description.this is description'
-          },
-          {
-            title: 'Title 3',
-            description: '内容描述 this is description.this is description.this is description.this is description'
-          }
-        ],
-        data2: [
-          {title: '标题A'},
-          {title: '标题B'},
-          {title: '标题C'},
-          {title: '标题D'},
-          {title: '标题E'},
-          {title: '标题F'}
-        ],
-        state: {
-          total: 0,
-          list: []
-        }
-      }
-    },
-    methods: {
-      loadData(page, limit) {
-        return ajax({
-          url: '/demo/api/user/list',
-          data: {page, limit}
-        }).then(res => {
-          this.state = res
-        })
-      }
-    }
-  }
-</script>
-<style lang="scss" type="text/scss" scoped>
-  .title {
-    padding: 10px;
-    margin: 10px 0;
-    background: #eee;
-  }
-</style>
 
 ## List 列表
 ### 基础用法（竖直布局）
@@ -71,9 +19,9 @@
 
 <script>
   import ajax from '@/utils/ajax'
-  import XdhList from '../widgets/xdh-list'
-  import XdhAvatar from '../widgets/xdh-avatar'
-  import XdhImageText from '../widgets/xdh-image-text'
+  import XdhList from '@/widgets/xdh-list'
+  import XdhAvatar from '@/widgets/xdh-avatar'
+  import XdhImageText from '@/widgets/xdh-image-text'
 
   export default {
     components: {
@@ -130,7 +78,7 @@
 
 <script>
   import ajax from '@/utils/ajax'
-  import XdhList from '../widgets/xdh-list'
+  import XdhList from '@/widgets/xdh-list'
 
   export default {
     components: {
@@ -183,7 +131,7 @@
 
 <script>
   import ajax from '@/utils/ajax'
-  import XdhList from '../widgets/xdh-list'
+  import XdhList from '@/widgets/xdh-list'
 
   export default {
     components: {
@@ -231,10 +179,10 @@
 
 <script>
   import ajax from '@/utils/ajax'
-  import XdhListPanel from '../widgets/xdh-list-panel'
-  import XdhList from '../widgets/xdh-list'
-  import XdhAvatar from '../widgets/xdh-avatar'
-  import XdhImageText from '../widgets/xdh-image-text'
+  import XdhListPanel from '@/widgets/xdh-list-panel'
+  import XdhList from '@/widgets/xdh-list'
+  import XdhAvatar from '@/widgets/xdh-avatar'
+  import XdhImageText from '@/widgets/xdh-image-text'
 
   export default {
     components: {

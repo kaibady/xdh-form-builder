@@ -22,7 +22,10 @@
 
 <script>
   import icons from '../base/icons'
-
+  import allIcons from '@/base/icons'
+  const elIcons = allIcons.filter(n => n.includes('el-icon-'))
+  icons[0].list = elIcons
+  // console.log(elIcons)
   export default {
     data() {
       return {
@@ -51,6 +54,7 @@
     margin-bottom: -1px;
     font-size: 12px;
     text-align: center;
+
     i {
       font-size: 30px;
       display: block;

@@ -1,91 +1,3 @@
-<script>
-  import XdhVirtualScroller from '@/widgets/xdh-virtual-scroller'
-  import XdhImageText from '@/widgets/xdh-image-text'
-  import XdhAvatar from '@/widgets/xdh-avatar'
-  import Mock from 'mockjs'
-
-  export default {
-    components: {
-      XdhVirtualScroller,
-      XdhImageText,
-      XdhAvatar
-    },
-    data() {
-      return {
-        text: Mock.mock('@cword(300, 400)'),
-        innerText: Mock.mock('@cword(20)'),
-        variableMode: false,
-        recycleScroll: {
-          scrollerHeight: '400px',
-          items: [],
-          itemSize: 38,
-          pageMode: false
-        },
-        dynamicScroll: {
-          scrollerHeight: '400px',
-          mode: 'dynamic',
-          items: [],
-          minItemSize: 54
-        }
-      }
-    },
-    watch: {
-      variableMode(val) {
-        if (val) {
-          this.recycleScroll.itemSize = null
-          this.recycleScroll.items.unshift({
-            id: 0,
-            index: 0,
-            value: this.text,
-            size: 200
-          })
-        } else {
-          this.recycleScroll.itemSize = 38
-          this.recycleScroll.items.splice(0, 1)
-        }
-      }
-    },
-    created() {
-      for (let i = 0; i < 10000; i++) {
-        this.recycleScroll.items.push(Mock.mock({
-          id: i + 1,
-          index: i + 1,
-          value: this.innerText,
-          size: 38 // 为了演示Variable Height Mode而加上，一般如果recycle下如果设置了itemSize，则可以免除设置此处的size
-        }))
-
-        this.dynamicScroll.items.push(Mock.mock({
-          id: i,
-          index: i,
-          value: this.innerText
-        }))
-      }
-    }
-  }
-</script>
-<style lang="scss" scoped>
-  .scroller {
-    border: 1px solid #50bfff;
-    margin-bottom: 20px;
-
-    * {
-      box-sizing: border-box;
-    }
-
-    .vue-recycle-scroller__item-view {
-      .items {
-        width: 100%;
-        padding: 10px;
-        line-height: 18px;
-      }
-      &.hover {
-        .items {
-          background: rgba(0, 0, 0, .1);
-        }
-      }
-    }
-  }
-</style>
 
 ## Virtual Scroller 虚拟滚动列表
 
@@ -112,6 +24,7 @@
     </div>
 </template>
 <script>
+    import Mock from 'mockjs'
     export default {
         data() {
             return {

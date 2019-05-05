@@ -1,28 +1,4 @@
-<script>
-  import XdhBarRankings from 'E/charts/bar/xdh-bar-rankings'
 
-  export default {
-    components: {
-      XdhBarRankings
-    },
-    data() {
-      return {
-        data1: {
-           '省纪委': 2450,
-           '南京': 2250,
-           '无锡': 2220,
-           '徐州': 2142,
-           '常州': 800,
-           '苏州': 1690,
-           '南通': 1590,
-           '连云港': 1387,
-           '扬州': 1189,
-           '淮安': 1960
-        }
-      }
-    }
-  }
-</script>
 
 ## 柱状图 Bar
 

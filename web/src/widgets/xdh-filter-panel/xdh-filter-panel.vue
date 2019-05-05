@@ -80,7 +80,7 @@
      */
     props: {
       formProp: {
-        type: String,
+        type: Object,
         default: () => { return {} }
       },
       title: {
