@@ -1,5 +1,5 @@
 <template>
-  <xdh-grid :data.sync="list" direction="row" justify="flex-start" wrap="wrap">
+  <xdh-grid :data="components" direction="row" justify="flex-start" wrap="wrap">
     <div class="box-wrapper" slot-scope="{item, index}">
       <component-item :data="item" :index="index"></component-item>
     </div>
@@ -9,7 +9,7 @@
 <script>
   import XdhGrid from '@/widgets/xdh-grid'
   import ComponentItem from './component-item'
-  import config from '@/helper/components'
+  import components from '@/helper/setting/components'
 
   export default {
     components: {
@@ -18,7 +18,7 @@
     },
     data() {
       return {
-        list: config
+        components: components
       }
     }
   }

@@ -1,7 +1,8 @@
 <template>
   <xdh-form footer-align="right"
-            inline inline-size="medium"
-            label-width="140px"
+            :inline="true"
+            inline-size="medium"
+            :label-width="`140px`"
             :model="model"
             footer-border
             @submit="handleSubmit">
@@ -18,33 +19,28 @@
 <script>
   import XdhForm from './xdh-form'
   import XdhFormItem from './xdh-form-item'
-  import config from '../helper/form-setting'
-  import bus from '@/utils/bus'
+  import formSetting from '@/helper/setting/form'
+  import {mapState} from 'vuex'
 
   export default {
     components: {
       XdhForm,
       XdhFormItem
     },
+    computed: {
+      ...mapState({
+        model: state => state.formModel
+      })
+    },
     data() {
       return {
-        config: config
+        config: formSetting.fields
       }
     },
-    computed: {
-      model() {
-        let m = {}
-        this.config.forEach(item => {
-          if (typeof item.value !== 'undefined') {
-            m[item.prop] = item.value
-          }
-        })
-        return m
-      }
-    },
+
     methods: {
       handleSubmit(model) {
-        bus.$emit('updateFormConfig', model)
+        this.$store.commit('setFormModel', {...model})
         this.$emit('submit', model)
       }
     }

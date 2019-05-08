@@ -1,4 +1,4 @@
-export default [
+const formFields = [
   {
     label: '行内模式',
     prop: 'inline',
@@ -165,3 +165,19 @@ export default [
     value: '重置'
   }
 ]
+
+
+export function getModel(list = []) {
+  let m = {}
+  list.forEach(item => {
+    if (typeof item.value !== 'undefined') {
+      m[item.prop] = item.value
+    }
+  })
+  return m
+}
+
+export default {
+  fields: formFields,
+  model: getModel(formFields)
+}

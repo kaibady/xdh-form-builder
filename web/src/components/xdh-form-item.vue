@@ -1,13 +1,19 @@
 <template>
-  <el-form-item class="xdh-form-item"
+  <component v-if="isDivider" :is="components[type]" v-bind="props">
+    <div slot="body" ref="body" class="xdh-form-item__body" v-if="$slots.body">
+      <slot name="body"></slot>
+    </div>
+  </component>
+  <el-form-item v-else
+                class="xdh-form-item"
                 :class="itemClasses"
-                v-bind="$props"
+                v-bind="$attrs"
                 v-on="$listeners">
     <component :is="components[type]"
                :options="optionsList"
-               :prop="prop"
+               :prop="$attrs.prop"
                v-bind="props"
-               v-model="xdhForm.currentModel[prop]"></component>
+               :value="xdhForm.currentModel[$attrs.prop]"></component>
     <slot></slot>
 
     <div ref="body" class="xdh-form-item__body" v-if="$slots.body">
@@ -18,7 +24,7 @@
 </template>
 
 <script>
-  import ElFromItem from 'element-ui/lib/form-item'
+  import Divider from './items/divider'
   import Text from './items/text'
   import Select from './items/select'
   import Radio from './items/radio'
@@ -26,6 +32,9 @@
   import Cascader from './items/cascader'
   import Date from './items/date'
   import Switch from './items/switch'
+  import InputNumber from './items/inputNumber'
+  import Rate from './items/rate'
+  import Slider from './items/slider'
 
   const components = {
     text: Text,
@@ -34,14 +43,18 @@
     checkbox: Checkbox,
     cascader: Cascader,
     date: Date,
-    switch: Switch
+    switch: Switch,
+    divider: Divider,
+    inputNumber: InputNumber,
+    rate: Rate,
+    slider: Slider
   }
 
   export default {
     name: 'XdhFormItem',
     inject: ['xdhForm'],
     props: {
-      ...ElFromItem.props,
+      // ...ElFromItem.props,
       // 输入框类型：
       // text 文本框，
       // radio 单选框，
@@ -53,6 +66,7 @@
       // range 范围选择器
       // rate 评分
       // color 颜色选择器
+      // divider 分隔线
       type: {
         type: String,
         default: 'text'
@@ -92,13 +106,28 @@
             'is-custom-width': !!this.contentWidth
           }
         ]
+      },
+      isDivider() {
+        return this.type === 'divider'
       }
     },
     watch: {
+      'xdhForm.$attrs.inline'() {
+        this.setContentWidth(this.contentEl)
+      },
       'xdhForm.inlineSize'() {
         this.setContentWidth(this.contentEl)
       },
-      'xdhForm.props.labelWidth'() {
+      'xdhForm.$attrs.labelWidth'() {
+        this.setContentWidth(this.contentEl)
+      },
+      '$attrs.labelWidth'() {
+        this.setContentWidth(this.contentEl)
+      },
+      contentWidth() {
+        this.setContentWidth(this.contentEl)
+      },
+      labelWidth() {
         this.setContentWidth(this.contentEl)
       }
     },
@@ -123,20 +152,24 @@
       },
       setContentWidth(el) {
         // 只对inline模式有效
-        if (!el || !this.xdhForm.inline) return
+        if (!el || !this.xdhForm.$attrs.inline) return
         const map = {
           large: 600,
           medium: 500,
           small: 300
         }
-        const labelWidth = Number.parseInt(this.xdhForm.labelWidth)
+        const labelWidth = Number.parseInt(this.$attrs.labelWidth || this.$attrs['label-width']) ||
+          Number.parseInt(this.xdhForm.$attrs.labelWidth || this.xdhForm.$attrs['label-width']) ||
+          0
         const width = Number.parseInt(this.contentWidth) || (map[this.xdhForm.inlineSize] - labelWidth)
         el.style.width = `${width}px`
       }
     },
     mounted() {
-      this.contentEl = this.$el.querySelector('.el-form-item__content')
-      this.setContentWidth(this.contentEl)
+      if (!this.isDivider) {
+        this.contentEl = this.$el.querySelector('.el-form-item__content')
+        this.setContentWidth(this.contentEl)
+      }
 
       if (this.$refs.body) {
         this.$el.appendChild(this.$refs.body)

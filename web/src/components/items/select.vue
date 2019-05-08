@@ -1,5 +1,5 @@
 <template>
-  <el-select v-bind="$props" v-model="xdhForm.currentModel[prop]">
+  <el-select v-bind="$attrs" v-model="xdhForm.currentModel[prop]">
     <el-option v-for="(item, index) in options"
                :key="index"
                :label="item.label"
@@ -9,11 +9,9 @@
 </template>
 
 <script>
-  import ElSelect from 'element-ui/lib/select'
   export default {
     inject: ['xdhForm'],
     props: {
-      ...ElSelect.props,
       prop: {
         type: String,
         required: true

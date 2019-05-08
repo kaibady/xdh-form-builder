@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="form" class="xdh-form" :class="formClasses" :model="currentModel" v-bind="$props">
+  <el-form ref="form" v-bind="$attrs" class="xdh-form" :class="formClasses" :model="currentModel">
     <slot></slot>
 
     <el-form-item v-if="footer" class="xdh-form__footer" :class="footerClasses" :label="footerAlignLabel">
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-  import ElForm from 'element-ui/lib/form'
 
   export default {
     name: 'XdhForm',
@@ -23,7 +22,6 @@
       }
     },
     props: {
-      ...ElForm.props,
       // 表单实体默认值
       model: {
         type: Object,
@@ -93,6 +91,14 @@
       }
     },
     watch: {
+      model: {
+        deep: true,
+        handler(val) {
+          if (JSON.stringify(val) !== JSON.stringify(this.currentModel)) {
+            this.currentModel = {...val}
+          }
+        }
+      },
       currentModel: {
         deep: true,
         handler() {
@@ -102,7 +108,7 @@
     },
     computed: {
       formClasses() {
-        return [this.inline ? `is-inline-size is-inline-${this.inlineSize}` : '']
+        return [this.$attrs.inline ? `is-inline-size is-inline-${this.inlineSize}` : '']
       },
       footerClasses() {
         return [

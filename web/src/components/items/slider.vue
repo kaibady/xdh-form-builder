@@ -1,5 +1,5 @@
 <template>
-  <el-switch v-bind="$attrs" v-model="xdhForm.currentModel[prop]"></el-switch>
+  <el-slider v-bind="$attrs" v-model="xdhForm.currentModel[prop]"></el-slider>
 </template>
 
 <script>
@@ -13,3 +13,5 @@
     }
   }
 </script>
+
+

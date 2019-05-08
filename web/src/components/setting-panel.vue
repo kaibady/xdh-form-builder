@@ -1,10 +1,35 @@
 <template>
-  <div class="wrapper">
-    <xdh-form size="small" :footer="false" label-width="80px">
-      <xdh-form-item v-for="(item, index) in config"
-                     :key="index"
-                     v-bind="item"></xdh-form-item>
-    </xdh-form>
+  <el-collapse v-if="editField" class="setting-panel" accordion v-model="active">
+    <el-collapse-item title="通用属性" name="common">
+      <div class="wrapper" v-if="commonFields.length">
+        <xdh-form size="small" :model="commonModel" :footer="false" label-width="80px" @change="handleCommonChange">
+          <xdh-form-item v-for="(item, index) in commonFields"
+                         :key="index"
+                         v-bind="item"></xdh-form-item>
+        </xdh-form>
+      </div>
+      <div v-else class="wrapper">该组件无通用属性</div>
+    </el-collapse-item>
+    <el-collapse-item title="扩展属性" name="props">
+      <div class="wrapper">
+        <xdh-form size="small" :model="extendModel" :footer="false" label-width="120px" @change="handlePropsChange">
+          <xdh-form-item v-for="(item, index) in extendFields"
+                         :key="index"
+                         v-bind="item"></xdh-form-item>
+        </xdh-form>
+      </div>
+    </el-collapse-item>
+    <el-collapse-item title="校验设置" name="rules">
+      <div class="wrapper">
+      </div>
+    </el-collapse-item>
+    <el-collapse-item title="选项数据" name="options">
+      <div class="wrapper">
+      </div>
+    </el-collapse-item>
+  </el-collapse>
+  <div v-else class="wrapper">
+    请选择组件
   </div>
 
 </template>
@@ -12,33 +37,7 @@
 <script>
   import XdhForm from './xdh-form'
   import XdhFormItem from './xdh-form-item'
-
-  const commonConfig = [
-    {
-      label: '名称',
-      type: 'text',
-      prop: 'prop'
-    },
-    {
-      label: '标签文本',
-      type: 'text',
-      prop: 'label'
-    },
-    {
-      label: '标签宽度',
-      type: 'text',
-      prop: 'labelWidth'
-    },
-    {
-      label: '内容宽度',
-      type: 'text',
-      prop: 'contentWidth',
-      props: {
-        placeholder: '单位: px'
-      }
-
-    }
-  ]
+  import {mapGetters, mapState} from 'vuex'
 
   export default {
     components: {
@@ -47,7 +46,27 @@
     },
     data() {
       return {
-        config: commonConfig
+        active: 'common'
+      }
+    },
+    computed: {
+      ...mapState(['editField']),
+      ...mapGetters(['commonFields', 'commonModel', 'extendFields', 'extendModel'])
+    },
+    methods: {
+      handleCommonChange(model) {
+        const newField = JSON.parse(JSON.stringify({
+          ...this.editField,
+          ...model
+        }))
+        this.$store.commit('updateField', newField)
+      },
+      handlePropsChange(props) {
+        const newField = JSON.parse(JSON.stringify({
+          ...this.editField,
+          props: {...props}
+        }))
+        this.$store.commit('updateField', newField)
       }
     }
 
@@ -55,7 +74,16 @@
 </script>
 
 <style scoped lang="scss">
-  .wrapper {
-    padding-right: 10px;
+  .setting-panel {
+    /deep/ {
+      .el-collapse-item__header {
+        padding-left: 10px;
+      }
+    }
   }
+
+  .wrapper {
+    padding: 10px 10px 0 10px;
+  }
+
 </style>

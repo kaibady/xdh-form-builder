@@ -1,5 +1,5 @@
 <template>
-  <el-checkbox-group v-bind="$props" v-model="xdhForm.currentModel[prop]">
+  <el-checkbox-group v-bind="$attrs" v-model="xdhForm.currentModel[prop]">
     <component :is="component"
                v-for="(item,index) in options"
                :key="index"
@@ -9,12 +9,9 @@
 </template>
 
 <script>
-  import ElCheckboxGroup from 'element-ui/lib/checkbox-group'
-
   export default {
     inject: ['xdhForm'],
     props: {
-      ...ElCheckboxGroup.props,
       // 字段名称
       prop: {
         type: String,

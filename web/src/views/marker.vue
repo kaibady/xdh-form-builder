@@ -7,13 +7,7 @@
       <component-list></component-list>
     </div>
     <div class="east" slot="east">
-      <el-tabs class="tabs" value="props" stretch>
-        <el-tab-pane label="属性设置" name="props">
-          <setting-panel></setting-panel>
-        </el-tab-pane>
-        <el-tab-pane label="选项集" name="options">
-        </el-tab-pane>
-      </el-tabs>
+      <setting-panel></setting-panel>
     </div>
   </xdh-layout>
 </template>
@@ -23,6 +17,8 @@
   import ComponentList from '../components/component-list'
   import SettingPanel from '../components/setting-panel'
   import MarkerArea from '../components/marker-area'
+  import formSetting from '@/helper/setting/form'
+  import propsLib from '@/helper/setting/props'
 
   export default {
     components: {
@@ -39,14 +35,18 @@
           split: true
         },
         east: {
-          width: '300px',
+          width: '350px',
           collaspedSize: '0',
           split: true
         },
-        model: {
-          test: ''
-        }
+        model: null
       }
+    },
+    methods: {},
+    created() {
+      // todo 发请求获取数据
+      this.$store.commit('setFormModel', formSetting.model)
+      this.$store.commit('setProps', propsLib)
     }
   }
 </script>
@@ -67,7 +67,7 @@
   .west, .east {
     background: $--color-primary-light-9;
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
   }
 
   .west {

@@ -9,11 +9,10 @@
 </template>
 
 <script>
-  import ElRadioGroup from 'element-ui/lib/radio-group'
+
   export default {
     inject: ['xdhForm'],
     props: {
-      ...ElRadioGroup.props,
       prop: {
         type: String,
         required: true
