@@ -2,7 +2,8 @@
   <xdh-layout class="main" fixed v-if="reRender">
     <xdh-header slot="north"
                 title="可视化表单制作工具"
-                layout="title,->,slot">
+                layout="logo,title,->,slot">
+      <img slot="logo" src="../assets/img/xdh.png">
       <div class="tool" v-if="showOp">
         <el-button round size="small" @click="handleBack">返回</el-button>
         <el-button round size="small" type="success" @click="dialogVisible=true">设置</el-button>

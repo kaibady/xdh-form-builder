@@ -18,11 +18,5 @@ export default {
   fields: [],
   
   // 正在编辑的字段
-  editField: null,
-  
-  // 当前验证规则设置
-  rules: [],
-  
-  // 当前选项数据
-  options: []
+  editField: null
 }

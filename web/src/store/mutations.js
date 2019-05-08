@@ -10,6 +10,11 @@
  *
  */
 export default {
+  /**
+   * 设置组件属性库
+   * @param state
+   * @param props
+   */
   setProps(state, props) {
     state.props = props
   },
@@ -21,23 +26,49 @@ export default {
   setFormModel(state, payload) {
     state.formModel = payload
   },
+  /**
+   * 设计区新增表单项组件
+   * @param state
+   * @param field
+   */
   addField(state, field) {
     state.fields.push(field)
   },
+  /**
+   * 设计区删除表单项组件
+   * @param state
+   * @param field
+   */
   removeField(state, field) {
     state.fields = state.fields.filter(item => field !== item)
   },
+  /**
+   * 设计区更新表单项组件
+   * @param state
+   * @param field
+   */
   updateField(state, field) {
     const index = state.fields.findIndex(item => item === state.editField)
     state.fields.splice(index, 1, field)
     state.editField = field
   },
+  /**
+   * 设计区表单项排序
+   * @param state
+   * @param newIndex
+   * @param oldIndex
+   */
   sortFields(state, {newIndex, oldIndex}) {
     const item = state.fields[oldIndex]
     state.fields.splice(oldIndex, 1)
     state.fields.splice(newIndex, 0, item)
     
   },
+  /**
+   * 设置当前正在编辑的表单项组件
+   * @param state
+   * @param field
+   */
   setEditField(state, field) {
     state.editField = field
   }

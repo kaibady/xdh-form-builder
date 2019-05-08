@@ -14,32 +14,53 @@
 import commonFieldLib from '@/helper/setting/common'
 
 export default {
+  /**
+   * 当前制作的表单实体
+   * @param state
+   */
   model(state) {
     const m = {}
     state.fields.forEach(item => {
+      // 分隔线组件无值
       if (item.type !== 'divider') {
         m[item.prop] = (item.props || {}).value || item.value || ''
       }
     })
     return m
   },
+  /**
+   * 通用属性表单字段配置
+   * @param state
+   * @return {Array|*}
+   */
   commonFields(state) {
     if (!state.editField) return []
+    // 分隔线组件无表单字段通用属性
     if (state.editField.type === 'divider') {
       return []
     }
+    // 无选项的字段，不支持字典设置
     if (!state.editField.options) {
       return commonFieldLib.filter(n => n.prop !== 'dict')
     }
     return commonFieldLib
   },
-  
+  /**
+   * 扩展属性表单字段配置
+   * @param state
+   * @return {Array|*}
+   */
   extendFields(state) {
     if (!state.editField) return []
     return state.props[state.editField.type]
   },
   
-  // 当前项通用属性实体
+  /**
+   * 通用属性表单实体
+   * @param state
+   * @param getters
+   * @return {{}}
+   */
   commonModel(state, getters) {
     if (!getters.commonFields) return {}
     const model = {}
@@ -49,7 +70,12 @@ export default {
     return model
   },
   
-  // 当前项扩展属性实体
+  /**
+   * 扩展属性表单实体
+   * @param state
+   * @param getters
+   * @return {{}}
+   */
   extendModel(state, getters) {
     if (!getters.extendFields) return {}
     const model = {}
