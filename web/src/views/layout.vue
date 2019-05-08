@@ -15,7 +15,7 @@
     <el-dialog
       title="表单设置"
       :visible.sync="dialogVisible"
-      width="1150px">
+      width="1000px">
       <form-setting @submit="dialogVisible=false"></form-setting>
     </el-dialog>
   </xdh-layout>
@@ -63,6 +63,12 @@
 <style scoped lang="scss">
   .main {
     min-width: 1200px;
+
+    /deep/ {
+      .el-dialog__body {
+        padding: 0;
+      }
+    }
   }
 
   .tool {

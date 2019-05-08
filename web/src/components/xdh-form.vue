@@ -4,8 +4,8 @@
 
     <el-form-item v-if="footer" class="xdh-form__footer" :class="footerClasses" :label="footerAlignLabel">
       <slot name="footer" v-if="footer">
-        <el-button type="primary" @click="submit">{{submitText}}</el-button>
-        <el-button @click="reset">{{resetText}}</el-button>
+        <el-button v-if="submitText" type="primary" @click="submit" :size="footerSize">{{submitText}}</el-button>
+        <el-button v-if="resetText"  @click="reset" :size="footerSize">{{resetText}}</el-button>
       </slot>
     </el-form-item>
 
@@ -82,6 +82,13 @@
         default: 'medium',
         validator() {
           return ['large', 'medium', 'small']
+        }
+      },
+      // 底部按钮尺寸
+      footerSize: {
+        type: String,
+        validator(val) {
+          return ['medium', 'small', 'mini', ''].includes(val)
         }
       }
     },

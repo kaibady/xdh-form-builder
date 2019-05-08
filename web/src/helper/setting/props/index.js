@@ -14,7 +14,7 @@ function getConfig(props) {
   const result = []
   
   Object.keys(props).forEach(key => {
-    if (key === 'value') return
+    // if (key === 'value') return
     
     let prop = props[key]
     if (!prop.type) {

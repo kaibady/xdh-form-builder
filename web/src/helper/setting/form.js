@@ -24,6 +24,9 @@ const formFields = [
     value: true
   },
   {
+    type: 'divider'
+  },
+  {
     label: '标签位置',
     prop: 'labelPosition',
     type: 'radio',
@@ -56,15 +59,15 @@ const formFields = [
     },
     options: [
       {
-        label: '大',
+        label: '默认',
         value: ''
       },
       {
-        label: '中',
+        label: 'medium',
         value: 'medium'
       },
       {
-        label: '小',
+        label: 'small',
         value: 'small'
       },
       {
@@ -97,6 +100,33 @@ const formFields = [
     ]
   },
   {
+    label: '底部尺寸',
+    prop: 'footerSize',
+    type: 'radio',
+    value: '',
+    props: {
+      button: true
+    },
+    options: [
+      {
+        label: '默认',
+        value: ''
+      },
+      {
+        label: 'medium',
+        value: 'medium'
+      },
+      {
+        label: 'small',
+        value: 'small'
+      },
+      {
+        label: 'mini',
+        value: 'mini'
+      }
+    ]
+  },
+  {
     label: '内行模式尺寸',
     prop: 'inlineSize',
     type: 'radio',
@@ -106,15 +136,15 @@ const formFields = [
     },
     options: [
       {
-        label: '大',
+        label: 'large',
         value: 'large'
       },
       {
-        label: '中',
+        label: 'medium',
         value: 'medium'
       },
       {
-        label: '小',
+        label: 'small',
         value: 'small'
       }
     ]
@@ -123,11 +153,15 @@ const formFields = [
     label: '验证信息显示',
     prop: 'validateMsg',
     type: 'radio',
-    value: 'right',
+    value: '',
     props: {
       button: true
     },
     options: [
+      {
+        label: '默认',
+        value: ''
+      },
       {
         label: 'top',
         value: 'top'
@@ -141,6 +175,9 @@ const formFields = [
         value: 'bottom'
       }
     ]
+  },
+  {
+    type: 'divider'
   },
   {
     label: '标签宽度',

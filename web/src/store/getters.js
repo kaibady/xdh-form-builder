@@ -18,7 +18,7 @@ export default {
     const m = {}
     state.fields.forEach(item => {
       if (item.type !== 'divider') {
-        m[item.prop] = item.value || ''
+        m[item.prop] = (item.props || {}).value || item.value || ''
       }
     })
     return m
