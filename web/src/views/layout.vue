@@ -5,8 +5,7 @@
                 layout="title,->,slot">
       <div class="tool" v-if="showOp">
         <el-button round size="small" @click="handleBack">返回</el-button>
-        <el-button round size="small" @click="dialogVisible=true">设置</el-button>
-        <el-button round type="success" size="small">保存</el-button>
+        <el-button round size="small" type="success" @click="dialogVisible=true">设置</el-button>
         <el-button round type="warning" size="small">预览</el-button>
         <el-button round type="danger" size="small">导出</el-button>
       </div>

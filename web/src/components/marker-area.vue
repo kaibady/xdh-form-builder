@@ -171,7 +171,7 @@
         width: 100%;
         height: 100%;
         left: 0;
-        top: 0;
+        top: -3px;
         border-radius: $--border-radius-base;
         border: 3px dotted $--color-success;
         background: rgba(103, 194, 58, 0.2)

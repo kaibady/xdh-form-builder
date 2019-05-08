@@ -5,7 +5,7 @@
     <el-form-item v-if="footer" class="xdh-form__footer" :class="footerClasses" :label="footerAlignLabel">
       <slot name="footer" v-if="footer">
         <el-button v-if="submitText" type="primary" @click="submit" :size="footerSize">{{submitText}}</el-button>
-        <el-button v-if="resetText"  @click="reset" :size="footerSize">{{resetText}}</el-button>
+        <el-button v-if="resetText" @click="reset" :size="footerSize">{{resetText}}</el-button>
       </slot>
     </el-form-item>
 
@@ -79,16 +79,16 @@
       // inline模式的字段域尺寸
       inlineSize: {
         type: String,
-        default: 'medium',
-        validator() {
-          return ['large', 'medium', 'small']
+        default: '',
+        validator(val) {
+          return ['large', 'medium', 'small', ''].includes(val)
         }
       },
       // 底部按钮尺寸
       footerSize: {
         type: String,
         validator(val) {
-          return ['medium', 'small', 'mini', ''].includes(val)
+          return ['large', 'medium', 'small', 'mini', ''].includes(val)
         }
       }
     },

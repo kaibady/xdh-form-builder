@@ -153,6 +153,10 @@
       setContentWidth(el) {
         // 只对inline模式有效
         if (!el || !this.xdhForm.$attrs.inline) return
+        if (!this.xdhForm.inlineSize) {
+          el.style.width = `auto`
+          return
+        }
         const map = {
           large: 600,
           medium: 500,

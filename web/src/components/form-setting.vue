@@ -3,6 +3,7 @@
             :inline="true"
             inline-size="medium"
             :label-width="`140px`"
+            footer-size="large"
             size="small"
             :model="model"
             footer-border
@@ -13,7 +14,7 @@
                    :prop="item.prop"
                    :type="item.type"
                    :options="item.options"
-                   contentWidth="300px"
+                   contentWidth="320px"
                    :props="item.props||{}"></xdh-form-item>
   </xdh-form>
 </template>

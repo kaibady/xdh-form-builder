@@ -63,6 +63,10 @@ const formFields = [
         value: ''
       },
       {
+        label: 'large',
+        value: 'large'
+      },
+      {
         label: 'medium',
         value: 'medium'
       },
@@ -113,6 +117,10 @@ const formFields = [
         value: ''
       },
       {
+        label: 'large',
+        value: 'large'
+      },
+      {
         label: 'medium',
         value: 'medium'
       },
@@ -130,11 +138,15 @@ const formFields = [
     label: '内行模式尺寸',
     prop: 'inlineSize',
     type: 'radio',
-    value: 'medium',
+    value: '',
     props: {
       button: true
     },
     options: [
+      {
+        label: '默认',
+        value: ''
+      },
       {
         label: 'large',
         value: 'large'
