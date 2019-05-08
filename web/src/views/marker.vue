@@ -72,6 +72,7 @@
 
   .west {
     padding-right: 10px;
+    overflow: hidden;
   }
 
   .tabs {
