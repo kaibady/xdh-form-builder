@@ -33,7 +33,7 @@ function getConfig(props) {
       result.push({
         label: key,
         prop: key,
-        type: 'inputNumber',
+        type: 'number',
         props: {
           controlsPosition: 'right'
         }
