@@ -115,6 +115,7 @@
           .xdh-form-item__body {
             display: block;
             top: -16px;
+            height: 30px;
           }
         }
       }
@@ -126,6 +127,7 @@
             background: rgba(230, 162, 60, 0.2);
             display: block;
             top: -16px;
+            height: 30px;
           }
         }
       }

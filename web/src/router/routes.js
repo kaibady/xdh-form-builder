@@ -25,6 +25,10 @@ export default {
       component: _import('file')
     },
     {
+      path: '/test',
+      component: _import('test')
+    },
+    {
       path: '*',
       component: _import('404')
     }

@@ -9,8 +9,6 @@
   import hljs from 'highlight.js'
   import 'highlight.js/styles/darcula.css'
   import render from '@/helper/setting/template'
-
-  const beautify = require('js-beautify').js_beautify
   import {mapState} from 'vuex'
 
   function stringify(json) {
