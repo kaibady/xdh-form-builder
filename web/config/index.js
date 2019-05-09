@@ -8,7 +8,7 @@ module.exports = {
   /**
    * 部署应用时的基本 URL, VueCli v3.3 改名为 publicPath
    */
-  baseUrl: '/xdh-form-builder/web/dist/',
+  baseUrl: '/xdh-form-builder/',
   
   /**
    * 生成的生产环境构建文件的目录
