@@ -1,6 +1,5 @@
 .DS_Store
 node_modules
-/dist
 
 # local env files
 .env.local
@@ -21,7 +20,6 @@ yarn-error.log*
 *.sw*
 
 # framework
-/dist/
 /dist_docs/
 /test/unit/coverage/
 /src/base/

@@ -2,7 +2,6 @@
 /web/node_modules
 /server/node_modules
 /server/db
-/web/dist
 /web/public/output
 
 # local env files
@@ -24,7 +23,6 @@ yarn-error.log*
 *.sw*
 
 # framework
-/web/dist/
 /web/dist_docs/
 /web/test/unit/coverage/
 /web/src/base/
