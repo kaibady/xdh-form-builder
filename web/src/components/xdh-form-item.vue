@@ -36,6 +36,15 @@
   import Rate from './items/rate'
   import Slider from './items/slider'
 
+  function normalOptions(options = []) {
+    return options.map(o => {
+      return typeof o === 'object' ? o : {
+        label: o,
+        value: o
+      }
+    })
+  }
+
   const components = {
     text: Text,
     select: Select,
@@ -95,7 +104,7 @@
     },
     data() {
       return {
-        optionsList: this.options
+        optionsList: normalOptions(this.options)
       }
     },
     computed: {
@@ -129,6 +138,14 @@
       },
       labelWidth() {
         this.setContentWidth(this.contentEl)
+      },
+      options(val) {
+        // 字典优先
+        if (this.dict) return
+        this.optionsList = normalOptions(val)
+      },
+      dict() {
+        this.loadOptions()
       }
     },
     methods: {
@@ -192,7 +209,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

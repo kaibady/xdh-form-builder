@@ -17,8 +17,12 @@ export default {
       ]
     },
     {
-      path: '/test',
-      component: _import('test')
+      path: '/preview/:id',
+      component: _import('preview')
+    },
+    {
+      path: '/file/:id',
+      component: _import('file')
     },
     {
       path: '*',

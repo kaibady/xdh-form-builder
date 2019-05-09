@@ -2,7 +2,10 @@ export default [
   {
     label: '字段名',
     type: 'text',
-    prop: 'prop'
+    prop: 'prop',
+    rules: [
+      {required: true}
+    ]
   },
   {
     label: '标签文本',

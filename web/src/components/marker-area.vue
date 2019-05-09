@@ -81,7 +81,7 @@
       }
     },
     mounted() {
-      this.sortable = new Sortable(this.$refs.form.$el, {
+      this.sortable = new Sortable(this.$refs.form.$refs.body, {
         animation: 200,
         onStart: () => {
           this.dragging = true
@@ -107,22 +107,26 @@
   @import "../style/vars";
 
   .container {
-    .xdh-form-divider.is-helper {
-      /deep/ {
-        .xdh-form-item__body {
-          display: block;
-          top: -16px;
+    .xdh-form-divider {
+      cursor: move;
+
+      &.is-helper {
+        /deep/ {
+          .xdh-form-item__body {
+            display: block;
+            top: -16px;
+          }
         }
       }
-    }
 
-    .xdh-form-divider.is-select {
-      /deep/ {
-        .xdh-form-item__body {
-          border: 3px dotted $--color-warning;
-          background: rgba(230, 162, 60, 0.2);
-          display: block;
-          top: -16px;
+      &.is-select {
+        /deep/ {
+          .xdh-form-item__body {
+            border: 3px dotted $--color-warning;
+            background: rgba(230, 162, 60, 0.2);
+            display: block;
+            top: -16px;
+          }
         }
       }
     }

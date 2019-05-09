@@ -1,7 +1,8 @@
 <template>
   <el-form ref="form" v-bind="$attrs" class="xdh-form" :class="formClasses" :model="currentModel">
-    <slot></slot>
-
+    <div class="xdh-form__body" ref="body">
+      <slot></slot>
+    </div>
     <el-form-item v-if="footer" class="xdh-form__footer" :class="footerClasses" :label="footerAlignLabel">
       <slot name="footer" v-if="footer">
         <el-button v-if="submitText" type="primary" @click="submit" :size="footerSize">{{submitText}}</el-button>

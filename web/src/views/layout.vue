@@ -7,8 +7,8 @@
       <div class="tool" v-if="showOp">
         <el-button round size="small" @click="handleBack">返回</el-button>
         <el-button round size="small" type="success" @click="dialogVisible=true">设置</el-button>
-        <el-button round type="warning" size="small">预览</el-button>
-        <el-button round type="danger" size="small">导出</el-button>
+        <el-button round type="warning" size="small" @click="preview">预览</el-button>
+        <el-button round type="danger" size="small" @click="exportFile">导出</el-button>
       </div>
     </xdh-header>
     <router-view></router-view>
@@ -55,6 +55,14 @@
     methods: {
       handleBack() {
         this.$router.push('/')
+      },
+      preview() {
+        const id = this.$route.params.id
+        this.$router.push(`/preview/${id}`)
+      },
+      exportFile() {
+        const id = this.$route.params.id
+        this.$router.push(`/file/${id}`)
       }
     }
   }
