@@ -54,10 +54,16 @@
 <style lang="scss" scoped>
   @import "../style/vars";
 
-  .body {
-    padding: 15px;
+  .xdh-layout {
     background: $--background-color-base;
-    height: calc(100% - 30px);
+  }
+
+  .body {
+    padding: 10px;
+    margin: 10px;
+    background: $--color-white;
+    height: calc(100% - 20px);
+    box-sizing: border-box;
   }
 
   .container {

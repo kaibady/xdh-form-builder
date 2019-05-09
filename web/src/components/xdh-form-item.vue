@@ -24,17 +24,17 @@
 </template>
 
 <script>
-  import Divider from './items/divider'
-  import Text from './items/text'
-  import Select from './items/select'
-  import Radio from './items/radio'
-  import Checkbox from './items/checkbox'
-  import Cascader from './items/cascader'
-  import Date from './items/date'
+  import divider from './items/divider'
+  import text from './items/text'
+  import select from './items/select'
+  import radio from './items/radio'
+  import checkbox from './items/checkbox'
+  import cascader from './items/cascader'
+  import date from './items/date'
   import Switch from './items/switch'
-  import InputNumber from './items/inputNumber'
-  import Rate from './items/rate'
-  import Slider from './items/slider'
+  import number from './items/number'
+  import rate from './items/rate'
+  import slider from './items/slider'
 
   function normalOptions(options = []) {
     return options.map(o => {
@@ -46,17 +46,17 @@
   }
 
   const components = {
-    text: Text,
-    select: Select,
-    radio: Radio,
-    checkbox: Checkbox,
-    cascader: Cascader,
-    date: Date,
     switch: Switch,
-    divider: Divider,
-    inputNumber: InputNumber,
-    rate: Rate,
-    slider: Slider
+    text,
+    select,
+    radio,
+    checkbox,
+    cascader,
+    date,
+    divider,
+    number,
+    rate,
+    slider
   }
 
   export default {

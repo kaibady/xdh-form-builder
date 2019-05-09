@@ -4,7 +4,8 @@
   "description": "#### Description 可视化自定义表单工具",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "node ./server/app.js",
+    "dev":"npm run server & cd web && node node_modules/@vue/cli-service/bin/vue-cli-service.js serve --open"
   },
   "repository": {
     "type": "git",

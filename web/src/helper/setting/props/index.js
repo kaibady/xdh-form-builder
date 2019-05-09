@@ -6,7 +6,7 @@ import select from './select'
 import date from './date'
 import cascader from './cascader'
 import divider from './divider'
-import inputNumber from './input-number'
+import number from './number'
 import rate from './rate'
 import slider from './slider'
 
@@ -68,7 +68,7 @@ export default {
   date: getConfig(date),
   cascader: getConfig(cascader),
   divider: getConfig(divider),
-  inputNumber: getConfig(inputNumber),
+  number: getConfig(number),
   rate: getConfig(rate),
   slider: getConfig(slider)
 }

@@ -42,8 +42,8 @@ export default [
     value: []
   },
   {
-    type: 'inputNumber',
-    title: '计数器',
+    type: 'number',
+    title: '数字',
     props: {}
   },
   {

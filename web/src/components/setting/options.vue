@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" v-if="isShow">
     <table class="table" cellpadding="0" cellspacing="0" border="0">
       <tr>
         <th width="40">#</th>
@@ -41,6 +41,9 @@
       </xdh-form>
     </el-dialog>
   </div>
+  <div class="wrapper" v-else>
+    该组件无选项数据
+  </div>
 </template>
 
 <script>
@@ -77,6 +80,9 @@
       }
     },
     computed: {
+      isShow() {
+        return this.$store.state.editField.type !== 'divider'
+      },
       options: {
         get() {
           return this.$store.state.editField.options || []
