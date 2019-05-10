@@ -84,11 +84,15 @@ const formFields = [
     label: '底部对齐',
     prop: 'footerAlign',
     type: 'radio',
-    value: 'right',
+    value: 'label',
     props: {
       button: true
     },
     options: [
+      {
+        label: 'label',
+        value: 'label'
+      },
       {
         label: 'left',
         value: 'left'

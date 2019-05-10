@@ -1,5 +1,5 @@
 <template>
-  <div class="box" :data-item-index="index" v-draggable="{clone: true, revert: true, group:'item'}">
+  <div class="box" v-draggable="{data:data, clone: true, revert: true, group:'item'}">
     {{data.title}}
   </div>
 </template>

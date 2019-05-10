@@ -109,8 +109,8 @@
       },
       currentModel: {
         deep: true,
-        handler() {
-          this.$emit('change', this.currentModel)
+        handler(val, old) {
+          this.$emit('change', val, old)
         }
       }
     },
@@ -146,7 +146,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-</style>

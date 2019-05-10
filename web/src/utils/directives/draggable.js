@@ -53,16 +53,16 @@ const noop = function () {
  * @property {function} [onDrag] 正在拖拽时回调
  */
 const defaultOptions = {
-
+  
   // 拖拽句柄元素选择器
   handle: null,
-
+  
   // 限制拖拽方向可选: v 垂直、h 水平，默认不限制
   axis: null,
-
+  
   // 延时开始拖拽
   delay: 100,
-
+  
   // 限制拖拽范围
   range: {
     left: -10000,
@@ -72,28 +72,31 @@ const defaultOptions = {
   },
   // 在元素范围内
   target: null,
-
+  
   // 克隆拖拽，boolean 或 function
   clone: false,
-
+  
   // 拖拽放置后动画返回原来位置，clone不为false时才有效
   revert: true,
-
+  
   // 分组名称， 与droppable配合使用
   group: null,
-
+  
   // 是否禁用拖拽
   disabled: false,
-
+  
   // 克隆的元素是否加到body下
   appendToBody: false,
-
+  
+  // 附加数据
+  data: null,
+  
   // 开始拖拽时回调
   onStartDrag: noop,
-
+  
   // 结束拖拽时回调
   onStopDrag: noop,
-
+  
   // 正在拖拽时回调
   onDrag: noop
 }
@@ -124,7 +127,7 @@ class Draggable extends Events {
     this.el = el
     this.init(options)
   }
-
+  
   /**
    * 初始化返回, 实例化时调用
    * @private
@@ -138,7 +141,7 @@ class Draggable extends Events {
     this.options = Object.assign({},
       defaultOptions,
       options === false ? {disabled: true} : options || {})
-
+    
     let o = this.options
     this.handle = o.handle ? (this.el.querySelector(o.handle) || this.el) : this.el
     if (!o.disabled) {
@@ -148,7 +151,7 @@ class Draggable extends Events {
     }
     this.setRange()
   }
-
+  
   /**
    *  设置拖拽范围
    *  @private
@@ -168,7 +171,7 @@ class Draggable extends Events {
       }
     }
   }
-
+  
   /**
    *  当选项参数改变时调用，更新组件
    * @param {object} [options] 参数选项, 参考：[defaultOptions]{@link module:utils/directives/draggable~defaultOptions}
@@ -177,7 +180,7 @@ class Draggable extends Events {
     this.destroy()
     this.init(options)
   }
-
+  
   /**
    * 响应鼠标按下时事件
    * @private
@@ -189,10 +192,10 @@ class Draggable extends Events {
       this.on(this.document, 'mousemove', this.handleMouseMove)
       this.startDrag(e.clientX, e.clientY)
     }, this.options.delay)
-
+    
     this.on(this.document, 'mouseup', this.handleMouseUp)
   }
-
+  
   /**
    * 响应鼠标移动事件
    * @private
@@ -200,13 +203,13 @@ class Draggable extends Events {
    */
   handleMouseMove(e) {
     if (!this.isDragging) return
-
+    
     // 如果元素同时绑定了resizable，当resizable正在Resizing时，不进行拖拽
     if (this.el.__resizable__ && this.el.__resizable__.isResizing) return
-
+    
     this.drag(e.clientX, e.clientY)
   }
-
+  
   /**
    * 响应鼠标松开时事件
    * @private
@@ -220,7 +223,7 @@ class Draggable extends Events {
     }
     this.off(this.document, 'mouseup', this.handleMouseUp)
   }
-
+  
   /**
    * 为了防止拖拽过程中鼠标选中了页面的文字导致 mouseup 事件不被触发，在开始拖拽时禁止页面选择文字，在停止拖拽后再恢复
    * @private
@@ -231,7 +234,7 @@ class Draggable extends Events {
       ? addClass(this.document.body, USER_SELECT_NONE)
       : removeClass(this.document.body, USER_SELECT_NONE)
   }
-
+  
   /**
    * 创建拖拽代理，克隆拖拽的元素
    * @private
@@ -256,7 +259,7 @@ class Draggable extends Events {
     }
     return this.el
   }
-
+  
   /**
    * 删除拖拽代理
    * @private
@@ -276,7 +279,7 @@ class Draggable extends Events {
       }
     }
   }
-
+  
   /**
    * 拖拽代理动画结束时销毁事件句柄，释放内存
    * @private
@@ -289,7 +292,7 @@ class Draggable extends Events {
       this.dragProxy = null
     }
   }
-
+  
   /**
    * 开始拖拽
    * @private
@@ -312,7 +315,8 @@ class Draggable extends Events {
       width: width,
       height: height,
       offsetWidth: pageX - left,
-      offsetHeight: pageY - top
+      offsetHeight: pageY - top,
+      data: this.options.data
     }
     /**
      * 开始拖拽时回调
@@ -328,7 +332,7 @@ class Draggable extends Events {
      */
     this.droppables = this.getDroppables()
   }
-
+  
   /**
    * 获取当前页面可放置的droppable
    * @private
@@ -352,7 +356,7 @@ class Draggable extends Events {
       return false
     })
   }
-
+  
   /**
    * 判断拖拽的元素是否在可拖拽范围内
    * @private
@@ -367,7 +371,7 @@ class Draggable extends Events {
       y > rect.top &&
       y < rect.top + rect.height
   }
-
+  
   /**
    * 检查位置坐标的位置能否放置，能放置，返回可放置元素数组
    * @private
@@ -403,7 +407,7 @@ class Draggable extends Events {
       return isMatch
     })
   }
-
+  
   /**
    * 获取可拖拽范围
    * @private
@@ -433,7 +437,7 @@ class Draggable extends Events {
     }
     return offset
   }
-
+  
   /**
    * 拖拽
    * @private
@@ -461,7 +465,7 @@ class Draggable extends Events {
     this.checkDroppable(pageX, pageY)
     this.options.onDrag(this.dragData)
   }
-
+  
   /**
    * 拖拽实时修改元素位置
    * @private
@@ -471,7 +475,7 @@ class Draggable extends Events {
     setStyle(this.dragProxy, 'left', `${data.left}px`)
     setStyle(this.dragProxy, 'top', `${data.top}px`)
   }
-
+  
   /**
    * 拖拽结束
    * @param pageX
@@ -483,14 +487,14 @@ class Draggable extends Events {
     this.setBodySelect()
     this.options.onStopDrag(this.dragData)
     removeClass(this.el, DRAGGING_CLASS)
-
+    
     const metches = this.checkDroppable(pageX, pageY)
     metches.length ? this.handleAnimationEnd() : this.removeProxy()
     metches.forEach(node => {
       node.entered && node.__droppable__.$emit('drop', this, metches)
     })
   }
-
+  
   /**
    * 销毁，释放内存
    */

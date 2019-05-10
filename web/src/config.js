@@ -8,7 +8,7 @@ export const DE_BUG = false
 export const AJAX_SUCCESS = 0
 
 // 请求地址前缀
-export const API_HOST = staticConfig['API_HOST'] || 'http://127.0.0.1:8080'
+export const API_HOST = staticConfig['API_HOST'] || 'http://127.0.0.1:3000'
 
 
 // 规范标准请求参数名称对照表, 可以按需设置

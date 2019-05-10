@@ -58,11 +58,13 @@
       },
       preview() {
         const id = this.$route.params.id
-        this.$router.push(`/preview/${id}`)
+        const path = location.pathname
+        window.open(`${path}#/preview/${id}`)
       },
       exportFile() {
         const id = this.$route.params.id
-        this.$router.push(`/file/${id}`)
+        const path = location.pathname
+        window.open(`${path}#/file/${id}`)
       }
     }
   }
@@ -74,7 +76,7 @@
 
     /deep/ {
       .el-dialog__body {
-        padding: 0;
+        padding: 10px;
       }
     }
   }

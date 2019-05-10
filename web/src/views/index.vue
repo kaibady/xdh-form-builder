@@ -6,37 +6,54 @@
               :gutter="20"
               :split="false"
               justify="space-between">
-      <el-card class="box-card" :class="{add:item.isAdd}" shadow="hover" slot-scope="{item}" :body-style="{padding:0}">
+      <el-card class="box-card"
+               :class="{add:item.isAdd}"
+               shadow="hover"
+               slot-scope="{item, index}"
+               :body-style="{padding:0}"
+               @click.native.stop="handleClick(item)">
         <i class="el-icon-plus" v-if="item.isAdd"></i>
         {{item.title}}
         <div class="action" v-if="!item.isAdd">
-          <i class="el-icon-edit" @click="edit(item)"></i>
-          <i class="el-icon-delete"></i>
+          <i class="el-icon-edit" @click.stop="handleEdit(item)"></i>
+          <i class="el-icon-delete" @click.stop="handleRemove(item, index)"></i>
         </div>
       </el-card>
     </xdh-list>
+    <el-dialog
+      title="新建/编辑表单"
+      :visible.sync="dialogVisible"
+      width="500px">
+      <xdh-form ref="form"
+                footer-align="right"
+                label-width="60px"
+                class="form"
+                @submit="handleSubmit"
+                :footer-border="false"
+                :model="editItem">
+        <xdh-form-item prop="title" label="名称" :rules="{required:true}"></xdh-form-item>
+      </xdh-form>
+    </el-dialog>
   </div>
 </template>
 
 <script>
   import XdhList from '@/widgets/xdh-list'
+  import XdhForm from '@/components/xdh-form'
+  import XdhFormItem from '@/components/xdh-form-item'
+  import FormMixin from '@/base/mixin/forms'
 
   export default {
+    mixins: [FormMixin],
     components: {
-      XdhList
+      XdhList,
+      XdhForm,
+      XdhFormItem
     },
     data() {
       return {
-        list: [
-          {
-            id: 1,
-            title: '表单名称'
-          },
-          {
-            id: 2,
-            title: '表单名称'
-          }
-        ]
+        dialogVisible: false,
+        editItem: null
       }
     },
     computed: {
@@ -46,14 +63,50 @@
             id: 0,
             isAdd: true
           },
-          ...this.list
+          ...this.forms.list
         ]
       }
     },
     methods: {
-      edit(item) {
-        this.$router.push(`/marker/${item.id}`)
+      refresh() {
+        this.fetchForms()
+      },
+      handleEdit(item) {
+        this.editItem = item
+        this.dialogVisible = true
+      },
+      handleRemove(item, index) {
+        this.$confirm('确认删除？', '提示').then(r => {
+          this.removeForms(item._id, null, index - 1)
+        })
+      },
+      handleClick(item) {
+        if (item.isAdd) {
+          this.dialogVisible = true
+        } else {
+          this.$router.push(`/marker/${item._id}`)
+        }
+      },
+      handleSubmit(model) {
+        if (this.editItem) {
+          this.updateForms(model).then(r => {
+            this.editItem = null
+            this.$refs.form.reset()
+            this.dialogVisible = false
+            this.refresh()
+          })
+        } else {
+          this.addForms(model).then(r => {
+            this.$refs.form.reset()
+            this.dialogVisible = false
+            this.refresh()
+          })
+        }
+
       }
+    },
+    created() {
+      this.refresh()
     }
   }
 </script>
@@ -66,6 +119,10 @@
 
   }
 
+  .form {
+    margin: 15px;
+  }
+
   .box-card {
     height: 200px;
     min-width: 120px;
@@ -75,6 +132,7 @@
     background: $--color-primary-light-9;
     color: $--color-text-primary;
     position: relative;
+    cursor: pointer;
 
     &.add {
       line-height: 230px;

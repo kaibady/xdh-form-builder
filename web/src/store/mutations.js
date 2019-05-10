@@ -27,6 +27,15 @@ export default {
     state.formModel = payload
   },
   /**
+   * 初始化表单字段
+   * @param state
+   * @param payload
+   */
+  setFields(state, payload) {
+    state.fields = payload
+  },
+  
+  /**
    * 设计区新增表单项组件
    * @param state
    * @param field

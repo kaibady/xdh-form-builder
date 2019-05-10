@@ -10,6 +10,7 @@
   import 'highlight.js/styles/darcula.css'
   import render from '@/helper/setting/template'
   import {mapState} from 'vuex'
+  import FormMixin from '@/base/mixin/forms'
 
   function stringify(json) {
     let str = JSON.stringify(json, null, 2)
@@ -17,6 +18,7 @@
   }
 
   export default {
+    mixins: [FormMixin],
     data() {
       return {
         code: null
@@ -25,15 +27,27 @@
     computed: {
       ...mapState(['fields', 'formModel'])
     },
-    mounted() {
-      this.code = render({
-        config: stringify(this.formModel || {}),
-        fields: stringify(this.fields || [])
-      })
-      this.$nextTick(() => {
-        hljs.highlightBlock(this.$refs.code)
-      })
-
+    methods: {
+      renderCode() {
+        this.code = render({
+          config: stringify(this.formModel || {}),
+          fields: stringify(this.fields || [])
+        })
+        this.$nextTick(() => {
+          hljs.highlightBlock(this.$refs.code)
+        })
+      }
+    },
+    created() {
+      const id = this.$route.params.id
+      if (id) {
+        this.getForms(id).then(res => {
+          // 表单配置
+          this.$store.commit('setFormModel', res.config || {})
+          this.$store.commit('setFields', res.fields || [])
+          this.renderCode()
+        })
+      }
     }
   }
 </script>

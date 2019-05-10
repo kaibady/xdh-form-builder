@@ -61,9 +61,15 @@ export default [
   {
     type: 'divider',
     title: '分隔线',
+    helper: true,
     props: {
       content: '分割线'
     }
+  },
+  {
+    type: 'group',
+    title: '分组',
+    helper: true
   }
 ]
 

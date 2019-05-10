@@ -19,8 +19,11 @@
   import MarkerArea from '../components/marker-area'
   import formSetting from '@/helper/setting/form'
   import propsLib from '@/helper/setting/props'
+  import FormsMixin from '@/base/mixin/forms'
+  import {mapState} from 'vuex'
 
   export default {
+    mixins: [FormsMixin],
     components: {
       XdhLayout,
       ComponentList,
@@ -42,10 +45,38 @@
         model: null
       }
     },
-    methods: {},
+    computed: {
+      ...mapState({
+        form: state => state.formModel,
+        fields: state => state.fields
+      })
+    },
+    watch: {
+      form() {
+        this.save()
+      },
+      fields() {
+        this.save()
+      }
+    },
+    methods: {
+      save() {
+        this.updateForms({
+          _id: this.$route.params.id,
+          config: this.form,
+          fields: this.fields
+        })
+      }
+    },
     created() {
-      // todo 发请求获取数据
-      this.$store.commit('setFormModel', formSetting.model)
+      const id = this.$route.params.id
+      if (id) {
+        this.getForms(id).then(res => {
+          // 表单配置
+          this.$store.commit('setFormModel', res.config || formSetting.model)
+          this.$store.commit('setFields', res.fields || [])
+        })
+      }
       this.$store.commit('setProps', propsLib)
     }
   }

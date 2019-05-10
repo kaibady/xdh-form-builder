@@ -1,18 +1,20 @@
 <template>
   <div class="container" v-droppable="{accept:'item',onDrop:handleDrop}" @dblclick="handleDblClick">
     <xdh-form v-bind="form" :model="model" ref="form">
-      <xdh-form-item v-for="item in fields"
-                     :key="item.prop"
-                     v-bind="item"
-                     :class="{'is-helper':showHelper===item, 'is-select':editField===item}"
-                     @mouseenter.native="handleMouseEnter(item)"
-                     @mouseleave.native="handleMouseLeave(item)">
+      <component v-for="item in fields"
+                 :is="`xdh-form-${item.type==='group'?'group':'item'}`"
+                 :key="item.prop"
+                 v-bind="item"
+                 :class="{'is-helper':showHelper===item, 'is-select':editField===item}"
+                 @mouseenter.native="handleMouseEnter(item)"
+                 @mouseleave.native="handleMouseLeave(item)">
+
         <div class="mask" slot="body" @click.stop="handleEditItem(item)">
           <div class="handle-btns">
             <i class="el-icon-delete" @click.stop="removeItem(item)"></i>
           </div>
         </div>
-      </xdh-form-item>
+      </component>
     </xdh-form>
   </div>
 </template>
@@ -22,13 +24,14 @@
   import Droppable from '@/utils/directives/droppable'
   import XdhForm from '../components/xdh-form'
   import XdhFormItem from '../components/xdh-form-item'
-  import components from '../helper/setting/components'
+  import XdhFormGroup from '../components/xdh-form-group'
   import Sortable from 'sortablejs'
 
   export default {
     components: {
       XdhForm,
-      XdhFormItem
+      XdhFormItem,
+      XdhFormGroup
     },
     directives: {
       Droppable
@@ -49,8 +52,7 @@
     },
     methods: {
       handleDrop(e) {
-        const index = Number.parseInt(e.el.dataset['itemIndex'])
-        const item = components[index]
+        const item = e.options.data
         if (item) {
           const defaultName = `${item.type}_${new Date().getTime()}`
           const newItem = {
