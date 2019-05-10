@@ -37,7 +37,7 @@ export function save(key, value, storage = SESSION) {
 export function get(key, storage = SESSION) {
   let info = storage.getItem(key)
   if (info) {
-    const regex = /^\{[\W\w]*\}$/
+    const regex = /^(\{|\[)[\W\w]*(\}|\])$/
     return regex.test(info) ? JSON.parse(info) : info
   }
   return null

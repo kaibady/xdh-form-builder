@@ -11,6 +11,8 @@
   import render from '@/helper/setting/template'
   import {mapState} from 'vuex'
   import FormMixin from '@/base/mixin/forms'
+  import {LOCAL_STORAGE} from '@/config'
+  import {getForms} from '@/helper/storage'
 
   function stringify(json) {
     let str = JSON.stringify(json, null, 2)
@@ -41,12 +43,19 @@
     created() {
       const id = this.$route.params.id
       if (id) {
-        this.getForms(id).then(res => {
-          // 表单配置
+        if (LOCAL_STORAGE) {
+          const res = getForms(id)
           this.$store.commit('setFormModel', res.config || {})
           this.$store.commit('setFields', res.fields || [])
           this.renderCode()
-        })
+        } else {
+          this.getForms(id).then(res => {
+            // 表单配置
+            this.$store.commit('setFormModel', res.config || {})
+            this.$store.commit('setFields', res.fields || [])
+            this.renderCode()
+          })
+        }
       }
     }
   }

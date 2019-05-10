@@ -42,6 +42,8 @@
   import XdhForm from '@/components/xdh-form'
   import XdhFormItem from '@/components/xdh-form-item'
   import FormMixin from '@/base/mixin/forms'
+  import {LOCAL_STORAGE} from '@/config'
+  import {fetchForms, addForms, updateForms, removeForms} from '@/helper/storage'
 
   export default {
     mixins: [FormMixin],
@@ -69,7 +71,12 @@
     },
     methods: {
       refresh() {
-        this.fetchForms()
+        if (LOCAL_STORAGE) {
+          this.forms.list = fetchForms()
+          console.log(this.forms.list)
+        } else {
+          this.fetchForms()
+        }
       },
       handleEdit(item) {
         this.editItem = item
@@ -77,7 +84,12 @@
       },
       handleRemove(item, index) {
         this.$confirm('确认删除？', '提示').then(r => {
-          this.removeForms(item._id, null, index - 1)
+          if (LOCAL_STORAGE) {
+            removeForms(item._id)
+            this.refresh()
+          } else {
+            this.removeForms(item._id, null, index - 1)
+          }
         })
       },
       handleClick(item) {
@@ -89,18 +101,33 @@
       },
       handleSubmit(model) {
         if (this.editItem) {
-          this.updateForms(model).then(r => {
+          if (LOCAL_STORAGE) {
+            updateForms(model._id, model)
             this.editItem = null
             this.$refs.form.reset()
             this.dialogVisible = false
             this.refresh()
-          })
+          } else {
+            this.updateForms(model).then(r => {
+              this.editItem = null
+              this.$refs.form.reset()
+              this.dialogVisible = false
+              this.refresh()
+            })
+          }
         } else {
-          this.addForms(model).then(r => {
+          if (LOCAL_STORAGE) {
+            addForms(model)
             this.$refs.form.reset()
             this.dialogVisible = false
             this.refresh()
-          })
+          } else {
+            this.addForms(model).then(r => {
+              this.$refs.form.reset()
+              this.dialogVisible = false
+              this.refresh()
+            })
+          }
         }
 
       }

@@ -10,6 +10,8 @@ export const AJAX_SUCCESS = 0
 // 请求地址前缀
 export const API_HOST = staticConfig['API_HOST'] || 'http://127.0.0.1:3000'
 
+export const LOCAL_STORAGE = true
+
 
 // 规范标准请求参数名称对照表, 可以按需设置
 export const STANDARD_WORD_MAP = {

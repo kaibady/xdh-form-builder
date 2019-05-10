@@ -21,6 +21,8 @@
   import propsLib from '@/helper/setting/props'
   import FormsMixin from '@/base/mixin/forms'
   import {mapState} from 'vuex'
+  import {LOCAL_STORAGE} from '@/config'
+  import {getForms, updateForms} from '@/helper/storage'
 
   export default {
     mixins: [FormsMixin],
@@ -61,25 +63,40 @@
     },
     methods: {
       save() {
-        this.updateForms({
-          _id: this.$route.params.id,
-          config: this.form,
-          fields: this.fields
-        }).catch(e => {
-          console.log(e.message)
-        })
+        if (LOCAL_STORAGE) {
+          const id = this.$route.params.id
+          updateForms(id, {
+            _id: id,
+            config: this.form,
+            fields: this.fields
+          })
+        } else {
+          this.updateForms({
+            _id: this.$route.params.id,
+            config: this.form,
+            fields: this.fields
+          }).catch(e => {
+            console.log(e.message)
+          })
+        }
       }
     },
     created() {
       const id = this.$route.params.id
       if (id) {
-        this.getForms(id).then(res => {
-          // 表单配置
-          this.$store.commit('setFormModel', res.config || formSetting.model)
-          this.$store.commit('setFields', res.fields || [])
-        }).catch(e => {
-          console.log(e.message)
-        })
+        if (LOCAL_STORAGE) {
+          const model = getForms(id)
+          this.$store.commit('setFormModel', model.config || formSetting.model)
+          this.$store.commit('setFields', model.fields || [])
+        } else {
+          this.getForms(id).then(res => {
+            // 表单配置
+            this.$store.commit('setFormModel', res.config || formSetting.model)
+            this.$store.commit('setFields', res.fields || [])
+          }).catch(e => {
+            console.log(e.message)
+          })
+        }
       }
       this.$store.commit('setProps', propsLib)
     }
