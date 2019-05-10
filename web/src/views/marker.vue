@@ -114,7 +114,7 @@
     padding: 10px;
     margin: 10px;
     background: $--color-white;
-    height: calc(100% - 20px);
+    min-height: calc(100% - 20px);
     box-sizing: border-box;
   }
 

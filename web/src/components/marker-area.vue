@@ -114,6 +114,7 @@
   @import "../style/vars";
 
   .container {
+    min-height: 600px;
     .xdh-form-divider {
       cursor: move;
 
