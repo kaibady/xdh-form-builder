@@ -47,17 +47,17 @@ const list = [
     label: '表达式'
   },
   {
-    type: 'inputNumber',
+    type: 'number',
     prop: 'min',
     label: '最小值'
   },
   {
-    type: 'inputNumber',
+    type: 'number',
     prop: 'max',
     label: '最大值'
   },
   {
-    type: 'inputNumber',
+    type: 'number',
     prop: 'len',
     label: '长度'
   }
