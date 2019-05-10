@@ -65,6 +65,8 @@
           _id: this.$route.params.id,
           config: this.form,
           fields: this.fields
+        }).catch(e => {
+          console.log(e.message)
         })
       }
     },
@@ -75,6 +77,8 @@
           // 表单配置
           this.$store.commit('setFormModel', res.config || formSetting.model)
           this.$store.commit('setFields', res.fields || [])
+        }).catch(e => {
+          console.log(e.message)
         })
       }
       this.$store.commit('setProps', propsLib)
