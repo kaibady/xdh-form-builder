@@ -2,15 +2,17 @@
   <div class="wrapper" v-if="isShow">
     <table class="table" cellpadding="0" cellspacing="0" border="0">
       <tr>
-        <th width="40">#</th>
-        <th>Label</th>
-        <th>Value</th>
+        <th width="40">id</th>
+        <th width="40">parentId</th>
+        <th>label</th>
+        <th>value</th>
         <th class="op">
           <el-button size="mini" icon="el-icon-plus" type="text" @click="handleAdd"></el-button>
         </th>
       </tr>
       <tr v-for="(item,index) in options" :key="index">
-        <td>{{index+1}}</td>
+        <td>{{item.id}}</td>
+        <td>{{item.parentId}}</td>
         <td>{{item.label}}</td>
         <td>{{item.value}}</td>
         <td class="op">
@@ -28,11 +30,12 @@
       title="选项"
       :visible.sync="dialogVisible"
       width="500px">
+      <p>树结构，需要填写id 和 parentId</p>
       <xdh-form ref="form"
                 class="form"
                 footer-align="right"
                 inline-size="medium"
-                label-width="60px"
+                label-width="80px"
                 footer-size="large"
                 @submit="handleSubmit"
                 :model="editOption"
@@ -62,8 +65,18 @@
         fields: [
           {
             type: 'text',
+            prop: 'id',
+            label: 'id'
+          },
+          {
+            type: 'text',
+            prop: 'parentId',
+            label: 'parentId'
+          },
+          {
+            type: 'text',
             prop: 'label',
-            label: 'Label',
+            label: 'label',
             rules: [{
               required: true
             }]
@@ -71,7 +84,7 @@
           {
             type: 'text',
             prop: 'value',
-            label: 'Value',
+            label: 'value',
             rules: [{
               required: true
             }]
@@ -81,7 +94,7 @@
     },
     computed: {
       isShow() {
-        return this.$store.state.editField.type !== 'divider'
+        return !!this.$store.state.editField.options
       },
       options: {
         get() {

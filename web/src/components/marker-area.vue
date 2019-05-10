@@ -4,7 +4,7 @@
       <component v-for="item in fields"
                  :is="`xdh-form-${item.type==='group'?'group':'item'}`"
                  :key="item.prop"
-                 v-bind="item"
+                 v-bind="clone(item)"
                  :class="{'is-helper':showHelper===item, 'is-select':editField===item}"
                  @mouseenter.native="handleMouseEnter(item)"
                  @mouseleave.native="handleMouseLeave(item)">
@@ -51,6 +51,9 @@
       ...mapGetters(['model'])
     },
     methods: {
+      clone(data) {
+        return JSON.parse(JSON.stringify(data))
+      },
       handleDrop(e) {
         const item = e.options.data
         if (item) {
@@ -61,6 +64,7 @@
             prop: defaultName,
             value: item.value
           }
+          delete newItem.title
           this.$store.commit('addField', newItem)
         }
       },
@@ -84,6 +88,7 @@
     },
     mounted() {
       this.sortable = new Sortable(this.$refs.form.$refs.body, {
+        group: 'component',
         animation: 200,
         onStart: () => {
           this.dragging = true

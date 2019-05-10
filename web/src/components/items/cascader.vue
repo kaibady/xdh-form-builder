@@ -1,12 +1,14 @@
 <template>
   <el-cascader
-    :options="options"
+    :options="treeOptions"
     v-bind="$attrs"
-    v-model="xdhForm.currentModel[prop]">
+    v-model="fieldValue">
   </el-cascader>
 </template>
 
 <script>
+  import {buildTree} from '@/utils/convert'
+
   export default {
     inject: ['xdhForm'],
     props: {
@@ -19,7 +21,32 @@
         default() {
           return []
         }
+      },
+      parentId: {
+        type: [Number, String],
+        default: null
       }
+    },
+    data() {
+      return {
+        fieldValue: []
+      }
+    },
+    computed: {
+      treeOptions() {
+        return buildTree(this.options, this.parentId)
+      }
+    },
+    watch: {
+      fieldValue(val) {
+        this.xdhForm.currentModel[this.prop] = val
+      },
+      'xdhForm.currentModel'(val) {
+        this.fieldValue = val[this.prop] || []
+      }
+    },
+    created() {
+      this.fieldValue = this.xdhForm.currentModel[this.prop] || []
     }
   }
 </script>

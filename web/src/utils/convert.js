@@ -76,6 +76,36 @@ export function listToTree(list, parentId, level = 0, map) {
 }
 
 /**
+ * 简单 列表转换树结构
+ * @param {Object[]} list 列表数据，约定字段名称： id/parentId/children
+ * @param {*} [parentId=null] 父节点的值
+ * @return {Array}
+ */
+export function buildTree(list = [], parentId = null) {
+  let temp = Object.create(null), tree = []
+  list.forEach(item => {
+    temp[item.id] = item
+  })
+  
+  for (let key in temp) {
+    const item = temp[key]
+    if (item.parentId === parentId) {
+      tree.push(item)
+    } else {
+      const parent = temp[item.parentId]
+      if (parent) {
+        if (!parent.children) {
+          parent.children = []
+        }
+        parent.children.push(item)
+      }
+    }
+  }
+  
+  return tree
+}
+
+/**
  * 列表数据转换成表格数结构（不建议再使用），请使用 [listToTree]{@link module:utils/convert.listToTree}
  * @deprecated
  * @param {Object[]} list 列表数组数据

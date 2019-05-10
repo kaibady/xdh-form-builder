@@ -1,5 +1,5 @@
 <template>
-  <el-checkbox-group v-bind="$attrs" v-model="xdhForm.currentModel[prop]">
+  <el-checkbox-group v-bind="$attrs" v-model="fieldValue">
     <component :is="component"
                v-for="(item,index) in options"
                :key="index"
@@ -30,6 +30,22 @@
       component() {
         return this.button ? 'el-checkbox-button' : 'el-checkbox'
       }
+    },
+    data() {
+      return {
+        fieldValue: []
+      }
+    },
+    watch: {
+      fieldValue(val) {
+        this.xdhForm.currentModel[this.prop] = val
+      },
+      'xdhForm.currentModel'(val) {
+        this.fieldValue = val[this.prop] || []
+      }
+    },
+    created() {
+      this.fieldValue = this.xdhForm.currentModel[this.prop] || []
     }
   }
 </script>

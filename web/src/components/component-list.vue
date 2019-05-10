@@ -1,5 +1,5 @@
 <template>
-  <div class="list">
+  <div class="list" ref="list">
     <el-divider content-position="left">表单域组件</el-divider>
     <xdh-grid :data="fields" direction="row" justify="flex-start" wrap="wrap">
       <div class="box-wrapper" slot-scope="{item, index}">

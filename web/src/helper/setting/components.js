@@ -1,4 +1,4 @@
-import defaultOptions from './defaultOptions'
+import {options, tree} from './defaultOptions'
 
 export default [
   {
@@ -10,13 +10,13 @@ export default [
     type: 'radio',
     title: '单选框',
     props: {},
-    options: defaultOptions
+    options: options
   },
   {
     type: 'checkbox',
     title: '多选框',
     props: {},
-    options: defaultOptions
+    options: options
   },
   {
     type: 'switch',
@@ -27,7 +27,7 @@ export default [
     type: 'select',
     title: '下拉框',
     props: {},
-    options: defaultOptions
+    options: options
   },
   {
     type: 'date',
@@ -38,7 +38,7 @@ export default [
     type: 'cascader',
     title: '级联',
     props: {},
-    options: defaultOptions,
+    options: tree,
     value: []
   },
   {
@@ -65,11 +65,6 @@ export default [
     props: {
       content: '分割线'
     }
-  },
-  {
-    type: 'group',
-    title: '分组',
-    helper: true
   }
 ]
 

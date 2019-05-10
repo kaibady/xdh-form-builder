@@ -17,6 +17,7 @@
     .el-select, .el-input, .el-cascader, .el-input-number, .el-slider, .el-rate {
       width: 100%;
       display: inline-block;
+      min-width: 100px;
     }
   }
 

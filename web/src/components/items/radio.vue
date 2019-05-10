@@ -1,5 +1,5 @@
 <template>
-  <el-radio-group v-bind="$props" v-model="xdhForm.currentModel[prop]">
+  <el-radio-group v-bind="$attrs" v-model="xdhForm.currentModel[prop]">
     <component :is="component"
                v-for="(item,index) in options"
                :key="index"
