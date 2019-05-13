@@ -21,7 +21,7 @@ export default template(`
       return {
         config: config,
         fields: fields,
-        model: null
+        model: <%=model%>
       }
     }
   }

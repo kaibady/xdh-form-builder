@@ -21,7 +21,9 @@ export default [
   {
     type: 'switch',
     title: '开关',
-    props: {}
+    props: {
+      value: false
+    }
   },
   {
     type: 'select',

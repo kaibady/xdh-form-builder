@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <xdh-form v-bind="config">
+    <xdh-form v-bind="config" :model="model">
       <xdh-form-item v-for="item in fields"
                      :key="item.prop"
                      v-bind="item"></xdh-form-item>
@@ -25,6 +25,19 @@
       return {
         config: {},
         fields: []
+      }
+    },
+    computed: {
+      model() {
+        const m = {}
+        this.fields.forEach(item => {
+          if (!item) return
+          // 分隔线组件无值
+          if (item.type !== 'divider') {
+            m[item.prop] = (item.props || {}).value || item.value
+          }
+        })
+        return m
       }
     },
     created() {

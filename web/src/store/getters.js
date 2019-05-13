@@ -24,7 +24,7 @@ export default {
       if (!item) return
       // 分隔线组件无值
       if (item.type !== 'divider') {
-        m[item.prop] = (item.props || {}).value || item.value || ''
+        m[item.prop] = (item.props || {}).value || item.value
       }
     })
     return m

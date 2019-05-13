@@ -86,6 +86,7 @@
       if (id) {
         if (LOCAL_STORAGE) {
           const model = getForms(id)
+          console.log(model)
           this.$store.commit('setFormModel', model.config || formSetting.model)
           this.$store.commit('setFields', model.fields || [])
         } else {

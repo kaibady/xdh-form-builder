@@ -73,7 +73,6 @@
       refresh() {
         if (LOCAL_STORAGE) {
           this.forms.list = fetchForms()
-          console.log(this.forms.list)
         } else {
           this.fetchForms()
         }

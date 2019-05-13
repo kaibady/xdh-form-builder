@@ -9,7 +9,7 @@
   import hljs from 'highlight.js'
   import 'highlight.js/styles/darcula.css'
   import render from '@/helper/setting/template'
-  import {mapState} from 'vuex'
+  import {mapState, mapGetters} from 'vuex'
   import FormMixin from '@/base/mixin/forms'
   import {LOCAL_STORAGE} from '@/config'
   import {getForms} from '@/helper/storage'
@@ -27,13 +27,15 @@
       }
     },
     computed: {
-      ...mapState(['fields', 'formModel'])
+      ...mapState(['fields', 'formModel']),
+      ...mapGetters(['model'])
     },
     methods: {
       renderCode() {
         this.code = render({
           config: stringify(this.formModel || {}),
-          fields: stringify(this.fields || [])
+          fields: stringify(this.fields || []),
+          model: stringify(this.model || [])
         })
         this.$nextTick(() => {
           hljs.highlightBlock(this.$refs.code)
