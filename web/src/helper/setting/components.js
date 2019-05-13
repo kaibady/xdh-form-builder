@@ -35,6 +35,11 @@ export default [
     props: {}
   },
   {
+    type: 'time',
+    title: '时间',
+    props: {}
+  },
+  {
     type: 'cascader',
     title: '级联',
     props: {},

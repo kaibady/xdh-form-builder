@@ -35,6 +35,7 @@
   import number from './items/number'
   import rate from './items/rate'
   import slider from './items/slider'
+  import time from './items/time'
 
   function normalOptions(options = []) {
     return options.map(o => {
@@ -53,6 +54,7 @@
     checkbox,
     cascader,
     date,
+    time,
     divider,
     number,
     rate,

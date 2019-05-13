@@ -4,6 +4,7 @@ import checkbox from './checkbox'
 import switchItem from './switch'
 import select from './select'
 import date from './date'
+import time from './time'
 import cascader from './cascader'
 import divider from './divider'
 import number from './number'
@@ -66,6 +67,7 @@ export default {
   switch: getConfig(switchItem),
   select: getConfig(select),
   date: getConfig(date),
+  time: getConfig(time),
   cascader: getConfig(cascader),
   divider: getConfig(divider),
   number: getConfig(number),
