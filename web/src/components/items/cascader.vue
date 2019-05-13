@@ -22,6 +22,7 @@
           return []
         }
       },
+      // 列表数据转化成树结构要用到的父级id值
       parentId: {
         type: [Number, String],
         default: null

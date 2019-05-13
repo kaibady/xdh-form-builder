@@ -1,6 +1,7 @@
 <template>
   <xdh-form :model="model" v-bind="config">
     <xdh-form-item v-for="item in fields" :key="item.prop" v-bind="item"></xdh-form-item>
+
   </xdh-form>
 </template>
 
