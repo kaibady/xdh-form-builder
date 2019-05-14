@@ -2,5 +2,6 @@ import ElCheckboxGroup from 'element-ui/lib/checkbox-group'
 
 export default {
   button: Boolean,
-  ...ElCheckboxGroup.props
+  ...ElCheckboxGroup.props,
+  value: Array
 }

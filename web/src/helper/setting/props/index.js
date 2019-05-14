@@ -61,6 +61,18 @@ function getConfig(props) {
         value: !!prop.default,
         options: prop.options
       })
+    } else if (prop.type.includes(Array)) {
+      result.push({
+        label: key,
+        prop: key,
+        type: 'select',
+        props: {
+          multiple: true,
+          filterable: true,
+          allowCreate: true,
+          defaultFirstOption: true
+        }
+      })
     }
   })
   return result
