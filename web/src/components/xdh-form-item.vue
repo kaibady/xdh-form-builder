@@ -172,9 +172,20 @@
       },
       dict() {
         this.loadOptions()
+      },
+      isShowField(val) {
+        this.$nextTick(() => {
+          val && this.init()
+        })
       }
     },
     methods: {
+      init() {
+        if (!this.isDivider && this.$el && this.$el.querySelector) {
+          this.contentEl = this.$el.querySelector('.el-form-item__content')
+          this.setContentWidth(this.contentEl)
+        }
+      },
       loadOptions() {
         // 未设置字典编码，不做任何处理
         if (!this.dict) return
@@ -229,11 +240,6 @@
       }
     },
     mounted() {
-      if (!this.isDivider && this.$el && this.$el.querySelector) {
-        this.contentEl = this.$el.querySelector('.el-form-item__content')
-        this.setContentWidth(this.contentEl)
-      }
-
       if (this.$refs.body) {
         this.$el.appendChild(this.$refs.body)
       }
