@@ -101,10 +101,11 @@
           this.dragging = false
         },
         onSort: (e) => {
+          // 添加也会触发onSort， 用个变量去来区分
           if (!isAdd) {
             this.$store.commit('sortFields', e)
-            isAdd = false
           }
+          isAdd = false
         },
         onAdd: (e) => {
           const item = e.item.__item__
@@ -248,7 +249,7 @@
 
       .el-form--inline {
         .xdh-grid__item {
-          width: 120px;
+          width: 150px;
         }
       }
 
