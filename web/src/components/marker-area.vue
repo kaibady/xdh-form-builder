@@ -52,8 +52,7 @@
       clone(data) {
         return JSON.parse(JSON.stringify(data))
       },
-      handleDrop(e) {
-        const item = e.options.data
+      handleDrop(item, index) {
         if (item) {
           const defaultName = `${item.type}_${new Date().getTime()}`
           const newItem = {
@@ -63,7 +62,7 @@
             value: item.value
           }
           delete newItem.title
-          this.$store.commit('addField', newItem)
+          this.$store.commit('addField', {field: newItem, index: index})
         }
       },
       handleMouseEnter(item) {
@@ -90,6 +89,7 @@
       }
     },
     mounted() {
+      let isAdd = false
       this.sortable = new Sortable(this.$refs.form.$refs.body, {
         group: 'component',
         animation: 200,
@@ -97,11 +97,24 @@
           this.dragging = true
           this.showHelper = null
         },
-        onEnd: () => {
+        onEnd: (e) => {
           this.dragging = false
         },
         onSort: (e) => {
-          this.$store.commit('sortFields', e)
+          if (!isAdd) {
+            this.$store.commit('sortFields', e)
+            isAdd = false
+          }
+        },
+        onAdd: (e) => {
+          const item = e.item.__item__
+          if (item) {
+            isAdd = true
+            this.handleDrop(item, e.newIndex)
+          }
+          this.$nextTick(() => {
+            e.item.parentNode.removeChild(e.item)
+          })
         }
       })
     },
@@ -219,6 +232,26 @@
     }
 
     /deep/ {
+      .xdh-grid__item {
+        display: inline-block;
+        height: 40px;
+        width: 100%;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        background: $--color-danger-light;
+
+        * {
+          display: none;
+        }
+      }
+
+      .el-form--inline {
+        .xdh-grid__item {
+          width: 120px;
+        }
+      }
+
       .xdh-form-item__body {
         display: none;
         position: absolute;

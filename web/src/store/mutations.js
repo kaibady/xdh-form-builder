@@ -40,8 +40,10 @@ export default {
    * @param state
    * @param field
    */
-  addField(state, field) {
-    state.fields.push(field)
+  addField(state, {field, index}) {
+    if (field) {
+      state.fields.splice(index, 0, field)
+    }
   },
   /**
    * 设计区删除表单项组件
@@ -69,8 +71,10 @@ export default {
    */
   sortFields(state, {newIndex, oldIndex}) {
     const item = state.fields[oldIndex]
-    state.fields.splice(oldIndex, 1)
-    state.fields.splice(newIndex, 0, item)
+    if (newIndex !== oldIndex) {
+      state.fields.splice(oldIndex, 1)
+      state.fields.splice(newIndex, 0, item)
+    }
     
   },
   /**

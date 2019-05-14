@@ -1,7 +1,7 @@
 <template>
   <div class="list" ref="list">
     <el-divider content-position="left">表单域组件</el-divider>
-    <xdh-grid :data="fields" direction="row" justify="flex-start" wrap="wrap">
+    <xdh-grid ref="fields" :data="fields" direction="row" justify="flex-start" wrap="wrap">
       <div class="box-wrapper" slot-scope="{item, index}">
         <component-item :data="item" :index="index"></component-item>
       </div>
@@ -20,6 +20,7 @@
   import XdhGrid from '@/widgets/xdh-grid'
   import ComponentItem from './component-item'
   import components from '@/helper/setting/components'
+  import Sortable from 'sortablejs'
 
   export default {
     components: {
@@ -38,6 +39,24 @@
       helpers() {
         return this.components.filter(n => !!n.helper)
       }
+    },
+    methods: {
+      createSortable(el, items) {
+        return new Sortable(el, {
+          group: {
+            name: 'component',
+            pull: 'clone'
+          },
+          animation: 150,
+          setData: (dataTransfer, dragEl) => {
+            const index = parseInt(dragEl.dataset.id)
+            dragEl.__item__ = items[index]
+          }
+        })
+      }
+    },
+    mounted() {
+      this.fieldsSortable = this.createSortable(this.$refs.fields.$el, this.fields)
     }
   }
 </script>
