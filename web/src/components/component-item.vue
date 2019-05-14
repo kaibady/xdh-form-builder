@@ -5,12 +5,7 @@
 </template>
 
 <script>
-  import Draggable from '@/utils/directives/draggable'
-
   export default {
-    directives: {
-      Draggable
-    },
     props: {
       data: [Object, Number],
       index: Number

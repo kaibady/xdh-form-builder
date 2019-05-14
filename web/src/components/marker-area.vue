@@ -1,6 +1,6 @@
 <template>
-  <div class="container" v-droppable="{accept:'item',onDrop:handleDrop}" @dblclick="handleDblClick">
-    <xdh-form v-bind="form" :model="model" design-mode ref="form">
+  <div class="container" @dblclick="handleDblClick">
+    <xdh-form class="design-form" :class="classes" v-bind="form" :model="model" design-mode ref="form">
       <xdh-form-item v-for="item in fields"
                      :key="item.prop"
                      v-bind="clone(item)"
@@ -21,7 +21,6 @@
 
 <script>
   import {mapState, mapGetters} from 'vuex'
-  import Droppable from '@/utils/directives/droppable'
   import XdhForm from '../components/xdh-form'
   import XdhFormItem from '../components/xdh-form-item'
   import Sortable from 'sortablejs'
@@ -30,9 +29,6 @@
     components: {
       XdhForm,
       XdhFormItem
-    },
-    directives: {
-      Droppable
     },
     data() {
       return {
@@ -46,7 +42,12 @@
         fields: state => state.fields,
         editField: state => state.editField
       }),
-      ...mapGetters(['model'])
+      ...mapGetters(['model']),
+      classes() {
+        return {
+          'is-empty': this.fields.length === 0
+        }
+      }
     },
     methods: {
       clone(data) {
@@ -131,7 +132,6 @@
   @import "../style/vars";
 
   .container {
-    min-height: 600px;
 
     .xdh-form-divider {
       cursor: move;
@@ -233,6 +233,16 @@
     }
 
     /deep/ {
+      .xdh-form__body {
+        padding-top: 10px;
+      }
+
+      .is-empty {
+        .xdh-form__body {
+          height: calc(100% - 100px);
+        }
+      }
+
       .xdh-grid__item {
         display: inline-block;
         height: 40px;
@@ -291,5 +301,9 @@
     }
   }
 
+  .design-form {
+    height: 100%;
+    margin-right: 10px;
+  }
 
 </style>

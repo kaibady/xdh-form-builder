@@ -113,7 +113,7 @@
   .body {
     padding: 10px;
     margin: 10px;
-    min-height: calc(100% - 20px);
+    height: calc(100% - 20px);
     box-sizing: border-box;
     background-color: $--color-white;
     background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
@@ -123,6 +123,8 @@
 
   .container {
     height: 100%;
+    overflow: auto;
+    overflow-x: hidden;
   }
 
   .west, .east {

@@ -7,7 +7,7 @@
       </div>
     </xdh-grid>
     <el-divider content-position="left">辅助组件</el-divider>
-    <xdh-grid :data="helpers" direction="row" justify="flex-start" wrap="wrap">
+    <xdh-grid ref="helpers" :data="helpers" direction="row" justify="flex-start" wrap="wrap">
       <div class="box-wrapper" slot-scope="{item, index}">
         <component-item :data="item" :index="index"></component-item>
       </div>
@@ -45,8 +45,10 @@
         return new Sortable(el, {
           group: {
             name: 'component',
-            pull: 'clone'
+            pull: 'clone',
+            put: false
           },
+          sort: false,
           animation: 150,
           setData: (dataTransfer, dragEl) => {
             const index = parseInt(dragEl.dataset.id)
@@ -57,6 +59,11 @@
     },
     mounted() {
       this.fieldsSortable = this.createSortable(this.$refs.fields.$el, this.fields)
+      this.helpersSortable = this.createSortable(this.$refs.helpers.$el, this.helpers)
+    },
+    beforeDestroy() {
+      this.fieldsSortable && this.fieldsSortable.destroy()
+      this.helpersSortable && this.helpersSortable.destroy()
     }
   }
 </script>

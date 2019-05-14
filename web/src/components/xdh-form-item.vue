@@ -229,7 +229,7 @@
       }
     },
     mounted() {
-      if (!this.isDivider) {
+      if (!this.isDivider && this.$el && this.$el.querySelector) {
         this.contentEl = this.$el.querySelector('.el-form-item__content')
         this.setContentWidth(this.contentEl)
       }

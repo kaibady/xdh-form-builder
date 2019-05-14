@@ -50,9 +50,6 @@
           ...this.$attrs
         }
       }
-    },
-    created() {
-      console.log(this.bindProps)
     }
   }
 </script>
