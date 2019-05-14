@@ -240,6 +240,8 @@
       }
     },
     mounted() {
+      this.init()
+
       if (this.$refs.body) {
         this.$el.appendChild(this.$refs.body)
       }
