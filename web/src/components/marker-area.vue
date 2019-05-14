@@ -1,20 +1,20 @@
 <template>
   <div class="container" v-droppable="{accept:'item',onDrop:handleDrop}" @dblclick="handleDblClick">
-    <xdh-form v-bind="form" :model="model" ref="form">
-      <component v-for="item in fields"
-                 :is="`xdh-form-${item.type==='group'?'group':'item'}`"
-                 :key="item.prop"
-                 v-bind="clone(item)"
-                 :class="{'is-helper':showHelper===item, 'is-select':editField===item}"
-                 @mouseenter.native="handleMouseEnter(item)"
-                 @mouseleave.native="handleMouseLeave(item)">
+    <xdh-form v-bind="form" :model="model" design-mode ref="form">
+      <xdh-form-item v-for="item in fields"
+                     :key="item.prop"
+                     v-bind="clone(item)"
+                     :class="{'is-helper':showHelper===item, 'is-select':editField===item}"
+                     @mouseenter.native="handleMouseEnter(item)"
+                     @mouseleave.native="handleMouseLeave(item)">
 
         <div class="mask" slot="body" @click.stop="handleEditItem(item)">
+          <span class="depend-info" v-show="item.depend">依赖：{{item.depend}}</span>
           <div class="handle-btns">
             <i class="el-icon-delete" @click.stop="removeItem(item)"></i>
           </div>
         </div>
-      </component>
+      </xdh-form-item>
     </xdh-form>
   </div>
 </template>
@@ -24,14 +24,12 @@
   import Droppable from '@/utils/directives/droppable'
   import XdhForm from '../components/xdh-form'
   import XdhFormItem from '../components/xdh-form-item'
-  import XdhFormGroup from '../components/xdh-form-group'
   import Sortable from 'sortablejs'
 
   export default {
     components: {
       XdhForm,
-      XdhFormItem,
-      XdhFormGroup
+      XdhFormItem
     },
     directives: {
       Droppable
@@ -79,6 +77,11 @@
         this.$store.commit('setEditField', item)
       },
       removeItem(item) {
+        const isDepend = !!this.fields.find(n => n.depend === item.prop)
+        if (isDepend) {
+          this.$message.warning('该字段被其他字段依赖，不能删除')
+          return
+        }
         this.$store.commit('setEditField', null)
         this.$store.commit('removeField', item)
       },
@@ -115,6 +118,7 @@
 
   .container {
     min-height: 600px;
+
     .xdh-form-divider {
       cursor: move;
 
@@ -124,6 +128,8 @@
             display: block;
             top: -16px;
             height: 30px;
+            border: 3px dotted $--color-success !important;
+            background: rgba(103, 194, 58, 0.2) !important;
           }
         }
       }
@@ -139,27 +145,62 @@
           }
         }
       }
+
+
     }
 
     .xdh-form-item {
       position: relative;
       cursor: move;
 
-      &.is-helper, &.is-select {
+      &.is-helper, &.is-helper.is-depend {
         /deep/ {
           .xdh-form-item__body {
             display: block;
+            border: 3px dotted $--color-success !important;
+            background: rgba(103, 194, 58, 0.2) !important;
           }
         }
       }
 
-      &.is-select {
+      &.is-select, &.is-select.is-depend {
         /deep/ {
           .xdh-form-item__body {
             display: block;
             border: 3px dotted $--color-warning;
             background: rgba(230, 162, 60, 0.2);
           }
+
+          .handle-btns {
+            display: block
+          }
+        }
+      }
+
+      &.is-depend {
+        /deep/ {
+          .xdh-form-item__body {
+            display: block;
+            border: 3px dotted $--color-info;
+            background: rgba(66, 66, 66, 0.05);
+          }
+
+          .depend-info {
+            text-align: left;
+            font-size: 12px;
+            background: rgba(66, 66, 66, 0.4);
+            color: $--color-white;
+            padding: 3px;
+            border-radius: 2px;
+            position: absolute;
+            left: 10px;
+            top: -15px;
+          }
+
+          .handle-btns {
+            display: none;
+          }
+
         }
       }
 
@@ -187,8 +228,6 @@
         left: 0;
         top: -3px;
         border-radius: $--border-radius-base;
-        border: 3px dotted $--color-success;
-        background: rgba(103, 194, 58, 0.2)
 
       }
     }

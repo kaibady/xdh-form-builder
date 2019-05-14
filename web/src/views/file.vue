@@ -31,10 +31,22 @@
       ...mapGetters(['model'])
     },
     methods: {
+      clean(data) {
+        if (Array.isArray(data)) {
+          return data.map(item => this.clean(item))
+        }
+        const obj = {}
+        Object.keys(data).forEach(key => {
+          if (data[key] !== '') {
+            obj[key] = data[key]
+          }
+        })
+        return obj
+      },
       renderCode() {
         this.code = render({
-          config: stringify(this.formModel || {}),
-          fields: stringify(this.fields || []),
+          config: stringify(this.clean(this.formModel) || {}),
+          fields: stringify(this.clean(this.fields) || []),
           model: stringify(this.model || [])
         })
         this.$nextTick(() => {

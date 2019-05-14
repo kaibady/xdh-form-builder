@@ -91,6 +91,11 @@
         validator(val) {
           return ['large', 'medium', 'small', 'mini', ''].includes(val)
         }
+      },
+      // 设计模式，仅在可视化制作工具中实用
+      designMode: {
+        type: Boolean,
+        default: false
       }
     },
     data() {

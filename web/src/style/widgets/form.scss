@@ -10,6 +10,10 @@
 
 .xdh-form {
   .xdh-form-item {
+    &.is-block {
+      display: block;
+    }
+
     &.is-custom-width {
       width: auto !important;
     }

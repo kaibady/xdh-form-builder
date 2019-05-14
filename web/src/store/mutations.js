@@ -57,7 +57,7 @@ export default {
    * @param field
    */
   updateField(state, field) {
-    const index = state.fields.findIndex(item => item === state.editField)
+    const index = state.fields.findIndex(item => item.prop === state.editField.prop)
     state.fields.splice(index, 1, field)
     state.editField = field
   },

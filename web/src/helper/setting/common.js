@@ -32,5 +32,10 @@ export default [
     label: '字典编码',
     type: 'text',
     prop: 'dict'
+  },
+  {
+    label: '独占行',
+    type: 'switch',
+    prop: 'block'
   }
 ]

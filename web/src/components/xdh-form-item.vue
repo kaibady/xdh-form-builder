@@ -4,7 +4,7 @@
       <slot name="body"></slot>
     </div>
   </component>
-  <el-form-item v-else
+  <el-form-item v-else-if="isShowField"
                 class="xdh-form-item"
                 :class="itemClasses"
                 v-bind="$attrs"
@@ -102,6 +102,19 @@
       // 内容区宽度，不指定即自适应
       contentWidth: {
         type: [Number, String]
+      },
+      // 依赖字段
+      depend: {
+        type: String
+      },
+      // 依赖字段值
+      dependValue: {
+        type: [String, Number, Boolean, Array]
+      },
+      // 是否换行block的方式展现
+      block: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -114,12 +127,20 @@
         return [
           this.xdhForm.validateMsg ? `xdh-validate--${this.xdhForm.validateMsg}` : '',
           {
-            'is-custom-width': !!this.contentWidth
+            'is-custom-width': !!this.contentWidth,
+            'is-depend': !!this.depend,
+            'is-block': this.block
           }
         ]
       },
       isDivider() {
         return this.type === 'divider'
+      },
+      isShowField() {
+        // 排除无依赖、依赖是自身或设计模式时的设置
+        if (!this.depend || this.depend === this.prop || this.xdhForm.designMode) return true
+        const dependValue = this.xdhForm.currentModel[this.depend]
+        return dependValue === this.dependValue
       }
     },
     watch: {
@@ -136,6 +157,9 @@
         this.setContentWidth(this.contentEl)
       },
       contentWidth() {
+        this.setContentWidth(this.contentEl)
+      },
+      block() {
         this.setContentWidth(this.contentEl)
       },
       labelWidth() {
@@ -169,21 +193,37 @@
           })
         }
       },
+      getLabelWidth() {
+        return Math.max(
+          Number.parseInt(this.$attrs.labelWidth || 0),
+          Number.parseInt(this.xdhForm.$attrs.labelWidth || 0),
+          0
+        )
+      },
       setContentWidth(el) {
+        if (!el) return
+
+        // 换行模式
+        if (this.block) {
+          const labelWidth = this.getLabelWidth()
+          el.style.width = `calc(100% - ${labelWidth}px)`
+          return;
+        }
         // 只对inline模式有效
-        if (!el || !this.xdhForm.$attrs.inline) return
+        if (!this.xdhForm.$attrs.inline) return
+
+        // 默认inlineSize
         if (!this.xdhForm.inlineSize) {
           el.style.width = `auto`
           return
         }
+        // 有设置 inlineSize
         const map = {
           large: 600,
           medium: 500,
           small: 300
         }
-        const labelWidth = Number.parseInt(this.$attrs.labelWidth || this.$attrs['label-width']) ||
-          Number.parseInt(this.xdhForm.$attrs.labelWidth || this.xdhForm.$attrs['label-width']) ||
-          0
+        const labelWidth = this.getLabelWidth()
         const width = Number.parseInt(this.contentWidth) || (map[this.xdhForm.inlineSize] - labelWidth)
         el.style.width = `${width}px`
       }

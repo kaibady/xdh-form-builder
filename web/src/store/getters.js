@@ -40,11 +40,55 @@ export default {
     if (state.editField.type === 'divider') {
       return []
     }
+    
+    //  公共属性设置表单的字段集合
+    let fields = [...commonFieldLib]
+    
     // 无选项的字段，不支持字典设置
     if (!state.editField.options) {
-      return commonFieldLib.filter(n => n.prop !== 'dict')
+      fields = fields.filter(n => n.prop !== 'dict')
     }
-    return commonFieldLib
+    // 计算可以依赖的字段集合
+    const canDependFields = state.fields.filter(n => n.prop !== state.editField.prop)
+    
+    // 把可依赖的字段集合构造成下拉选择框的选项
+    const options = canDependFields.map(n => {
+      return {
+        label: n.prop,
+        value: n.prop,
+        type: n.type
+      }
+    })
+    
+    fields.push({
+      label: '依赖字段',
+      type: 'select',
+      prop: 'depend',
+      options: options,
+      props: {
+        clearable: true
+      }
+    })
+    
+    // 当前编辑的字段依赖字段名称
+    const dependProp = state.editField.depend
+    if (dependProp) {
+      // 找到依赖字段的输入框类型
+      const dependType = (options.find(n => n.value === dependProp) || {type: 'text'}).type
+      // 找到对应组件的参数属性集合
+      const dependComponentFields = state.props[dependType]
+      // 从参数集合中找到value的的配置，目的是为了找到value的数据类型，根据数据类型匹配对应的输入框
+      const valueField = dependComponentFields.find(n => n.prop === 'value')
+      if (valueField) {
+        fields.push({
+          label: '依赖值',
+          prop: 'dependValue',
+          type: valueField.type
+        })
+      }
+      
+    }
+    return fields
   },
   /**
    * 扩展属性表单字段配置
@@ -66,7 +110,7 @@ export default {
     if (!getters.commonFields) return {}
     const model = {}
     getters.commonFields.forEach(item => {
-      model[item.prop] = state.editField[item.prop] || ''
+      model[item.prop] = state.editField[item.prop]
     })
     return model
   },

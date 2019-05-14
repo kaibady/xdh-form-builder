@@ -15,12 +15,19 @@ function getConfig(props) {
   const result = []
   
   Object.keys(props).forEach(key => {
-    // if (key === 'value') return
+    
     
     let prop = props[key]
+    // {}
+    // {required:true}
+    // {type: Number}
+    // {type: [Number]}
+    // [Number]
+    // Number
     if (!prop.type) {
+      const types = [Number, String, Boolean, Object, Function, Array]
       prop = {
-        type: prop
+        type: Array.isArray(prop) ? prop : (types.includes(prop) ? prop : String)
       }
     }
     prop.type = Array.isArray(prop.type) ? prop.type : [prop.type]

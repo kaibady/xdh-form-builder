@@ -30,6 +30,10 @@
           ...this.editField,
           ...model
         }))
+        if (!newField.depend) {
+          delete newField.depend
+          delete newField.dependValue
+        }
         this.$store.commit('updateField', newField)
       }
     }
