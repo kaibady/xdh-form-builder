@@ -115,6 +115,16 @@ export default {
     return model
   },
   
+  defaultValue(state, getters) {
+    const type = state.editField.type
+    const props = state.props[type] || []
+    const defaultValues = {}
+    props.forEach(n => {
+      defaultValues[n.prop] = n.value
+    })
+    return defaultValues
+  },
+  
   /**
    * 扩展属性表单实体
    * @param state
@@ -124,8 +134,9 @@ export default {
   extendModel(state, getters) {
     if (!getters.extendFields) return {}
     const model = {}
+    
     getters.extendFields.forEach(item => {
-      model[item.prop] = state.editField.props[item.prop]
+      model[item.prop] = state.editField.props[item.prop] || getters.defaultValue[item.prop]
     })
     return model
   }

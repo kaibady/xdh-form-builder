@@ -51,17 +51,17 @@ function getConfig(props) {
         label: key,
         prop: key,
         type: 'switch',
-        value: !!prop.default
+        props: {}
+        
       })
     } else if (prop.type.includes('select')) {
       result.push({
         label: key,
         prop: key,
         type: 'select',
-        value: !!prop.default,
         options: prop.options
       })
-    } else if (prop.type.includes(Array)) {
+    } else if (key === 'value' && prop.type.includes(Array)) {
       result.push({
         label: key,
         prop: key,
