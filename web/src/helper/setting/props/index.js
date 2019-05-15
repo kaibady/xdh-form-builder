@@ -11,6 +11,7 @@ import number from './number'
 import rate from './rate'
 import slider from './slider'
 import upload from './upload'
+import range from './range'
 
 function getConfig(props) {
   const result = []
@@ -93,5 +94,6 @@ export default {
   number: getConfig(number),
   rate: getConfig(rate),
   slider: getConfig(slider),
-  upload: getConfig(upload)
+  upload: getConfig(upload),
+  range: getConfig(range)
 }

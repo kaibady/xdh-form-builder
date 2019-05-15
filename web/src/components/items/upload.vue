@@ -57,20 +57,3 @@
   }
 </script>
 
-<style lang="scss">
-  @import "../../style/vars";
-
-  .xdh-form-upload {
-    line-height: 1.5em;
-
-    &__tip {
-      color: $--color-text-secondary;
-      margin-top: 7px;
-    }
-
-    .el-upload {
-      margin-right: 10px;
-    }
-  }
-</style>
-

@@ -73,6 +73,11 @@ export default [
     }
   },
   {
+    type: 'range',
+    title: '范围',
+    props: {}
+  },
+  {
     type: 'divider',
     title: '分隔线',
     helper: true,

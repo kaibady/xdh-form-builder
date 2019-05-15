@@ -115,6 +115,12 @@ export default {
     return model
   },
   
+  /**
+   * 计算默认值
+   * @param state
+   * @param getters
+   * @return {{}}
+   */
   defaultValue(state, getters) {
     if (!state.editField) return {}
     const type = state.editField.type

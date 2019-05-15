@@ -39,6 +39,7 @@
   import slider from './items/slider'
   import time from './items/time'
   import upload from './items/upload'
+  import range from './items/range'
 
   function normalOptions(options = []) {
     return options.map(o => {
@@ -62,7 +63,8 @@
     number,
     rate,
     slider,
-    upload
+    upload,
+    range
   }
 
   export default {
