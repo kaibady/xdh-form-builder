@@ -17,5 +17,6 @@ export default {
   tipText: {
     type: String,
     default: '只能上传jpg/png文件，且不超过500kb'
-  }
+  },
+  size: String
 }

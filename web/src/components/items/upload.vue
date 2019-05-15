@@ -6,11 +6,11 @@
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
       </template>
       <template v-else>
-        <el-button v-if="$attrs.autoUpload" size="small" type="primary">{{uploadText}}</el-button>
+        <el-button v-if="$attrs.autoUpload" :size="size" type="primary">{{uploadText}}</el-button>
         <slot name="trigger">
-          <el-button v-if="!$attrs.autoUpload" slot="trigger" size="small" type="primary">{{selectText}}</el-button>
+          <el-button v-if="!$attrs.autoUpload" slot="trigger" :size="size" type="primary">{{selectText}}</el-button>
         </slot>
-        <el-button v-if="!$attrs.autoUpload" size="small" type="success" @click="submitUpload">{{submitText}}
+        <el-button v-if="!$attrs.autoUpload" :size="size" type="success" @click="submitUpload">{{submitText}}
         </el-button>
       </template>
     </slot>
@@ -41,6 +41,9 @@
       tipText: {
         type: String,
         default: '只能上传jpg/png文件，且不超过500kb'
+      },
+      size: {
+        type: String
       }
     },
     methods: {
