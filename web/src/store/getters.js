@@ -116,6 +116,7 @@ export default {
   },
   
   defaultValue(state, getters) {
+    if (!state.editField) return {}
     const type = state.editField.type
     const props = state.props[type] || []
     const defaultValues = {}
@@ -136,7 +137,8 @@ export default {
     const model = {}
     
     getters.extendFields.forEach(item => {
-      model[item.prop] = state.editField.props[item.prop] || getters.defaultValue[item.prop]
+      const value = state.editField.props[item.prop]
+      model[item.prop] = typeof value === 'undefined' ? getters.defaultValue[item.prop] : value
     })
     return model
   }

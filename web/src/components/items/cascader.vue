@@ -2,6 +2,7 @@
   <el-cascader
     :options="treeOptions"
     v-bind="$attrs"
+    v-on="$listeners"
     v-model="fieldValue">
   </el-cascader>
 </template>

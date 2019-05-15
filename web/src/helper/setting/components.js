@@ -66,6 +66,13 @@ export default [
     value: 1
   },
   {
+    type: 'upload',
+    title: '上传',
+    props: {
+      action: 'https://jsonplaceholder.typicode.com/posts/'
+    }
+  },
+  {
     type: 'divider',
     title: '分隔线',
     helper: true,

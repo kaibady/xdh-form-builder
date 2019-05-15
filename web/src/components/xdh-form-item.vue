@@ -7,13 +7,15 @@
   <el-form-item v-else-if="isShowField"
                 class="xdh-form-item"
                 :class="itemClasses"
-                v-bind="$attrs"
-                v-on="$listeners">
+                v-bind="$attrs">
     <component :is="components[type]"
                :options="optionsList"
                :prop="$attrs.prop"
                v-bind="props"
-               :value="xdhForm.currentModel[$attrs.prop]"></component>
+               v-on="$listeners"
+               :value="xdhForm.currentModel[$attrs.prop]">
+      <slot name="inner"></slot>
+    </component>
     <slot></slot>
 
     <div ref="body" class="xdh-form-item__body" v-if="$slots.body">
@@ -36,6 +38,7 @@
   import rate from './items/rate'
   import slider from './items/slider'
   import time from './items/time'
+  import upload from './items/upload'
 
   function normalOptions(options = []) {
     return options.map(o => {
@@ -58,7 +61,8 @@
     divider,
     number,
     rate,
-    slider
+    slider,
+    upload
   }
 
   export default {

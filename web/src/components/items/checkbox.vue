@@ -1,5 +1,5 @@
 <template>
-  <el-checkbox-group v-bind="$attrs" v-model="fieldValue">
+  <el-checkbox-group v-bind="$attrs" v-on="$listeners" v-model="fieldValue">
     <component :is="component"
                v-for="(item,index) in options"
                :key="index"

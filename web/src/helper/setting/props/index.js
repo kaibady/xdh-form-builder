@@ -10,6 +10,7 @@ import divider from './divider'
 import number from './number'
 import rate from './rate'
 import slider from './slider'
+import upload from './upload'
 
 function getConfig(props) {
   const result = []
@@ -91,5 +92,6 @@ export default {
   divider: getConfig(divider),
   number: getConfig(number),
   rate: getConfig(rate),
-  slider: getConfig(slider)
+  slider: getConfig(slider),
+  upload: getConfig(upload)
 }

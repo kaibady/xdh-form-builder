@@ -105,7 +105,7 @@
     },
     watch: {
       model: {
-        deep: true,
+        deep: false,
         handler(val) {
           if (JSON.stringify(val) !== JSON.stringify(this.currentModel)) {
             this.currentModel = {...val}

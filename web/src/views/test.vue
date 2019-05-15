@@ -1,30 +1,36 @@
 <template>
-  <el-select
-    v-model="value"
-    multiple
-    filterable
-    allow-create
-    default-first-option
-    @change="handleChange"
-    placeholder="请选择文章标签">
-  </el-select>
+  <xdh-form>
+    <xdh-form-item v-bind="upload">
+    </xdh-form-item>
+    <!--    <xdh-form-item type="text" prop="text" @change="handleChange"></xdh-form-item>-->
+  </xdh-form>
 </template>
 
 <script>
+  import XdhForm from '@/components/xdh-form'
+  import XdhFormItem from '@/components/xdh-form-item'
+
   export default {
+    components: {
+      XdhForm,
+      XdhFormItem
+    },
     data() {
       return {
-        options: [{
-          value: 'HTML',
-          label: 'HTML'
-        }, {
-          value: 'CSS',
-          label: 'CSS'
-        }, {
-          value: 'JavaScript',
-          label: 'JavaScript'
-        }],
-        value: []
+        upload: {
+          prop: 'file',
+          type: 'upload',
+          props: {
+            action: 'https://jsonplaceholder.typicode.com/posts/',
+            autoUpload: false,
+            multiple: true,
+            onChange(res, file, list) {
+              console.log(file)
+            }
+          }
+
+
+        }
       }
     },
     methods: {

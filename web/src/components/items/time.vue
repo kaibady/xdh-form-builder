@@ -1,5 +1,5 @@
 <template>
-  <component :is="component" v-bind="bindProps" v-model="xdhForm.currentModel[prop]"></component>
+  <component :is="component" v-on="$listeners" v-bind="bindProps" v-model="xdhForm.currentModel[prop]"></component>
 </template>
 
 <script>

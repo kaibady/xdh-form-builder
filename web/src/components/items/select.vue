@@ -1,5 +1,5 @@
 <template>
-  <el-select v-bind="$attrs" v-model="xdhForm.currentModel[prop]">
+  <el-select v-bind="$attrs" v-on="$listeners" v-model="xdhForm.currentModel[prop]">
     <el-option v-for="(item, index) in options"
                :key="index"
                :label="item.label"

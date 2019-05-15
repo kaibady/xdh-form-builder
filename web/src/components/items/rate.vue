@@ -1,5 +1,5 @@
 <template>
-  <el-rate v-bind="$attrs" v-model="xdhForm.currentModel[prop]"></el-rate>
+  <el-rate v-bind="$attrs" v-on="$listeners" v-model="xdhForm.currentModel[prop]"></el-rate>
 </template>
 
 <script>

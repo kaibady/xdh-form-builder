@@ -1,5 +1,5 @@
 <template>
-  <el-input v-bind="$attrs" v-model="xdhForm.currentModel[prop]"></el-input>
+  <el-input v-bind="$attrs" v-on="$listeners" v-model="xdhForm.currentModel[prop]"></el-input>
 </template>
 
 <script>

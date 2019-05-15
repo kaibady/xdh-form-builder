@@ -1,5 +1,5 @@
 <template>
-  <el-date-picker v-bind="$attrs" v-model="xdhForm.currentModel[prop]"></el-date-picker>
+  <el-date-picker v-bind="$attrs" v-on="$listeners" v-model="xdhForm.currentModel[prop]"></el-date-picker>
 </template>
 
 <script>
