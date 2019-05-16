@@ -41,7 +41,7 @@
       }
     },
     /**
-     * 参数属性
+     * 参数属性，在支持el-form所有参数并扩展以下参数
      * @property {Object} [model] 表单初始化实体，通常用来设置表单项的默认值
      * @property {Array} [fields] 表单字段配置，配置参数参考xdh-form-item组件，该配置是用来动态创建xdh-form-item
      * @property {Object} [dictMap] 字典数据映射，格式： {'字典编码': [字典数组]}

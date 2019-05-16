@@ -83,7 +83,7 @@
     name: 'XdhFormItem',
     inject: ['xdhForm'],
     /**
-     * 属性参数
+     * 属性参数, 在支持el-form-item的基础扩展以下参数
      * @member props
      * @property {String} [type=text] 输入类型，可选 text / radio / checkbox / select / cascader / switch / date / range / color / divider
      * @property {String} [dict] 字典值编码，xdh-form需要设置 load 或 dictMap 才有效
