@@ -7,7 +7,8 @@
   <el-form-item v-else-if="isShowField"
                 class="xdh-form-item"
                 :class="itemClasses"
-                v-bind="$attrs">
+                v-bind="$attrs"
+                :rules="checkRules">
     <component :is="components[type]"
                :options="optionsList"
                :prop="$attrs.prop"
@@ -147,6 +148,16 @@
         if (!this.depend || this.depend === this.prop || this.xdhForm.designMode) return true
         const dependValue = this.xdhForm.currentModel[this.depend]
         return dependValue === this.dependValue
+      },
+      checkRules() {
+        if (!this.$attrs.rules) return null
+        const rules = Array.isArray(this.$attrs.rules) ? this.$attrs.rules : [].concat(this.$attrs.rules)
+        return rules.map(r => {
+          if (r.pattern && typeof r.pattern === 'string') {
+            r.pattern = new RegExp(r.pattern)
+          }
+          return r
+        })
       }
     },
     watch: {
@@ -247,7 +258,6 @@
     },
     mounted() {
       this.init()
-
       if (this.$refs.body) {
         this.$el.appendChild(this.$refs.body)
       }
