@@ -27,6 +27,11 @@
 </template>
 
 <script>
+  /**
+   * 表单项组件
+   * @module widgets/xdh-form-item
+   *
+   */
   import divider from './items/divider'
   import text from './items/text'
   import select from './items/select'
@@ -67,10 +72,28 @@
     upload,
     range
   }
+  /**
+   * 插槽
+   * @member slots
+   * @property {string} - 定义组件附加内容，内容在输入框的下方
+   * @property {string} inner 定义输入框内部内容
+   */
 
   export default {
     name: 'XdhFormItem',
     inject: ['xdhForm'],
+    /**
+     * 属性参数
+     * @member props
+     * @property {String} [type=text] 输入类型，可选 text / radio / checkbox / select / cascader / switch / date / range / color / divider
+     * @property {String} [dict] 字典值编码，xdh-form需要设置 load 或 dictMap 才有效
+     * @property {Array} [options] 选项数组，项目对象 {id, parentId, label, value}, 树结构必须要与id和parentId
+     * @property {Object} [props] 输入框组件实例化参数对象，详细要看对应type的组件
+     * @property {Number|String} [contentWidth] 内容区宽度，不指定即自适应
+     * @property {String} [depend] 依赖字段名称
+     * @property {*} [dependValue] 依赖字段的值，依赖字段的值如果与设置的一致即显示
+     * @property {Boolean} [block=false] 是否独占行显示
+     */
     props: {
       // ...ElFromItem.props,
       // 输入框类型：
@@ -87,7 +110,10 @@
       // divider 分隔线
       type: {
         type: String,
-        default: 'text'
+        default: 'text',
+        validator(val) {
+          return !!components[val]
+        }
       },
       // 字典值编码
       dict: String,

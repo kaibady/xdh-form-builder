@@ -2,20 +2,16 @@ import template from 'lodash/template'
 
 export default template(`
 <template>
-  <xdh-form :model="model" v-bind="config" >
-    <xdh-form-item v-for="item in fields" :key="item.prop" v-bind="item"></xdh-form-item>
-  </xdh-form>
+  <xdh-form :model="model" :fields="fields" v-bind="config" ></xdh-form>
 </template>
 
 <script>
   import XdhForm from '@/components/xdh-form'
-  import XdhFormItem from '@/components/xdh-form-item'
   const config = <%=config%>
   const fields = <%=fields%>
   export default {
     components: {
-      XdhForm,
-      XdhFormItem
+      XdhForm
     },
     data() {
       return {
