@@ -304,6 +304,7 @@
   .design-form {
     height: 100%;
     margin-right: 10px;
+    margin-left: 10px;
   }
 
 </style>
