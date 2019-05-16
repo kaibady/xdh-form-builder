@@ -4,7 +4,7 @@
     ContextmenuItem,
     ContextmenuSubmenu,
     ContextmenuGroup
-  } from 'v-contextmenu/src'
+  } from 'v-contextmenu'
   import 'v-contextmenu/dist/index.css'
 
   /**

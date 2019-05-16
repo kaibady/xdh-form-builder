@@ -64,7 +64,7 @@
 </noscript>
 <!--[if lt IE 9]>
 <script>
-  window.location.href = '<%=BASE_URL%>chrome.html'
+  window.location.href = '<%= BASE_URL %>chrome.html'
 </script>
 <![endif]-->
 <script>
@@ -80,8 +80,8 @@
   };
   (function () {
     var info = browserInfo();
-    if (info.name === 'chrome' && info.version < 50) {
-      top.location.href = '<%=BASE_URL%>chrome.html'
+    if (info.name === 'chrome' && info.version < 30) {
+      top.location.href = '<%= BASE_URL %>chrome.html'
     }
   })()
 

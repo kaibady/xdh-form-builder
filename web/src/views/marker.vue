@@ -114,6 +114,8 @@
     padding: 10px;
     margin: 10px;
     height: calc(100% - 20px);
+    width: calc(100% - 20px);
+    position: absolute;
     box-sizing: border-box;
     background-color: $--color-white;
     background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
@@ -131,6 +133,8 @@
     background: $--color-primary-light-9;
     height: 100%;
     overflow: auto;
+    position: absolute;
+    width: 100%;
   }
 
   .west {
