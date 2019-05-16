@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <xdh-form v-bind="config" :model="model" :fields="fields"></xdh-form>
+    <xdh-form v-bind="config" :model="model" :fields="fields" :load="load"></xdh-form>
   </div>
 </template>
 
@@ -9,6 +9,7 @@
   import FormMixin from '@/base/mixin/forms'
   import {LOCAL_STORAGE} from '@/config'
   import {getForms} from '@/helper/storage'
+  import {load} from '../helper/setting/dict'
 
   export default {
     mixins: [FormMixin],
@@ -18,7 +19,8 @@
     data() {
       return {
         config: {},
-        fields: []
+        fields: [],
+        load: load
       }
     },
     computed: {

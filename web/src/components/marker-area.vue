@@ -1,6 +1,12 @@
 <template>
   <div class="container" @dblclick="handleDblClick">
-    <xdh-form class="design-form" :class="classes" v-bind="form" :model="model" design-mode ref="form">
+    <xdh-form class="design-form"
+              :class="classes"
+              v-bind="form"
+              :model="model"
+              design-mode
+              :load="load"
+              ref="form">
       <xdh-form-item v-for="item in fields"
                      :key="item.prop"
                      v-bind="clone(item)"
@@ -24,6 +30,7 @@
   import XdhForm from '../components/xdh-form'
   import XdhFormItem from '../components/xdh-form-item'
   import Sortable from 'sortablejs'
+  import {load} from '../helper/setting/dict'
 
   export default {
     components: {
@@ -33,7 +40,8 @@
     data() {
       return {
         showHelper: null,
-        dragging: false
+        dragging: false,
+        load: load
       }
     },
     computed: {
