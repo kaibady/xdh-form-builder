@@ -1,4 +1,4 @@
-import text from './text'
+import input from './input'
 import radio from './radio'
 import checkbox from './checkbox'
 import switchItem from './switch'
@@ -13,6 +13,27 @@ import slider from './slider'
 import upload from './upload'
 import range from './range'
 import tag from './tag'
+import color from './color'
+
+const map = {
+  input,
+  radio,
+  checkbox,
+  switch: switchItem,
+  select,
+  date,
+  time,
+  cascader,
+  divider,
+  number,
+  rate,
+  slider,
+  upload,
+  range,
+  tag,
+  color
+}
+
 
 function getConfig(props) {
   const result = []
@@ -38,7 +59,7 @@ function getConfig(props) {
       result.push({
         label: key,
         prop: key,
-        type: 'text'
+        type: 'input'
       })
     } else if (prop.type.includes(Number)) {
       result.push({
@@ -82,20 +103,12 @@ function getConfig(props) {
 }
 
 
-export default {
-  text: getConfig(text),
-  radio: getConfig(radio),
-  checkbox: getConfig(checkbox),
-  switch: getConfig(switchItem),
-  select: getConfig(select),
-  date: getConfig(date),
-  time: getConfig(time),
-  cascader: getConfig(cascader),
-  divider: getConfig(divider),
-  number: getConfig(number),
-  rate: getConfig(rate),
-  slider: getConfig(slider),
-  upload: getConfig(upload),
-  range: getConfig(range),
-  tag: getConfig(tag)
+function transform(map) {
+  const result = {}
+  Object.keys(map).forEach(key => {
+    result[key] = getConfig(map[key])
+  })
+  return result
 }
+
+export default transform(map)

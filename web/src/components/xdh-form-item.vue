@@ -33,7 +33,7 @@
    *
    */
   import divider from './items/divider'
-  import text from './items/text'
+  import input from './items/input'
   import select from './items/select'
   import radio from './items/radio'
   import checkbox from './items/checkbox'
@@ -47,6 +47,7 @@
   import upload from './items/upload'
   import range from './items/range'
   import tag from './items/tag'
+  import color from './items/color'
 
   function normalOptions(options = []) {
     return options.map(o => {
@@ -59,7 +60,7 @@
 
   const components = {
     switch: Switch,
-    text,
+    input,
     select,
     radio,
     checkbox,
@@ -72,7 +73,8 @@
     slider,
     upload,
     range,
-    tag
+    tag,
+    color
   }
   /**
    * 插槽
@@ -87,7 +89,7 @@
     /**
      * 属性参数, 在支持el-form-item的基础扩展以下参数
      * @member props
-     * @property {String} [type=text] 输入类型，可选 text number radio checkbox select cascader switch date range color divider
+     * @property {String} [type=text] 输入类型，可选 input number radio checkbox select cascader switch date range color divider
      * @property {String} [dict] 字典值编码，xdh-form需要设置 load 或 dictMap 才有效
      * @property {Array} [options] 选项数组，项目对象 {id, parentId, label, value}, 树结构必须要与id和parentId
      * @property {Object} [props] 输入框组件实例化参数对象，详细要看对应type的组件
@@ -99,7 +101,7 @@
     props: {
       // ...ElFromItem.props,
       // 输入框类型：
-      // text 文本框，
+      // input 文本框，
       // radio 单选框，
       // checkbox 多选框，
       // select 下拉框，
@@ -110,10 +112,10 @@
       // rate 评分
       // color 颜色选择器
       // divider 分隔线
-      // todo 需要开发 tags array tree color； xdh-form-array xdh-form-object
+      // todo 需要开发 tags array tree color editor； xdh-form-array xdh-form-object xdh-form-group
       type: {
         type: String,
-        default: 'text',
+        default: 'input',
         validator(val) {
           return !!components[val]
         }

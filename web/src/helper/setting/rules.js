@@ -5,7 +5,7 @@ const list = [
     label: '必填'
   },
   {
-    type: 'text',
+    type: 'input',
     prop: 'message',
     label: '提示文本',
     rules: [
@@ -42,7 +42,7 @@ const list = [
     ]
   },
   {
-    type: 'text',
+    type: 'input',
     prop: 'pattern',
     label: '表达式'
   },

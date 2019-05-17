@@ -2,9 +2,17 @@ import {options, tree} from './defaultOptions'
 
 export default [
   {
-    type: 'text',
+    type: 'input',
     title: '文本框',
     props: {}
+  },
+  {
+    type: 'input',
+    title: '多行文本',
+    props: {
+      type: 'textarea',
+      rows: 3
+    }
   },
   {
     type: 'radio',
@@ -80,6 +88,11 @@ export default [
   {
     type: 'tag',
     title: '标签',
+    props: {}
+  },
+  {
+    type: 'color',
+    title: '颜色',
     props: {}
   },
   {

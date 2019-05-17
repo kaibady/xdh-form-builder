@@ -1,7 +1,7 @@
 export default [
   {
     label: '字段名',
-    type: 'text',
+    type: 'input',
     prop: 'prop',
     rules: [
       {required: true}
@@ -9,12 +9,12 @@ export default [
   },
   {
     label: '标签文本',
-    type: 'text',
+    type: 'input',
     prop: 'label'
   },
   {
     label: '标签宽度',
-    type: 'text',
+    type: 'input',
     prop: 'labelWidth',
     props: {
       placeholder: '单位: px'
@@ -22,7 +22,7 @@ export default [
   },
   {
     label: '内容宽度',
-    type: 'text',
+    type: 'input',
     prop: 'contentWidth',
     props: {
       placeholder: '只对内行模式生效，单位: px'
@@ -30,7 +30,7 @@ export default [
   },
   {
     label: '字典编码',
-    type: 'text',
+    type: 'input',
     prop: 'dict'
   },
   {

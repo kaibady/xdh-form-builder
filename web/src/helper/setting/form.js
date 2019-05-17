@@ -198,23 +198,23 @@ const formFields = [
   {
     label: '标签宽度',
     prop: 'labelWidth',
-    type: 'text'
+    type: 'input'
   },
   {
     label: '标签后缀',
     prop: 'labelSuffix',
-    type: 'text'
+    type: 'input'
   },
   {
     label: '提交按钮文本',
     prop: 'submitText',
-    type: 'text',
+    type: 'input',
     value: '提交'
   },
   {
     label: '重置按钮文本',
     prop: 'resetText',
-    type: 'text',
+    type: 'input',
     value: '重置'
   }
 ]
