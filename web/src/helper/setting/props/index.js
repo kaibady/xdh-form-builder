@@ -14,6 +14,7 @@ import upload from './upload'
 import range from './range'
 import tag from './tag'
 import color from './color'
+import editor from './editor'
 
 const map = {
   input,
@@ -31,7 +32,8 @@ const map = {
   upload,
   range,
   tag,
-  color
+  color,
+  editor
 }
 
 

@@ -96,6 +96,11 @@ export default [
     props: {}
   },
   {
+    type: 'editor',
+    title: '富文本',
+    props: {}
+  },
+  {
     type: 'divider',
     title: '分隔线',
     helper: true,

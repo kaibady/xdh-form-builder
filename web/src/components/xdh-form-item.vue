@@ -48,6 +48,7 @@
   import range from './items/range'
   import tag from './items/tag'
   import color from './items/color'
+  import editor from './items/editor'
 
   function normalOptions(options = []) {
     return options.map(o => {
@@ -74,7 +75,8 @@
     upload,
     range,
     tag,
-    color
+    color,
+    editor
   }
   /**
    * 插槽
