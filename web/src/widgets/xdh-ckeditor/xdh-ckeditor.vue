@@ -100,7 +100,9 @@
       reader.onerror = function (e) {
         reject(e)
       }
-      reader.readAsDataURL(loader.file)
+      loader.file.then(file => {
+        reader.readAsDataURL(file)
+      })
     })
   }
 
