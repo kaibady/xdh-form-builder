@@ -1,5 +1,11 @@
 <template>
-  <el-form ref="form" v-bind="$attrs" class="xdh-form" :class="formClasses" :model="currentModel">
+  <el-form ref="form"
+           v-bind="$attrs"
+           class="xdh-form"
+           :class="formClasses"
+           @submit.native.prevent.stop="preventSubmit"
+           @keyup.native.13="handelEnterSubmit"
+           :model="currentModel">
     <div class="xdh-form__body" ref="body">
       <slot>
         <xdh-form-item v-for="item in fields" :key="item.prop" v-bind="item"></xdh-form-item>
@@ -54,6 +60,7 @@
      * @property {String} [footerSize] 底部按钮尺寸，可选值 'large', 'medium', 'small', 'mini'
      * @property {String} [inlineSize]  inline模式的字段域宽度尺寸，可选值 'large', 'medium', 'small'
      * @property {Function} [load] 字典数据加载方法，必须返回Promise.resolve options数组
+     * @property {Boolean} [enterSubmit=true] 是否回车键提交表单
      *
      */
     props: {
@@ -129,6 +136,11 @@
           return ['large', 'medium', 'small', 'mini', ''].includes(val)
         }
       },
+      // 回车键提交表单
+      enterSubmit: {
+        type: Boolean,
+        default: true
+      },
       // 设计模式，仅在可视化制作工具中实用
       designMode: {
         type: Boolean,
@@ -142,7 +154,7 @@
     },
     watch: {
       model: {
-        deep: false,
+        deep: true,
         handler(val) {
           if (JSON.stringify(val) !== JSON.stringify(this.currentModel)) {
             this.currentModel = {...val}
@@ -204,6 +216,12 @@
         this.$refs.form.resetFields()
         this.currentModel = {...this.model}
         this.$emit('reset', this.currentModel)
+      },
+      preventSubmit() {
+        return false
+      },
+      handelEnterSubmit() {
+        this.enterSubmit && this.submit()
       }
     }
   }

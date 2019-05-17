@@ -10,12 +10,9 @@
 
 <script>
   export default {
-    inject: ['xdhForm'],
     props: {
-      // 字段名称
-      prop: {
-        type: String,
-        required: true
+      value: {
+        type: Array
       },
       options: {
         type: Array,
@@ -29,23 +26,15 @@
     computed: {
       component() {
         return this.button ? 'el-checkbox-button' : 'el-checkbox'
-      }
-    },
-    data() {
-      return {
-        fieldValue: []
-      }
-    },
-    watch: {
-      fieldValue(val) {
-        this.xdhForm.currentModel[this.prop] = val
       },
-      'xdhForm.currentModel'(val) {
-        this.fieldValue = val[this.prop] || []
+      fieldValue: {
+        get() {
+          return this.value || []
+        },
+        set(val) {
+          this.$emit('input', val)
+        }
       }
-    },
-    created() {
-      this.fieldValue = this.xdhForm.currentModel[this.prop] || []
     }
   }
 </script>

@@ -1,10 +1,22 @@
 <template>
   <div class="xdh-form-range">
-    <component :is="component" v-bind="$attrs" class="xdh-form-range__min" :style="inputStyle" v-model="fieldValue[0]"
-               :placeholder="minPlaceholder" :pickerOptions="minPickerOptions"></component>
-    <span class="xdh-form-range__separator" :style="separatorStyle">{{separator}}</span>
-    <component :is="component" v-bind="$attrs" class="xdh-form-range__max" :style="inputStyle" v-model="fieldValue[1]"
-               :placeholder="maxPlaceholder" :pickerOptions="maxPickerOptions"></component>
+    <component :is="component"
+               v-bind="$attrs"
+               class="xdh-form-range__min"
+               :style="inputStyle"
+               v-model="min"
+               :placeholder="minPlaceholder"
+               :pickerOptions="minPickerOptions"></component>
+    <span class="xdh-form-range__separator"
+          :style="separatorStyle">{{separator}}</span>
+    <component
+      :is="component"
+      v-bind="$attrs"
+      class="xdh-form-range__max"
+      :style="inputStyle"
+      v-model="max"
+      :placeholder="maxPlaceholder"
+      :pickerOptions="maxPickerOptions"></component>
   </div>
 </template>
 
@@ -17,11 +29,12 @@
     timePicker: 'el-time-picker'
   }
   export default {
-    inject: ['xdhForm'],
     props: {
-      prop: {
-        type: String,
-        required: true
+      value: {
+        type: Array,
+        default() {
+          return []
+        }
       },
       dataType: {
         type: String,
@@ -45,24 +58,25 @@
       separatorWidth: {
         type: [Number, String],
         default: 12
-      },
-      value: {
-        type: Array
       }
     },
     data() {
       return {
-        fieldValue: []
+        min: this.value[0],
+        max: this.value[1]
       }
     },
     watch: {
-      fieldValue(val) {
-        this.$emit('input', val)
+      min(val) {
+        this.$emit('input', [val, this.max])
+      },
+      max(val) {
+        this.$emit('input', [this.min, val])
       },
       value(val) {
-        this.fieldValue = val
+        this.min = val[0]
+        this.max = val[1]
       }
-
     },
     computed: {
       component() {
@@ -86,8 +100,8 @@
         return {
           ...this.$attrs.pickerOptions,
           disabledDate: date => {
-            if (!this.fieldValue[1]) return false
-            return Date.parse(this.fieldValue[1]) < date.getTime()
+            if (!this.max) return false
+            return Date.parse(this.max) < date.getTime()
           }
         }
       },
@@ -99,14 +113,11 @@
         return {
           ...this.$attrs.pickerOptions,
           disabledDate: date => {
-            if (!this.fieldValue[0]) return false
-            return Date.parse(this.fieldValue[0]) > date.getTime()
+            if (!this.min) return false
+            return Date.parse(this.min) > date.getTime()
           }
         }
       }
-    },
-    created() {
-      this.fieldValue = this.value || this.xdhForm.currentModel[this.prop] || []
     }
   }
 </script>

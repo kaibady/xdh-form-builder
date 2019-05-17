@@ -78,6 +78,11 @@ export default [
     props: {}
   },
   {
+    type: 'tag',
+    title: '标签',
+    props: {}
+  },
+  {
     type: 'divider',
     title: '分隔线',
     helper: true,

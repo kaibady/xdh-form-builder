@@ -14,7 +14,7 @@
                :prop="$attrs.prop"
                v-bind="props"
                v-on="$listeners"
-               :value="xdhForm.currentModel[$attrs.prop]">
+               v-model="xdhForm.currentModel[$attrs.prop]">
       <slot name="inner"></slot>
     </component>
     <slot></slot>
@@ -46,6 +46,7 @@
   import time from './items/time'
   import upload from './items/upload'
   import range from './items/range'
+  import tag from './items/tag'
 
   function normalOptions(options = []) {
     return options.map(o => {
@@ -70,7 +71,8 @@
     rate,
     slider,
     upload,
-    range
+    range,
+    tag
   }
   /**
    * 插槽
@@ -85,7 +87,7 @@
     /**
      * 属性参数, 在支持el-form-item的基础扩展以下参数
      * @member props
-     * @property {String} [type=text] 输入类型，可选 text / radio / checkbox / select / cascader / switch / date / range / color / divider
+     * @property {String} [type=text] 输入类型，可选 text number radio checkbox select cascader switch date range color divider
      * @property {String} [dict] 字典值编码，xdh-form需要设置 load 或 dictMap 才有效
      * @property {Array} [options] 选项数组，项目对象 {id, parentId, label, value}, 树结构必须要与id和parentId
      * @property {Object} [props] 输入框组件实例化参数对象，详细要看对应type的组件
@@ -108,6 +110,7 @@
       // rate 评分
       // color 颜色选择器
       // divider 分隔线
+      // todo 需要开发 tags array tree color； xdh-form-array xdh-form-object
       type: {
         type: String,
         default: 'text',

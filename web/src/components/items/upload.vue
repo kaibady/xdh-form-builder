@@ -22,9 +22,11 @@
   export default {
     inject: ['xdhForm'],
     props: {
-      prop: {
-        type: String,
-        required: true
+      value: {
+        type: Array,
+        default() {
+          return []
+        }
       },
       uploadText: {
         type: String,
@@ -51,7 +53,7 @@
         this.$refs.upload.submit();
       },
       handleChange(file, list) {
-        this.xdhForm.currentModel[this.prop] = list
+        this.$emit('input', list)
         if (this.$attrs.onChange) {
           this.$attrs.onChange(file, list)
         }

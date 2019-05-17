@@ -1,14 +1,13 @@
 @import "../vars";
 
 .xdh-form {
+
   &--inline {
     .el-form-item, .xdh-form-append {
       display: inline-block;
     }
   }
-}
 
-.xdh-form {
   &.el-form--label-top {
     .el-select, .el-input, .el-cascader {
       width: 100%;
@@ -82,6 +81,10 @@
     display: inline-block;
     min-width: 100px;
   }
+
+  .el-radio-group, .el-radio {
+    line-height: inherit;
+  }
 }
 
 .xdh-form-divider {
@@ -119,5 +122,27 @@
       width: calc(50% - 12px);
       min-width: 45px;
     }
+  }
+}
+
+
+.xdh-form-tag {
+  .el-tag {
+    margin-right: 10px;
+  }
+
+  &__input {
+    width: 90px !important;
+    margin-right: 10px;
+    vertical-align: bottom;
+    display: inline-block;
+    transform: translateY(2px);
+  }
+
+  &__new {
+    height: 32px;
+    line-height: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 }

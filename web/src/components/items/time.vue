@@ -1,14 +1,12 @@
 <template>
-  <component :is="component" v-on="$listeners" v-bind="bindProps" v-model="xdhForm.currentModel[prop]"></component>
+  <component :is="component" v-on="$listeners" v-bind="bindProps" v-model="fieldValue"></component>
 </template>
 
 <script>
   export default {
-    inject: ['xdhForm'],
     props: {
-      prop: {
-        type: String,
-        required: true
+      value: {
+        type: [String, Date, Array]
       },
       // 是否picker模式
       picker: Boolean,
@@ -26,6 +24,14 @@
       selectableRange: [String, Array]
     },
     computed: {
+      fieldValue: {
+        get() {
+          return this.value
+        },
+        set(val) {
+          this.$emit('input', val)
+        }
+      },
       component() {
         return this.picker ? 'el-time-picker' : 'el-time-select'
       },

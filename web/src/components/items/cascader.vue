@@ -11,12 +11,7 @@
   import {buildTree} from '@/utils/convert'
 
   export default {
-    inject: ['xdhForm'],
     props: {
-      prop: {
-        type: String,
-        required: true
-      },
       options: {
         type: Array,
         default() {
@@ -27,28 +22,29 @@
       parentId: {
         type: [Number, String],
         default: null
+      },
+      value: {
+        type: Array,
+        default() {
+          return []
+        }
       }
     },
     data() {
-      return {
-        fieldValue: []
-      }
+      return {}
     },
     computed: {
       treeOptions() {
         return buildTree(this.options, this.parentId)
-      }
-    },
-    watch: {
-      fieldValue(val) {
-        this.xdhForm.currentModel[this.prop] = val
       },
-      'xdhForm.currentModel'(val) {
-        this.fieldValue = val[this.prop] || []
+      fieldValue: {
+        get() {
+          return this.value
+        },
+        set(val) {
+          this.$emit('input', val)
+        }
       }
-    },
-    created() {
-      this.fieldValue = this.xdhForm.currentModel[this.prop] || []
     }
   }
 </script>

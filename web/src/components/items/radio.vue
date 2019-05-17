@@ -1,5 +1,5 @@
 <template>
-  <el-radio-group v-bind="$attrs" v-on="$listeners" v-model="xdhForm.currentModel[prop]">
+  <el-radio-group v-bind="$attrs" v-on="$listeners" v-model="fieldValue">
     <component :is="component"
                v-for="(item,index) in options"
                :key="index"
@@ -11,11 +11,9 @@
 <script>
 
   export default {
-    inject: ['xdhForm'],
     props: {
-      prop: {
-        type: String,
-        required: true
+      value: {
+        type: String
       },
       options: {
         type: Array,
@@ -29,6 +27,14 @@
     computed: {
       component() {
         return this.button ? 'el-radio-button' : 'el-radio'
+      },
+      fieldValue: {
+        get() {
+          return this.value
+        },
+        set(val) {
+          this.$emit('input', val)
+        }
       }
     }
   }

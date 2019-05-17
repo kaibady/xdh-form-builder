@@ -1,5 +1,5 @@
 <template>
-  <el-select v-bind="$attrs" v-on="$listeners" v-model="xdhForm.currentModel[prop]">
+  <el-select v-bind="$attrs" v-on="$listeners" v-model="fieldValue">
     <el-option v-for="(item, index) in options"
                :key="index"
                :label="item.label"
@@ -10,16 +10,24 @@
 
 <script>
   export default {
-    inject: ['xdhForm'],
     props: {
-      prop: {
-        type: String,
-        required: true
+      value: {
+        type: [String, Number, Boolean, Array]
       },
       options: {
         type: Array,
         default() {
           return []
+        }
+      }
+    },
+    computed: {
+      fieldValue: {
+        get() {
+          return this.value
+        },
+        set(val) {
+          this.$emit('input', val)
         }
       }
     }

@@ -1,14 +1,22 @@
 <template>
-  <el-slider v-bind="$attrs" v-on="$listeners" v-model="xdhForm.currentModel[prop]"></el-slider>
+  <el-slider v-bind="$attrs" v-on="$listeners" v-model="fieldValue"></el-slider>
 </template>
 
 <script>
   export default {
-    inject: ['xdhForm'],
     props: {
-      prop: {
-        type: String,
-        required: true
+      value: {
+        type: [Number, Array]
+      }
+    },
+    computed: {
+      fieldValue: {
+        get() {
+          return this.value
+        },
+        set(val) {
+          this.$emit('input', val)
+        }
       }
     }
   }

@@ -1,14 +1,22 @@
 <template>
-  <el-date-picker v-bind="$attrs" v-on="$listeners" v-model="xdhForm.currentModel[prop]"></el-date-picker>
+  <el-date-picker v-bind="$attrs" v-on="$listeners" v-model="fieldValue"></el-date-picker>
 </template>
 
 <script>
   export default {
-    inject: ['xdhForm'],
     props: {
-      prop: {
-        type: String,
-        required: true
+      value: {
+        type: [String, Array, Date]
+      }
+    },
+    computed: {
+      fieldValue: {
+        get() {
+          return this.value
+        },
+        set(val) {
+          this.$emit('input', val)
+        }
       }
     }
   }

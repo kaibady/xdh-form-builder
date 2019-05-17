@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <xdh-form v-bind="config" :model="model" :fields="fields" :load="load"></xdh-form>
+    <xdh-form v-bind="config" :model="model" :fields="fields" :load="load" @submit="handleSubmit"></xdh-form>
   </div>
 </template>
 
@@ -34,6 +34,11 @@
           }
         })
         return m
+      }
+    },
+    methods: {
+      handleSubmit(model) {
+        console.log('submit', model)
       }
     },
     created() {

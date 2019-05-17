@@ -1,16 +1,26 @@
 <template>
-  <el-input v-bind="$attrs" v-on="$listeners" v-model="xdhForm.currentModel[prop]"></el-input>
+  <el-input v-bind="$attrs" v-on="$listeners" v-model="fieldValue"></el-input>
 </template>
 
 <script>
   export default {
-    inject: ['xdhForm'],
     props: {
-      prop: {
+      value: {
         type: String,
-        required: true
+        default: ''
+      }
+    },
+    computed: {
+      fieldValue: {
+        get() {
+          return this.value
+        },
+        set(val) {
+          this.$emit('input', val)
+        }
       }
     }
+
   }
 </script>
 
