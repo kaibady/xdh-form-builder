@@ -1,5 +1,5 @@
 <template>
-  <el-select v-bind="$attrs" v-on="$listeners" v-model="fieldValue">
+  <el-select v-bind="$attrs" v-on="$listeners" v-model="fieldValue" @keyup.native.13.stop>
     <el-option v-for="(item, index) in options"
                :key="index"
                :label="item.label"

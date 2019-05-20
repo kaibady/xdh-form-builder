@@ -49,6 +49,7 @@
   import tag from './items/tag'
   import color from './items/color'
   import editor from './items/editor'
+  import inputTag from './items/input-tag'
 
   function normalOptions(options = []) {
     return options.map(o => {
@@ -76,7 +77,8 @@
     range,
     tag,
     color,
-    editor
+    editor,
+    inputTag
   }
   /**
    * 插槽
@@ -195,25 +197,25 @@
     },
     watch: {
       'xdhForm.$attrs.inline'() {
-        this.setContentWidth(this.contentEl)
+        this.delaySetContentWidth(this.contentEl)
       },
       'xdhForm.inlineSize'() {
-        this.setContentWidth(this.contentEl)
+        this.delaySetContentWidth(this.contentEl)
       },
       'xdhForm.$attrs.labelWidth'() {
-        this.setContentWidth(this.contentEl)
+        this.delaySetContentWidth(this.contentEl)
       },
       '$attrs.labelWidth'() {
-        this.setContentWidth(this.contentEl)
+        this.delaySetContentWidth(this.contentEl)
       },
       contentWidth() {
-        this.setContentWidth(this.contentEl)
+        this.delaySetContentWidth(this.contentEl)
       },
       block() {
-        this.setContentWidth(this.contentEl)
+        this.delaySetContentWidth(this.contentEl)
       },
       labelWidth() {
-        this.setContentWidth(this.contentEl)
+        this.delaySetContentWidth(this.contentEl)
       },
       options(val) {
         // 字典优先
@@ -287,6 +289,11 @@
         const labelWidth = this.getLabelWidth()
         const width = Number.parseInt(this.contentWidth) || (map[this.xdhForm.inlineSize] - labelWidth)
         el.style.width = `${width}px`
+      },
+      delaySetContentWidth(el) {
+        this.$nextTick(() => {
+          this.setContentWidth(el)
+        })
       }
     },
     mounted() {

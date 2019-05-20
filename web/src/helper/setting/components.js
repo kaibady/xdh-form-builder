@@ -91,6 +91,11 @@ export default [
     props: {}
   },
   {
+    type: 'inputTag',
+    title: '标签框',
+    props: {}
+  },
+  {
     type: 'color',
     title: '颜色',
     props: {}

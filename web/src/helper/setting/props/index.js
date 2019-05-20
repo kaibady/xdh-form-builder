@@ -13,6 +13,7 @@ import slider from './slider'
 import upload from './upload'
 import range from './range'
 import tag from './tag'
+import inputTag from './input-tag'
 import color from './color'
 import editor from './editor'
 
@@ -32,6 +33,7 @@ const map = {
   upload,
   range,
   tag,
+  inputTag,
   color,
   editor
 }
@@ -91,13 +93,8 @@ function getConfig(props) {
       result.push({
         label: key,
         prop: key,
-        type: 'select',
-        props: {
-          multiple: true,
-          filterable: true,
-          allowCreate: true,
-          defaultFirstOption: true
-        }
+        type: 'inputTag',
+        props: {}
       })
     }
   })

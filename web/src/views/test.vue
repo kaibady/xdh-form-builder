@@ -1,19 +1,6 @@
 <template>
-  <xdh-form style="padding: 20px" :model="model" size="small" @change="handleChange">
-    <!--    <xdh-form-item v-bind="upload">-->
-    <!--    </xdh-form-item>-->
-    <xdh-form-item v-bind="tag" @click="handleClick">
-    </xdh-form-item>
-    <xdh-form-item v-bind="cascader"></xdh-form-item>
-    <xdh-form-item prop="text"></xdh-form-item>
-    <xdh-form-item type="checkbox" prop="checkbox" label="checkbox" :options="options"></xdh-form-item>
-    <xdh-form-item type="date" prop="date" label="date" :props="{type:'daterange'}"></xdh-form-item>
-    <xdh-form-item prop="number" type="number" label="number"></xdh-form-item>
-    <xdh-form-item type="radio" prop="radio" label="radio" :options="options"></xdh-form-item>
-    <xdh-form-item type="range" prop="range" label="range" :props="{dataType:'date'}"></xdh-form-item>
-    <xdh-form-item prop="rate" type="rate" label="rate"></xdh-form-item>
-    <xdh-form-item type="select" prop="select" label="select" :options="options"></xdh-form-item>
-    <xdh-form-item prop="slider" type="slider" label="slider"></xdh-form-item>
+  <xdh-form style="padding: 20px" @change="handleChange" :model="model">
+    <xdh-form-item v-bind="inputTag" size="small"></xdh-form-item>
   </xdh-form>
 </template>
 
@@ -62,50 +49,19 @@
     },
     data() {
       return {
-        options: tree,
         model: {
-          tag: [1, 2],
-          cascader: [],
-          text: '33'
+          tag: []
         },
-        tag: {
-          type: 'tag',
-          label: '标签',
+        options: tree,
+        inputTag: {
+          type: 'inputTag',
+          label: 'InputTag',
           prop: 'tag',
           props: {
-            theme: ''
+            collapseTags: true,
+            disabled: false,
+            readonly: false
           }
-
-        },
-        cascader: {
-          type: 'cascader',
-          prop: 'cascader',
-          label: 'cascader',
-          options: tree
-        },
-        range: {
-          type: 'range',
-          prop: 'range',
-          props: {
-            dataType: 'date',
-            type: 'datetime',
-            valueFormat: 'yyyy-MM-dd'
-          }
-
-        },
-        upload: {
-          prop: 'file',
-          type: 'upload',
-          props: {
-            action: 'https://jsonplaceholder.typicode.com/posts/',
-            autoUpload: false,
-            multiple: true,
-            onChange(res, file, list) {
-              console.log(file)
-            }
-          }
-
-
         }
       }
     },
@@ -117,6 +73,12 @@
         this.model.tag.push(3)
         this.model.cascader = ['1', '1-1']
       }
+    },
+    mounted() {
+      setTimeout(() => {
+        this.model.tag = ['23432424']
+
+      }, 1000)
     }
   }
 </script>
