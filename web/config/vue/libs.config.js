@@ -20,6 +20,9 @@ module.exports = {
   },
   outputDir: outputDir,
   configureWebpack: {
+    performance: {
+      hints: false
+    },
     plugins: [
       new RemoveThemeUselessFiles(outputDir)
     ]

@@ -1,12 +1,14 @@
 <template>
   <xdh-form style="padding: 20px" @change="handleChange" :model="model">
     <xdh-form-item v-bind="tree"></xdh-form-item>
+    <p v-for="item in user.list" :key="item.id">{{item}}</p>
   </xdh-form>
 </template>
 
 <script>
   import XdhForm from '@/components/xdh-form'
   import XdhFormItem from '@/components/xdh-form-item'
+  import userMixin from '@/base/mixin/user'
 
   function createTree() {
     const tree = []
@@ -44,6 +46,7 @@
   ]
 
   export default {
+    mixins: [userMixin],
     components: {
       XdhForm,
       XdhFormItem
@@ -80,8 +83,12 @@
     mounted() {
       setTimeout(() => {
         this.model.tree = ['0', '1-0', '1-1-1', '3-0']
+        this.fetchUser({page: 1}, {local: true})
+      }, 3000)
 
-      }, 1000)
+      this.fetchUser({page: 1}, {local: true})
+
+
     }
   }
 </script>

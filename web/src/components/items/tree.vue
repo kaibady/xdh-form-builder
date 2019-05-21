@@ -21,7 +21,7 @@
               <el-tree class="xdh-tree"
                        ref="elTree"
                        :data="treeOptions"
-                       @check="handleChange"
+                       @check="handleCheck"
                        @current-change="handleChange"
                        :filter-node-method="filterNode"
                        v-bind="treeProps"></el-tree>
@@ -206,12 +206,16 @@
       closePopper() {
         this.visible = false
       },
-      handleChange(node, checked) {
+      handleCheck(node, checked) {
+        // 只对多选有效
         if (this.multiple) {
           this.currentValue = this.removeCheckedParent(checked.checkedKeys, checked.checkedNodes)
-        } else {
-          this.currentValue = [node[this.idKey]]
         }
+      },
+      handleChange(node) {
+        // 只对单选有效
+        if (this.multiple) return
+        this.currentValue = [node[this.idKey]]
       },
       handleCheckedTagClose(item, index) {
         this.currentValue.splice(index, 1)

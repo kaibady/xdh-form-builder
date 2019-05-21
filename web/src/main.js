@@ -23,7 +23,7 @@ import './helper/interceptor'
 import guarder from './helper/guarder'
 
 // 开启模拟数据，编译在生成环境要注释
-// import '@/mock/index'
+import '@/mock/index'
 
 // 应用样式
 import './style/index.scss'
