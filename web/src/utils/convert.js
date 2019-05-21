@@ -79,20 +79,22 @@ export function listToTree(list, parentId, level = 0, map) {
  * 简单 列表转换树结构
  * @param {Object[]} list 列表数据，约定字段名称： id/parentId/children
  * @param {*} [parentId=null] 父节点的值
+ * @param {string} [idKey=id] id字段名称
+ * @param {string} [parentIdKey=parentId] parentId字段名称
  * @return {Array}
  */
-export function buildTree(list = [], parentId = null) {
+export function buildTree(list = [], parentId = null, idKey = 'id', parentIdKey = 'parentId') {
   let temp = Object.create(null), tree = []
   list.forEach(item => {
-    temp[item.id] = item
+    temp[item[idKey]] = item
   })
   
   for (let key in temp) {
     const item = temp[key]
-    if (item.parentId === parentId) {
+    if (item[parentIdKey] === parentId) {
       tree.push(item)
     } else {
-      const parent = temp[item.parentId]
+      const parent = temp[item[parentIdKey]]
       if (parent) {
         if (!parent.children) {
           parent.children = []

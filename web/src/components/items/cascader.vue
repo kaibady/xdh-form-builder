@@ -28,6 +28,14 @@
         default() {
           return []
         }
+      },
+      idKey: {
+        type: String,
+        default: 'id'
+      },
+      parentIdKey: {
+        type: String,
+        default: 'parentId'
       }
     },
     data() {
@@ -35,7 +43,7 @@
     },
     computed: {
       treeOptions() {
-        return buildTree(this.options, this.parentId)
+        return buildTree(this.options, this.parentId, this.idKey, this.parentIdKey)
       },
       fieldValue: {
         get() {

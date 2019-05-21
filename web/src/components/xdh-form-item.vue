@@ -50,6 +50,7 @@
   import color from './items/color'
   import editor from './items/editor'
   import inputTag from './items/input-tag'
+  import tree from './items/tree'
 
   function normalOptions(options = []) {
     return options.map(o => {
@@ -78,7 +79,8 @@
     tag,
     color,
     editor,
-    inputTag
+    inputTag,
+    tree
   }
   /**
    * 插槽

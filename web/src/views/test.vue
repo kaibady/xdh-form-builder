@@ -1,6 +1,6 @@
 <template>
   <xdh-form style="padding: 20px" @change="handleChange" :model="model">
-    <xdh-form-item v-bind="inputTag" size="small"></xdh-form-item>
+    <xdh-form-item v-bind="tree"></xdh-form-item>
   </xdh-form>
 </template>
 
@@ -8,38 +8,39 @@
   import XdhForm from '@/components/xdh-form'
   import XdhFormItem from '@/components/xdh-form-item'
 
+  function createTree() {
+    const tree = []
+    for (let i = 0; i < 10; i++) {
+      tree.push({
+        id: i.toString(),
+        label: '选项选项选项选项选项选项选' + i,
+        value: i.toString(),
+        parentId: null
+      })
+      for (let j = 0; j < 10; j++) {
+        tree.push({
+          id: `${i}-${j}`,
+          label: '选项选项选项选项选项选项选项' + i + '-' + j,
+          value: i.toString(),
+          parentId: i.toString()
+        })
+
+        for (let k = 0; k < 10; k++) {
+          tree.push({
+            id: `${i}-${j}-${k}`,
+            label: '选项选项选项' + i + '-' + j + '-' + k,
+            value: k.toString(),
+            parentId: `${i}-${j}`
+          })
+        }
+      }
+    }
+
+    return tree
+  }
 
   export const tree = [
-    {
-      id: 1,
-      label: '选项1',
-      value: '1',
-      parentId: null
-    },
-    {
-      id: 2,
-      label: '选项2',
-      value: '2',
-      parentId: null
-    },
-    {
-      id: 3,
-      label: '选项1-1',
-      value: '1-1',
-      parentId: 1
-    },
-    {
-      id: 4,
-      label: '选项1-2',
-      value: '1-2',
-      parentId: 1
-    },
-    {
-      id: 5,
-      label: '选项2-1',
-      value: '2-1',
-      parentId: 2
-    }
+    ...createTree()
   ]
 
   export default {
@@ -50,18 +51,20 @@
     data() {
       return {
         model: {
-          tag: []
+          tree: []
         },
         options: tree,
-        inputTag: {
-          type: 'inputTag',
-          label: 'InputTag',
-          prop: 'tag',
+        tree: {
+          type: 'tree',
+          label: 'tree',
+          prop: 'tree',
           props: {
-            collapseTags: true,
+            showSelected: true,
             disabled: false,
-            readonly: false
-          }
+            closable: true,
+            multiple: true
+          },
+          options: tree
         }
       }
     },
@@ -76,7 +79,7 @@
     },
     mounted() {
       setTimeout(() => {
-        this.model.tag = ['23432424']
+        this.model.tree = ['0', '1-0', '1-1-1', '3-0']
 
       }, 1000)
     }

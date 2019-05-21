@@ -64,17 +64,17 @@
         editOption: null,
         fields: [
           {
-            type: 'text',
+            type: 'input',
             prop: 'id',
             label: 'id'
           },
           {
-            type: 'text',
+            type: 'input',
             prop: 'parentId',
             label: 'parentId'
           },
           {
-            type: 'text',
+            type: 'input',
             prop: 'label',
             label: 'label',
             rules: [{
@@ -82,7 +82,7 @@
             }]
           },
           {
-            type: 'text',
+            type: 'input',
             prop: 'value',
             label: 'value',
             rules: [{

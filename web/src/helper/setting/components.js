@@ -57,6 +57,13 @@ export default [
     value: []
   },
   {
+    type: 'tree',
+    title: '下拉树',
+    props: {},
+    options: tree,
+    value: []
+  },
+  {
     type: 'number',
     title: '数字',
     props: {}

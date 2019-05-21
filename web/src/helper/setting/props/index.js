@@ -16,6 +16,7 @@ import tag from './tag'
 import inputTag from './input-tag'
 import color from './color'
 import editor from './editor'
+import tree from './tree'
 
 const map = {
   input,
@@ -35,7 +36,8 @@ const map = {
   tag,
   inputTag,
   color,
-  editor
+  editor,
+  tree
 }
 
 

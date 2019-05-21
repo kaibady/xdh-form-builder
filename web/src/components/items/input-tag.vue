@@ -7,7 +7,8 @@
       <span v-if="collapseTags && tags.length">
         <el-tag type="info"
                 :size="collapseTagSize"
-                :closable="!disabled && !readonly"
+                :closable="closableTag"
+                @click="handelTagClick"
                 disable-transitions
                 @close="deleteTag($event, tags[0])">
                     <span class="el-select__tags-text">{{tags[0]}}</span>
@@ -24,17 +25,19 @@
       <transition-group @after-leave="resetInputHeight" v-if="!collapseTags">
         <el-tag
           v-for="(item,index) in tags"
-          :key="index"
-          :closable="!disabled && !readonly"
+          :key="`${item}_${index}`"
+          :closable="closableTag"
           type="info"
           :size="collapseTagSize"
-          @close="deleteTag($event, item)"
+          @click="handelTagClick"
+          @close="deleteTag(index, item)"
           disable-transitions>
           <span class="el-select__tags-text">{{ item }}</span>
         </el-tag>
       </transition-group>
 
       <input v-model="query"
+             v-if="allowCreate"
              ref="input"
              type="text"
              class="el-select__input"
@@ -56,7 +59,7 @@
         <slot name="prefix"></slot>
       </template>
       <template slot="suffix">
-        <i :class="['el-select__caret', 'el-input__icon', icon]"></i>
+        <i :class="['el-input__icon', icon, {'el-select__caret':active}]" @click="handelIconClick"></i>
       </template>
     </el-input>
   </div>
@@ -106,12 +109,27 @@
       icon: {
         type: String,
         default: 'el-icon-price-tag'
+      },
+
+      active: {
+        type: Boolean,
+        default: false
+      },
+      // 是否可以关闭tag
+      closable: {
+        type: Boolean,
+        default: true
+      },
+      // 允许新增
+      allowCreate: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
       return {
         query: '',
-        tags: this.value || [],
+        tags: [...this.value],
         initialInputHeight: 0,
         inputLength: 20,
         inputWidth: 0
@@ -131,11 +149,15 @@
         return ['small', 'mini'].indexOf(this.selectSize) > -1
           ? 'mini'
           : 'small';
+      },
+      closableTag() {
+        if (!this.closable) return false
+        return !this.disabled && !this.readonly
       }
     },
     watch: {
       value(val) {
-        this.tags = val
+        this.tags = [...val]
       },
       tags() {
         this.$nextTick(() => {
@@ -161,8 +183,11 @@
       }
     },
     methods: {
+      handelTagClick() {
+        this.$emit('tag-click')
+      },
       handleFocus() {
-        this.$refs.input.focus()
+        this.$refs.input && this.$refs.input.focus()
         this.$emit('focus')
       },
       handleBlur() {
@@ -170,18 +195,20 @@
         this.$emit('blur')
       },
       select() {
+        if (!this.allowCreate) return
         if (!this.query) return
         this.tags.push(this.query)
         this.query = ''
         this.$emit('input', this.tags)
         this.$emit('change', this.tags)
       },
-      deleteTag(event, tag) {
-        let index = this.tags.indexOf(tag);
+      deleteTag(index, tag) {
         if (index > -1) {
-          this.tags.splice(index, 1)
-          this.$emit('input', this.tags)
-          this.$emit('change', this.tags)
+          const tags = [...this.tags]
+          tags.splice(index, 1)
+          this.$emit('input', tags)
+          this.$emit('change', tags)
+          this.$emit('close-tag', index, tag, tags)
           this.handleFocus()
         }
       },
@@ -217,6 +244,9 @@
           mini: 28
         };
         this.initialInputHeight = sizeMap[this.selectSize] || 40;
+      },
+      handelIconClick() {
+        this.$emit('icon-click')
       }
     },
     mounted() {
