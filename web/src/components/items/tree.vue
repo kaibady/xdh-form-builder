@@ -83,7 +83,7 @@
       // 弹出层宽度
       popperWidth: {
         type: [String, Number],
-        default: 600
+        default: 500
       },
       // 弹出层高度
       popperHeight: {
