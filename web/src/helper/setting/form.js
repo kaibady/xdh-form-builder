@@ -104,6 +104,10 @@ const formFields = [
       {
         label: 'right',
         value: 'right'
+      },
+      {
+        label: 'inline',
+        value: 'inline'
       }
     ]
   },

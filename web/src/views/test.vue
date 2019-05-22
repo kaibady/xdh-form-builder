@@ -1,13 +1,27 @@
 <template>
-  <xdh-form style="padding: 20px" @change="handleChange" :model="model">
-    <xdh-form-item v-bind="tree"></xdh-form-item>
-    <p v-for="item in user.list" :key="item.id">{{item}}</p>
+  <xdh-form style="padding: 20px"
+            @change="handleChange"
+            :model="model">
+
+    <xdh-form-group label-position="right" label-width="140px" inline inline-size="large" :block="false" width="400px">
+      <xdh-form-item prop="text3" type="input" label="内部"></xdh-form-item>
+      <xdh-form-item prop="text4" type="input" label="内部"></xdh-form-item>
+      <xdh-form-item prop="text5" type="input" label="内部"></xdh-form-item>
+      <xdh-form-item prop="text6" type="input" label="内部"></xdh-form-item>
+    </xdh-form-group>
+
+    <xdh-form-group label-position="right" label-width="140px" inline inline-size="large" :block="false" width="300px">
+      <xdh-form-item prop="text1" type="input" label="外部"></xdh-form-item>
+      <xdh-form-item prop="text2" type="switch" label="外部"></xdh-form-item>
+    </xdh-form-group>
+
   </xdh-form>
 </template>
 
 <script>
   import XdhForm from '@/components/xdh-form'
   import XdhFormItem from '@/components/xdh-form-item'
+  import XdhFormGroup from '@/components/xdh-form-group'
   import userMixin from '@/base/mixin/user'
 
   function createTree() {
@@ -49,13 +63,12 @@
     mixins: [userMixin],
     components: {
       XdhForm,
-      XdhFormItem
+      XdhFormItem,
+      XdhFormGroup
     },
     data() {
       return {
-        model: {
-          tree: []
-        },
+        model: {},
         options: tree,
         tree: {
           type: 'tree',

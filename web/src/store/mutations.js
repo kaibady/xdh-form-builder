@@ -71,6 +71,8 @@ export default {
    */
   sortFields(state, {newIndex, oldIndex}) {
     const item = state.fields[oldIndex]
+    const newItem = state.fields[newIndex]
+    if (!item || !newItem) return
     if (newIndex !== oldIndex) {
       state.fields.splice(oldIndex, 1)
       state.fields.splice(newIndex, 0, item)

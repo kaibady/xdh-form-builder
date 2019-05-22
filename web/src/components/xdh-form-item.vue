@@ -7,7 +7,7 @@
   <el-form-item v-else-if="isShowField"
                 class="xdh-form-item"
                 :class="itemClasses"
-                v-bind="$attrs"
+                v-bind="mergeAttrs"
                 :rules="checkRules">
     <component :is="components[type]"
                :options="optionsList"
@@ -91,7 +91,15 @@
 
   export default {
     name: 'XdhFormItem',
-    inject: ['xdhForm'],
+    inject: {
+      xdhForm: {
+        default: null
+      },
+
+      xdhFormGroup: {
+        default: null
+      }
+    },
     /**
      * 属性参数, 在支持el-form-item的基础扩展以下参数
      * @member props
@@ -195,6 +203,16 @@
           }
           return r
         })
+      },
+      mergeAttrs() {
+        const group = this.xdhFormGroup || {}
+        return {
+          size: group.size,
+          labelWidth: group.labelWidth,
+          inline: group.inline,
+          labelPosition: group.labelPosition,
+          ...this.$attrs
+        }
       }
     },
     watch: {

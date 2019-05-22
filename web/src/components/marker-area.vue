@@ -102,6 +102,7 @@
       this.sortable = new Sortable(this.$refs.form.$refs.body, {
         group: 'component',
         animation: 200,
+        filter: '.xdh-form__footer',
         onStart: () => {
           this.dragging = true
           this.showHelper = null

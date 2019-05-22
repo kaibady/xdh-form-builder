@@ -10,8 +10,15 @@
       <slot>
         <xdh-form-item v-for="item in fields" :key="item.prop" v-bind="item"></xdh-form-item>
       </slot>
+      <el-form-item v-if="footer && isFooterInline" class="xdh-form__footer">
+        <slot name="footer" v-if="footer">
+          <el-button v-if="submitText" type="primary" @click="submit" :size="footerSize">{{submitText}}</el-button>
+          <el-button v-if="resetText" @click="reset" :size="footerSize">{{resetText}}</el-button>
+        </slot>
+      </el-form-item>
     </div>
-    <el-form-item v-if="footer" class="xdh-form__footer" :class="footerClasses" :label="footerAlignLabel">
+    <el-form-item v-if="footer && !isFooterInline" class="xdh-form__footer" :class="footerClasses"
+                  :label="footerAlignLabel">
       <slot name="footer" v-if="footer">
         <el-button v-if="submitText" type="primary" @click="submit" :size="footerSize">{{submitText}}</el-button>
         <el-button v-if="resetText" @click="reset" :size="footerSize">{{resetText}}</el-button>
@@ -53,7 +60,7 @@
      * @property {Object} [dictMap] 字典数据映射，格式： {'字典编码': [字典数组]}
      * @property {String} [validateMsg] 验证信息显示方式， 可选值 'top', 'right', 'bottom'
      * @property {Boolean} [footer=true] 是否显示底部操作按钮
-     * @property {String} [footerAlign=label] 底部按钮对齐方式，可选值 'label', 'left', 'right', 'center'
+     * @property {String} [footerAlign=label] 底部按钮对齐方式，可选值 'label', 'left', 'right', 'center','inline'
      * @property {Boolean} [footerBorder=true] 是否显示底部边框线
      * @property {String} [submitText=提交] 提交按钮文本，为空时将不显示按钮
      * @property {String} [resetText=重置] 重置按钮文本，为空时将不显示按钮
@@ -103,7 +110,7 @@
         type: String,
         default: 'label',
         validator(val) {
-          return ['label', 'left', 'right', 'center', ''].includes(val)
+          return ['label', 'left', 'right', 'center', 'inline', ''].includes(val)
         }
       },
       // 底部是否加边框, 设置了footerAlign才有效
@@ -188,6 +195,9 @@
       },
       footerAlignLabel() {
         return this.footerAlign === 'label' ? ' ' : null
+      },
+      isFooterInline() {
+        return this.footerAlign === 'inline'
       }
     },
     methods: {
