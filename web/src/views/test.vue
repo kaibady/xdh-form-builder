@@ -1,28 +1,43 @@
 <template>
-  <xdh-form style="padding: 20px"
-            @change="handleChange"
-            :model="model">
+  <xdh-form @change="handleChange"
+            @submit="handleSubmit"
+            style="padding: 20px"
+            :inline="false">
+    <xdh-form-array prop="arr">
+      <xdh-form-object v-for="(item,index) in list" :key="index" :prop="index">
+        <xdh-form-group :inline="true" inline-size="small">
+          <xdh-form-item
+            v-bind="item"
+            prop="title"
+            :label="`域名${index+1}`"
+            :rules="{required: true}"></xdh-form-item>
+          <el-button @click="add(index)">新增</el-button>
+          <el-button v-if="index>0" @click="remove(index)">删除</el-button>
+        </xdh-form-group>
+      </xdh-form-object>
+    </xdh-form-array>
+    <xdh-form-divider content="分隔" content-position="left"></xdh-form-divider>
+    <xdh-form-item prop="name"
+                   label="姓名"
+                   type="range"
+                   v-model="model.name"
+                   :rules="{required:true}"></xdh-form-item>
 
-    <xdh-form-group label-position="right" label-width="140px" inline inline-size="large" :block="false" width="400px">
-      <xdh-form-item prop="text3" type="input" label="内部"></xdh-form-item>
-      <xdh-form-item prop="text4" type="input" label="内部"></xdh-form-item>
-      <xdh-form-item prop="text5" type="input" label="内部"></xdh-form-item>
-      <xdh-form-item prop="text6" type="input" label="内部"></xdh-form-item>
-    </xdh-form-group>
-
-    <xdh-form-group label-position="right" label-width="140px" inline inline-size="large" :block="false" width="300px">
-      <xdh-form-item prop="text1" type="input" label="外部"></xdh-form-item>
-      <xdh-form-item prop="text2" type="switch" label="外部"></xdh-form-item>
-    </xdh-form-group>
 
   </xdh-form>
+
+
 </template>
 
 <script>
   import XdhForm from '@/components/xdh-form'
   import XdhFormItem from '@/components/xdh-form-item'
+  import XdhFormObject from '@/components/xdh-form-object'
+  import XdhFormArray from '@/components/xdh-form-array'
   import XdhFormGroup from '@/components/xdh-form-group'
+  import XdhFormDivider from '@/components/xdh-form-divider'
   import userMixin from '@/base/mixin/user'
+
 
   function createTree() {
     const tree = []
@@ -63,45 +78,44 @@
     mixins: [userMixin],
     components: {
       XdhForm,
+      XdhFormObject,
+      XdhFormGroup,
+      XdhFormArray,
       XdhFormItem,
-      XdhFormGroup
+      XdhFormDivider
     },
     data() {
       return {
-        model: {},
-        options: tree,
-        tree: {
-          type: 'tree',
-          label: 'tree',
-          prop: 'tree',
-          props: {
-            showSelected: true,
-            disabled: false,
-            closable: true,
-            multiple: true
-          },
-          options: tree
-        }
+        rules: {},
+        model: {
+          name: [1, 2]
+        },
+        list: [{type: 'input'}]
       }
     },
     methods: {
       handleChange(val) {
-        console.log(val)
+        console.log('change', val)
+      },
+      handleSubmit(model) {
+        console.log('submit', model)
       },
       handleClick(tag) {
-        this.model.tag.push(3)
-        this.model.cascader = ['1', '1-1']
+      },
+      add(index) {
+        this.list.push({type: 'input'})
+      },
+      remove(index) {
+        this.list.splice(index, 1)
       }
     },
     mounted() {
       setTimeout(() => {
-        this.model.tree = ['0', '1-0', '1-1-1', '3-0']
-        this.fetchUser({page: 1}, {local: true})
+        // this.model.obj.name = 'sam'
+        this.model.name = [323, 4343]
       }, 3000)
-
-      this.fetchUser({page: 1}, {local: true})
-
 
     }
   }
 </script>
+

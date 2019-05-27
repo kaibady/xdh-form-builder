@@ -35,6 +35,8 @@
    *
    */
   import XdhFormItem from './xdh-form-item'
+  import {clean} from '../helper/utils'
+  import {isEqual, debounce} from '@/utils/util'
 
   /**
    * 插槽
@@ -56,7 +58,7 @@
     /**
      * 参数属性，在支持el-form所有参数并扩展以下参数
      * @property {Object} [model] 表单初始化实体，通常用来设置表单项的默认值
-     * @property {Array} [fields] 表单字段配置，配置参数参考xdh-form-item组件，该配置是用来动态创建xdh-form-item
+     * @property {Array} [fields] 表单字段配置，配置参数参考xdh-form-item组件，该配置是用来动态创建xdh-form-item, 不支持group、array、object
      * @property {Object} [dictMap] 字典数据映射，格式： {'字典编码': [字典数组]}
      * @property {String} [validateMsg] 验证信息显示方式， 可选值 'top', 'right', 'bottom'
      * @property {Boolean} [footer=true] 是否显示底部操作按钮
@@ -108,7 +110,7 @@
       // 底部对齐方式
       footerAlign: {
         type: String,
-        default: 'label',
+        default: 'right',
         validator(val) {
           return ['label', 'left', 'right', 'center', 'inline', ''].includes(val)
         }
@@ -163,7 +165,7 @@
       model: {
         deep: true,
         handler(val) {
-          if (JSON.stringify(val) !== JSON.stringify(this.currentModel)) {
+          if (!isEqual(val, this.currentModel)) {
             this.currentModel = {...val}
           }
         }
@@ -177,11 +179,19 @@
            * @param {Object} val 新实体
            * @param {Object} old 旧实体
            */
-          this.$emit('change', val, old)
+          this.proxyHandleChange(val, old)
         }
       }
     },
     computed: {
+      extendAttrs() {
+        return {
+          ...clean(this.$attrs),
+          validateMsg: this.validateMsg,
+          inlineSize: this.inlineSize
+
+        }
+      },
       formClasses() {
         return [this.$attrs.inline ? `is-inline-size is-inline-${this.inlineSize}` : '']
       },
@@ -225,6 +235,11 @@
       reset() {
         this.$refs.form.resetFields()
         this.currentModel = {...this.model}
+        /**
+         * 表单重置时触发
+         * @event reset
+         * @param {Object} model 表单实体
+         */
         this.$emit('reset', this.currentModel)
       },
       preventSubmit() {
@@ -232,7 +247,18 @@
       },
       handelEnterSubmit() {
         this.enterSubmit && this.submit()
+      },
+      handleChange(val, old) {
+        /**
+         * 表单值改变时触发
+         * @event change
+         * @param {Object} model 表单实体
+         */
+        this.$emit('change', val, old)
       }
+    },
+    created() {
+      this.proxyHandleChange = debounce(this.handleChange, 300, false, this)
     }
   }
 </script>

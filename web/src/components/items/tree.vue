@@ -3,7 +3,7 @@
     <el-popover
       popper-class="xdh-form-tree__popper"
       placement="bottom-start"
-      :width="popperWidth"
+      :width="parseInt(popperWidth)"
       trigger="manual"
       v-model="visible">
       <div class="xdh-form-tree__wrapper">

@@ -1,7 +1,19 @@
+const _isEqual = require('lodash/isEqual')
+
 /**
  * 常用辅助函数
  * @module utils/util
  */
+
+/**
+ * 判断两个对象是否相等
+ * @param {*} object
+ * @param {*} other
+ * @return {boolean}
+ */
+export function isEqual(object, other) {
+  return _isEqual(object, other)
+}
 
 /**
  * 防抖函数

@@ -108,6 +108,7 @@
 
 .xdh-form-range {
   clear: both;
+  display: block;
 
   &__separator {
     display: inline-block;
@@ -121,6 +122,14 @@
       display: inline-block;
       width: calc(50% - 12px);
       min-width: 45px;
+    }
+  }
+
+  &.is-label-width {
+    > .el-form-item__content {
+      > .xdh-form-range {
+        clear: none;
+      }
     }
   }
 }
@@ -212,3 +221,130 @@
     color: $--color-text-placeholder;
   }
 }
+
+.xdh-form-sub {
+  clear: both;
+  display: block;
+
+  &__tool {
+    float: right;
+    margin-bottom: 12px;
+    line-height: 30px;
+
+    .el-button--mini {
+      padding: 5px 10px;
+    }
+  }
+
+  &__label {
+    text-align: right;
+    padding-right: 12px;
+    box-sizing: border-box;
+    color: $--color-text-regular;
+    margin-bottom: 12px;
+    line-height: 30px;
+    display: inline-block;
+  }
+
+  &__content {
+    clear: both;
+  }
+
+  &__handler {
+    cursor: pointer;
+    margin-left: 5px;
+    transition: transform 0.2s;
+
+    &.is-caret {
+      transform: rotate(180deg);
+    }
+  }
+
+  > .xdh-form-sub__content {
+    > .xdh-form-item {
+      display: block;
+      margin-bottom: 22px;
+
+      &.el-form-item--small {
+        margin-bottom: 18px;
+      }
+
+      > .el-form-item__content {
+        line-height: normal;
+        display: block;
+      }
+
+      > .el-form-item__label {
+        float: left;
+        display: block;
+      }
+
+    }
+  }
+
+
+  &.el-form--inline {
+    > .xdh-form-sub__content {
+      > .el-form-item {
+        display: inline-block;
+
+        > .el-form-item__content {
+          display: block;
+        }
+
+        > .el-form-item__label {
+          display: inline-block;
+        }
+      }
+
+    }
+  }
+}
+
+
+.xdh-form.el-form--inline
+> .xdh-form__body
+> .xdh-form-sub
+> .xdh-form-sub__content
+> .el-form-item
+> .el-form-item__content {
+  display: inline-block;
+}
+
+
+.xdh-form-sub
+> .xdh-form-sub__content
+> .xdh-form-sub
+> .xdh-form-sub__content
+> .el-form-item
+> .el-form-item__content {
+  display: block;
+}
+
+.xdh-form-sub
+> .xdh-form-sub__content
+> .xdh-form-sub.el-form--inline
+> .xdh-form-sub__content
+> .el-form-item
+> .el-form-item__content {
+  display: block;
+}
+
+.xdh-form-sub.el-form--inline
+> .xdh-form-sub__content
+> .xdh-form-sub
+> .xdh-form-sub__content
+> .el-form-item
+> .el-form-item__content {
+  display: block;
+}
+
+.xdh-form-sub.el-form--inline
+> .xdh-form-sub__content
+> .xdh-form-sub.el-form--inline
+> .xdh-form-sub__content
+> .el-form-item
+> .el-form-item__content {
+  display: block;
+}
+

@@ -12,7 +12,6 @@
 
 <script>
   export default {
-    inject: ['xdhForm'],
     props: {
       icon: String,
       contentPosition: {

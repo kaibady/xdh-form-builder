@@ -8,13 +8,15 @@
                 class="xdh-form-item"
                 :class="itemClasses"
                 v-bind="mergeAttrs"
+                :prop="prop.toString()"
+                :labelWidth="labelWidth"
                 :rules="checkRules">
     <component :is="components[type]"
                :options="optionsList"
-               :prop="$attrs.prop"
+               :prop="prop"
                v-bind="props"
                v-on="$listeners"
-               v-model="xdhForm.currentModel[$attrs.prop]">
+               v-model="fieldValue">
       <slot name="inner"></slot>
     </component>
     <slot></slot>
@@ -51,15 +53,7 @@
   import editor from './items/editor'
   import inputTag from './items/input-tag'
   import tree from './items/tree'
-
-  function normalOptions(options = []) {
-    return options.map(o => {
-      return typeof o === 'object' ? o : {
-        label: o,
-        value: o
-      }
-    })
-  }
+  import {getParent, getExtendAttrs, normalOptions} from '../helper/utils'
 
   const components = {
     switch: Switch,
@@ -94,16 +88,12 @@
     inject: {
       xdhForm: {
         default: null
-      },
-
-      xdhFormGroup: {
-        default: null
       }
     },
     /**
      * 属性参数, 在支持el-form-item的基础扩展以下参数
      * @member props
-     * @property {String} [type=text] 输入类型，可选 input number radio checkbox select cascader switch date range color divider
+     * @property {String} [type=text] 输入类型，可选 input number radio checkbox select cascader switch date range color divider number rate slider upload range tag color editor inputTag tree
      * @property {String} [dict] 字典值编码，xdh-form需要设置 load 或 dictMap 才有效
      * @property {Array} [options] 选项数组，项目对象 {id, parentId, label, value}, 树结构必须要与id和parentId
      * @property {Object} [props] 输入框组件实例化参数对象，详细要看对应type的组件
@@ -111,28 +101,24 @@
      * @property {String} [depend] 依赖字段名称
      * @property {*} [dependValue] 依赖字段的值，依赖字段的值如果与设置的一致即显示
      * @property {Boolean} [block=false] 是否独占行显示
+     * @property {Object|Array} [rules] 验证规则, 继承el-form-item
+     * @property {string} [size] 组件尺寸，继承el-form-item
+     * @property {string} [label-width] 标签宽度，继承el-form-item
+     * @property {string|number} prop 表单域 model 字段，在使用 validate、resetFields 方法的情况下，该属性是必填的，继承el-form-item
+     * @property {string} [label] 标签文本, 继承el-form-item
+     * @property {*} [value] 字段值，支持双向绑定
+     *
      */
     props: {
-      // ...ElFromItem.props,
-      // 输入框类型：
-      // input 文本框，
-      // radio 单选框，
-      // checkbox 多选框，
-      // select 下拉框，
-      // cascader 级联选择器，
-      // switch 开关
-      // date 日期选择器
-      // range 范围选择器
-      // rate 评分
-      // color 颜色选择器
-      // divider 分隔线
-      // todo 需要开发 tags array tree color editor； xdh-form-array xdh-form-object xdh-form-group
       type: {
         type: String,
         default: 'input',
         validator(val) {
           return !!components[val]
         }
+      },
+      prop: {
+        type: [String, Number]
       },
       // 字典值编码
       dict: String,
@@ -160,14 +146,16 @@
         type: String
       },
       // 依赖字段值
-      dependValue: {
-        type: [String, Number, Boolean, Array]
-      },
+      dependValue: {},
       // 是否换行block的方式展现
       block: {
         type: Boolean,
         default: false
-      }
+      },
+      rules: {
+        type: [Array, Object]
+      },
+      value: {}
     },
     data() {
       return {
@@ -175,13 +163,36 @@
       }
     },
     computed: {
+      parent() {
+        return getParent.call(this)
+      },
+      extendAttrs() {
+        return getExtendAttrs.call(this)
+      },
+      labelWidth() {
+        return this.extendAttrs.labelWidth || ''
+      },
+      fieldValue: {
+        get() {
+          const model = this.parent.currentModel
+          if (model) {
+            return model[this.prop]
+          }
+          return null
+        },
+        set(val) {
+          const model = this.parent.currentModel
+          this.$set(model, this.prop, val)
+        }
+      },
       itemClasses() {
         return [
-          this.xdhForm.validateMsg ? `xdh-validate--${this.xdhForm.validateMsg}` : '',
+          this.extendAttrs.validateMsg ? `xdh-validate--${this.extendAttrs.validateMsg}` : '',
           {
             'is-custom-width': !!this.contentWidth,
             'is-depend': !!this.depend,
-            'is-block': this.block
+            'is-block': this.block,
+            'is-label-width': !!this.labelWidth
           }
         ]
       },
@@ -191,12 +202,12 @@
       isShowField() {
         // 排除无依赖、依赖是自身或设计模式时的设置
         if (!this.depend || this.depend === this.prop || this.xdhForm.designMode) return true
-        const dependValue = this.xdhForm.currentModel[this.depend]
+        const dependValue = this.parent.currentModel[this.depend]
         return dependValue === this.dependValue
       },
       checkRules() {
-        if (!this.$attrs.rules) return null
-        const rules = Array.isArray(this.$attrs.rules) ? this.$attrs.rules : [].concat(this.$attrs.rules)
+        if (!this.rules) return null
+        const rules = Array.isArray(this.rules) ? this.rules : [].concat(this.rules)
         return rules.map(r => {
           if (r.pattern && typeof r.pattern === 'string') {
             r.pattern = new RegExp(r.pattern)
@@ -205,38 +216,17 @@
         })
       },
       mergeAttrs() {
-        const group = this.xdhFormGroup || {}
-        return {
-          size: group.size,
-          labelWidth: group.labelWidth,
-          inline: group.inline,
-          labelPosition: group.labelPosition,
-          ...this.$attrs
-        }
+        const keys = ['label', 'labelWidth', 'size']
+        const attrs = {}
+        keys.forEach(k => {
+          if (this.extendAttrs[k]) {
+            attrs[k] = this.extendAttrs[k]
+          }
+        })
+        return attrs
       }
     },
     watch: {
-      'xdhForm.$attrs.inline'() {
-        this.delaySetContentWidth(this.contentEl)
-      },
-      'xdhForm.inlineSize'() {
-        this.delaySetContentWidth(this.contentEl)
-      },
-      'xdhForm.$attrs.labelWidth'() {
-        this.delaySetContentWidth(this.contentEl)
-      },
-      '$attrs.labelWidth'() {
-        this.delaySetContentWidth(this.contentEl)
-      },
-      contentWidth() {
-        this.delaySetContentWidth(this.contentEl)
-      },
-      block() {
-        this.delaySetContentWidth(this.contentEl)
-      },
-      labelWidth() {
-        this.delaySetContentWidth(this.contentEl)
-      },
       options(val) {
         // 字典优先
         if (this.dict) return
@@ -249,6 +239,12 @@
         this.$nextTick(() => {
           val && this.init()
         })
+      },
+      fieldValue(val) {
+        this.$emit('input', val)
+      },
+      value(val) {
+        this.fieldValue = val
       }
     },
     methods: {
@@ -278,8 +274,7 @@
       },
       getLabelWidth() {
         return Math.max(
-          Number.parseInt(this.$attrs.labelWidth || 0),
-          Number.parseInt(this.xdhForm.$attrs.labelWidth || 0),
+          Number.parseInt(this.mergeAttrs.labelWidth || 0),
           0
         )
       },
@@ -292,11 +287,12 @@
           el.style.width = `calc(100% - ${labelWidth}px)`
           return;
         }
+
         // 只对inline模式有效
-        if (!this.xdhForm.$attrs.inline) return
+        if (!('inline' in this.extendAttrs)) return
 
         // 默认inlineSize
-        if (!this.xdhForm.inlineSize) {
+        if (!this.extendAttrs.inlineSize) {
           el.style.width = `auto`
           return
         }
@@ -307,13 +303,24 @@
           small: 300
         }
         const labelWidth = this.getLabelWidth()
-        const width = Number.parseInt(this.contentWidth) || (map[this.xdhForm.inlineSize] - labelWidth)
+
+        const width = Number.parseInt(this.contentWidth) || (map[this.extendAttrs.inlineSize] - labelWidth)
         el.style.width = `${width}px`
       },
       delaySetContentWidth(el) {
         this.$nextTick(() => {
           this.setContentWidth(el)
         })
+      },
+      clearValue() {
+        this.fieldValue = undefined
+        const model = this.parent.currentModel
+        if (model && this.prop) {
+          delete model[this.prop]
+        }
+        if (Array.isArray(model) && Number.isInteger(this.prop)) {
+          model.splice(this.prop, 1)
+        }
       }
     },
     mounted() {
@@ -326,12 +333,20 @@
     created() {
       this.components = components
       this.loadOptions()
+      if (typeof this.value !== 'undefined') {
+        this.fieldValue = this.value
+      }
+    },
+    updated() {
+      this.delaySetContentWidth(this.contentEl)
     },
     beforeDestroy() {
       this.contentEl = null
       if (this.$refs.body) {
         this.$refs.body.parentNode.removeChild(this.$refs.body)
       }
+      this.clearValue()
+
     }
   }
 </script>
