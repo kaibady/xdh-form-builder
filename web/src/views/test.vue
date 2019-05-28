@@ -62,12 +62,12 @@
 </template>
 
 <script>
-  import XdhForm from '@/components/xdh-form'
-  import XdhFormItem from '@/components/xdh-form-item'
-  import XdhFormObject from '@/components/xdh-form-object'
-  import XdhFormArray from '@/components/xdh-form-array'
-  import XdhFormGroup from '@/components/xdh-form-group'
-  import XdhFormDivider from '@/components/xdh-form-divider'
+
+  import {XdhForm, XdhFormItem} from '@/widgets/xdh-form'
+  import XdhFormObject from '@/widgets/xdh-form/xdh-form-object'
+  import XdhFormArray from '@/widgets/xdh-form/xdh-form-array'
+  import XdhFormGroup from '@/widgets/xdh-form/xdh-form-group'
+  import XdhFormDivider from '@/widgets/xdh-form/xdh-form-divider'
   import userMixin from '@/base/mixin/user'
   import {getPropByPath} from 'element-ui/src/utils/util'
 

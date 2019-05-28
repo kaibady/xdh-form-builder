@@ -27,8 +27,8 @@
 
 <script>
   import {mapState, mapGetters} from 'vuex'
-  import XdhForm from '../components/xdh-form'
-  import XdhFormItem from '../components/xdh-form-item'
+  import XdhForm from '@/widgets/xdh-form'
+  import XdhFormItem from '@/widgets/xdh-form/xdh-form-item'
   import Sortable from 'sortablejs'
   import {load} from '../helper/setting/dict'
 

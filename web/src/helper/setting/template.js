@@ -6,7 +6,7 @@ export default template(`
 </template>
 
 <script>
-  import XdhForm from '@/components/xdh-form'
+  import XdhForm from '@/widgets/xdh-form'
   const config = <%=config%>
   const fields = <%=fields%>
   export default {

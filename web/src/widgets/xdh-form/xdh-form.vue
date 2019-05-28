@@ -1,305 +1,269 @@
 <template>
-  <el-form ref="form" :model="currentModel" :inline="inline" :size="size" :label-width="labelWidth">
-    <xdh-form-items :model="currentModel" :data="data">
-
-      <template slot="upload" slot-scope="scope">
-        <slot name="upload" :item="scope.item">
-          <el-button>点击选择文件</el-button>
+  <el-form ref="form"
+           v-bind="$attrs"
+           class="xdh-form"
+           :class="formClasses"
+           @submit.native.prevent.stop="preventSubmit"
+           @keyup.native.13="handelEnterSubmit"
+           :model="currentModel">
+    <div class="xdh-form__body" ref="body">
+      <slot>
+        <xdh-form-item v-for="item in fields" :key="item.prop" v-bind="item"></xdh-form-item>
+      </slot>
+      <el-form-item v-if="footer && isFooterInline" class="xdh-form__footer">
+        <slot name="footer" v-if="footer">
+          <el-button v-if="submitText" type="primary" @click="submit" :size="footerSize">{{submitText}}</el-button>
+          <el-button v-if="resetText" @click="reset" :size="footerSize">{{resetText}}</el-button>
         </slot>
-      </template>
-
-      <template slot="custom" slot-scope="scope">
-        <slot name="custom" :item="scope.item" :index="scope.index">
-        </slot>
-      </template>
-
-      <template slot="row-append" slot-scope="scope">
-        <slot name="row-append" :columns="scope.columns" :index="scope.index"></slot>
-      </template>
-
-    </xdh-form-items>
-    <el-form-item v-if="footer">
-      <slot name="buttons">
-        <el-button type="primary" @click="submit">确定</el-button>
-        <el-button @click="reset">重置</el-button>
+      </el-form-item>
+    </div>
+    <el-form-item v-if="footer && !isFooterInline" class="xdh-form__footer" :class="footerClasses"
+                  :label="footerAlignLabel">
+      <slot name="footer" v-if="footer">
+        <el-button v-if="submitText" type="primary" @click="submit" :size="footerSize">{{submitText}}</el-button>
+        <el-button v-if="resetText" @click="reset" :size="footerSize">{{resetText}}</el-button>
       </slot>
     </el-form-item>
+
   </el-form>
 </template>
 
 <script>
   /**
-   *  自定义表单组件
-   *  @module widgets/xdh-form
+   * 表单组件
+   * @module widgets/xdh-form
+   *
    */
-
-  import XdhFormItems from './xdh-form-items'
-  // 表单字段的初始默认值
-  const defaultValue = function (type) {
-    return {
-      'checkbox': [],
-      'upload': []
-    }[type] || ''
-  }
+  import XdhFormItem from './xdh-form-item'
+  import {clean} from './utils'
+  import {isEqual, debounce} from '@/utils/util'
 
   /**
-   * 把表单配置数据转化成模型对象
-   * @private
-   * @param {Array} data 表单配置数据
-   * @returns {Object} 模型对象
-   */
-  const dataToModel = function (data) {
-    const array = (data || []).filter(n => n.type !== 'title')
-    let model = {}
-    const parser = function (arr) {
-      arr.forEach(item => {
-        model[item.name] = item.value || defaultValue(item.type)
-        if (item.branches) {
-          Object.keys(item.branches).forEach(branch => {
-            const branchModel = parser(item.branches[branch])
-            Object.assign(model, branchModel)
-          })
-        }
-        if (item.children) {
-          model[item.name] = item.children.map(row => {
-            let fields = {}
-            row.forEach(col => {
-              fields[col.name] = col.value || defaultValue(col.type)
-            })
-            return fields
-          })
-        }
-      })
-    }
-    parser(array)
-    return model
-  }
-
-  /**
-   * 数据转换成分支对象，如 { branchName: {branch1:[fieldName, fieldName], branch2:[]} }
-   * @private
-   * @param {Array} data 表单配置数据
-   * @returns {Object} 分支对象
-   */
-  const dataToBranches = function (data) {
-    let branches = {}
-    const parser = function (arr) {
-      arr.forEach(item => {
-        if (item.branches) {
-          branches[item.name] = {}
-          Object.keys(item.branches).forEach(key => {
-            let branchValue = item.branches[key]
-            branches[item.name][key] = item.branches[key].map(n => n.name)
-            parser(branchValue)
-          })
-        }
-      })
-    }
-    parser(data)
-    return branches
-  }
-
-  /**
-   * 获取全部分支的字段列表
-   * @private
-   * @param {Object} branches 分支对象
-   * @returns {Array} 字段列表
-   */
-  const getBranchesArray = function (branches) {
-    let array = []
-    Object.keys(branches).forEach(cate => {
-      let branch = branches[cate]
-      Object.keys(branch).forEach(key => {
-        array = array.concat(branch[key])
-      })
-    })
-    return array
-  }
-
-  /**
-   * 模型转换成提交到接口的数据数组
-   * @private
-   */
-  const modelToFields = function (model, branches) {
-    let fields = []
-    // 先获取分支中的字段名称数据组
-    const branchArray = getBranchesArray(branches)
-    // 递归获取字段值对象{name，value}
-    const appendField = function (value, matchBranches) {
-      value = Array.isArray(value) ? value : [value]
-      value.forEach(val => {
-        let branchArray = matchBranches[val] || []
-        branchArray.forEach(key => {
-          fields.push({name: key, value: model[key]})
-          if (branches[key]) {
-            appendField(model[key], branches[key])
-          }
-        })
-      })
-    }
-    Object.keys(model).filter(n => !branchArray.includes(n)).forEach(name => {
-      let value = model[name]
-      fields.push({name: name, value: value})
-      let matchBranches = branches[name]
-      if (matchBranches) {
-        appendField(value, matchBranches)
-      }
-    })
-    return fields
-  }
-
-  const fillModelValue = function (data, model) {
-    const modelArr = Object.keys(model)
-    modelArr.forEach(key => {
-      const modelItem = model[key]
-      const matchItem = data.find(item => item.name === key)
-      if (matchItem) {
-        if (Array.isArray(modelItem) && matchItem.children) {
-          modelItem.forEach((m, i) => {
-            fillModelValue(matchItem.children[i], m)
-          })
-        } else {
-          matchItem.value = model[key]
-        }
-      }
-    })
-  }
-
-  /**
-   * 插槽 slots
+   * 插槽
    * @member slots
-   * @property {string} buttons 自定义操作按钮区，如设置该插槽，默认的提交和重置按钮将不显示
-   */
-
-  /**
-   * 作用域插槽 scopeSlots
-   * @member scopeSlots
-   * @property {string} upload 定义上传组件显示内容, 作用域插槽，参数：item：配置数据项
-   * @property {string} custom 自定义配置内容, 作用域插槽，参数：item：配置数据项
-   * @property {string} row-append 定义children的每一行追加内容，参数：columns 当前行的字段集合，index 当前行索引
+   * @property {string} - 自定义表单项内容，需包含 xdh-form-item 组件
+   * @property {string} footer 定义底部内容
    */
 
   export default {
     name: 'XdhForm',
     components: {
-      XdhFormItems
+      XdhFormItem
+    },
+    provide() {
+      return {
+        xdhForm: this
+      }
     },
     /**
-     * props
-     * @property {object} [model] 初始化表单模型，可以在这里设置原始的模型键值对
-     * @property {FieldConfig[]} data 表单配置数据。 FieldConfig 对象包含以下属性
-     * @property {string} data.name 字段名称，即表单域的名称
-     * @property {string} data.type 字段输入框类型，支持：input / select / radio / checkbox / datePicker / upload / title / custom
-     * @property {string} data.label 字段显示的名称
-     * @property {*} data.value 字段默认值
-     * @property {object} data.props 输入框组件的实例化参数对象，对应相应的ElementUI组件
-     * @property {object|Array} data.rules 验证规则，配置参考ElementUI
-     * @property {Array} data.options 输入的选项数据，有两个字段 label 和 value。对 select、radio、checkbox 类型有效
-     * @property {Array} data.children 子级表单字段配置，是一个行列的二维数据，数据项是 FieldConfig
-     * @property {Boolean} data.inline 子级表单字段是否inline排列， 只对children的字段有效
-     * @property {Object} data.branches 表单分支配置，减值对，每一个分支是由FieldConfig组成的数组
-     * @property {string} [size] 表单项的尺寸，支持 medium / small / mini
-     * @property {string} [labelWidth] 表单字段名称显示的宽度
-     * @property {boolean} [footer=true] 是否显示底部按钮区
+     * 参数属性，在支持el-form所有参数并扩展以下参数
+     * @property {Object} [model] 表单初始化实体，通常用来设置表单项的默认值
+     * @property {Array} [fields] 表单字段配置，配置参数参考xdh-form-item组件，该配置是用来动态创建xdh-form-item, 不支持group、array、object
+     * @property {Object} [dictMap] 字典数据映射，格式： {'字典编码': [字典数组]}
+     * @property {String} [validateMsg] 验证信息显示方式， 可选值 'top', 'right', 'bottom'
+     * @property {Boolean} [footer=true] 是否显示底部操作按钮
+     * @property {String} [footerAlign=label] 底部按钮对齐方式，可选值 'label', 'left', 'right', 'center','inline'
+     * @property {Boolean} [footerBorder=true] 是否显示底部边框线
+     * @property {String} [submitText=提交] 提交按钮文本，为空时将不显示按钮
+     * @property {String} [resetText=重置] 重置按钮文本，为空时将不显示按钮
+     * @property {String} [footerSize] 底部按钮尺寸，可选值 'large', 'medium', 'small', 'mini'
+     * @property {string} [size] 内部表单项尺寸，可选值 medium / small / mini
+     * @property {string} [labelPosition] 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 label-width
+     * @property {string} [labelWidth] 表单域标签的宽度，例如 '50px'。作为 Form 直接子元素的 form-item 会继承该值。支持 auto。
+     * @property {string} [labelSuffix]  表单域标签的后缀
+     * @property {boolean} [inline=false] 内行模式
+     * @property {String} [inlineSize]  inline模式的字段域宽度尺寸，可选值 'large', 'medium', 'small'
+     * @property {Function} [load] 字典数据加载方法，必须返回Promise.resolve options数组
+     * @property {Boolean} [enterSubmit=true] 是否回车键提交表单
+     *
      */
     props: {
+      // 表单实体默认值
       model: {
         type: Object,
         default() {
           return {}
         }
       },
-      data: {
+      fields: {
         type: Array
       },
-      // 表单尺寸，支持 medium / small / mini
-      size: {
-        type: String
+      // 字典数据构造方法，必须返回Promise
+      load: {
+        type: Function
       },
-      // 表单字段名称显示的宽度
-      labelWidth: {
-        type: String
+      // 静态字典数据配置对象
+      dictMap: {
+        type: Object,
+        default() {
+          return {}
+        }
       },
-      inline: {
-        type: Boolean,
-        default: false
+      // 验证信息显示方式
+      validateMsg: {
+        type: String,
+        default: '',
+        validator(val) {
+          return ['top', 'right', 'bottom', ''].includes(val)
+        }
       },
-      // 是否显示底部按钮区
+      // 是否显示footer
       footer: {
         type: Boolean,
         default: true
+      },
+      // 底部对齐方式
+      footerAlign: {
+        type: String,
+        default: 'right',
+        validator(val) {
+          return ['label', 'left', 'right', 'center', 'inline', ''].includes(val)
+        }
+      },
+      // 底部是否加边框, 设置了footerAlign才有效
+      footerBorder: {
+        type: Boolean,
+        default: true
+      },
+      // 提交按钮文本
+      submitText: {
+        type: String,
+        default: '提交'
+      },
+      // 重置按钮文本
+      resetText: {
+        type: String,
+        default: '重置'
+      },
+      // inline模式的字段域尺寸
+      inlineSize: {
+        type: String,
+        default: '',
+        validator(val) {
+          return ['large', 'medium', 'small', ''].includes(val)
+        }
+      },
+      // 底部按钮尺寸
+      footerSize: {
+        type: String,
+        validator(val) {
+          return ['large', 'medium', 'small', 'mini', ''].includes(val)
+        }
+      },
+      // 回车键提交表单
+      enterSubmit: {
+        type: Boolean,
+        default: true
+      },
+      // 设计模式，仅在可视化制作工具中实用
+      designMode: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
       return {
-        currentModel: null,
-        branches: null,
-        currentData: this.data
+        currentModel: {...this.model}
       }
     },
     watch: {
-      data: {
-        deep: true,
-        immediate: true,
-        handler(data) {
-          // 在组件实例化是，根据表单配置数据转换成模型，并合并模型的默认值
-          this.currentModel = Object.assign({}, this.model || {}, dataToModel(data || []))
-          this.branches = dataToBranches(data || [])
-          this.currentData = data
-        }
-      },
       model: {
         deep: true,
-        handler(m) {
-          this.currentModel = Object.assign({}, this.currentModel, m || {})
+        handler(val) {
+          if (!isEqual(val, this.currentModel)) {
+            this.currentModel = {...val}
+          }
         }
       },
       currentModel: {
         deep: true,
-        handler(model) {
-          fillModelValue(this.currentData, model)
-          this.$emit('on-change', model)
+        handler(val, old) {
+          /**
+           * 表单值发生改变时触发
+           * @event change
+           * @param {Object} val 新实体
+           * @param {Object} old 旧实体
+           */
+          this.proxyHandleChange(val, old)
         }
       }
+    },
+    computed: {
+      extendAttrs() {
+        return {
+          ...clean(this.$attrs),
+          validateMsg: this.validateMsg,
+          inlineSize: this.inlineSize
 
+        }
+      },
+      formClasses() {
+        return [this.$attrs.inline ? `is-inline-size is-inline-${this.inlineSize}` : '']
+      },
+      footerClasses() {
+        return [
+          `is-${this.footerAlign}`,
+          {
+            'is-border': (this.footerBorder && this.footerAlign && this.footerAlign !== 'label')
+          }
+        ]
+      },
+      footerAlignLabel() {
+        return this.footerAlign === 'label' ? ' ' : null
+      },
+      isFooterInline() {
+        return this.footerAlign === 'inline'
+      }
     },
     methods: {
       /**
        * 提交表单
-       * @function submit
+       * @method submit
        */
       submit() {
         this.$refs.form.validate(valid => {
           if (valid) {
-            const fields = modelToFields(this.currentModel, this.branches)
             /**
-             * 表单提交时触发
-             * @event on-submit
-             * @param {Object} fields 表单域数组
+             * 提交表单时触发
+             * @event submit
+             * @param {Object} model 表单实体
              */
-            this.$emit('on-submit', fields)
-          } else {
-            return false
+            this.$emit('submit', this.currentModel)
           }
         })
       },
       /**
        * 重置表单
-       * @function reset
+       * @method reset
+       * @param {Object} model 表单实体
        */
       reset() {
         this.$refs.form.resetFields()
+        this.currentModel = {...this.model}
         /**
          * 表单重置时触发
-         * @event on-reset
-         * @param {Object} model 模型数据对象
+         * @event reset
+         * @param {Object} model 表单实体
          */
-        this.$emit('on-reset', this.currentModel)
+        this.$emit('reset', this.currentModel)
+      },
+      preventSubmit() {
+        return false
+      },
+      handelEnterSubmit() {
+        this.enterSubmit && this.submit()
+      },
+      handleChange(val, old) {
+        /**
+         * 表单值改变时触发
+         * @event change
+         * @param {Object} model 表单实体
+         */
+        this.$emit('change', val, old)
       }
     },
     created() {
-      // console.log(dataToBranches(this.data))
-      // console.log(this.currentModel, this)
+      this.proxyHandleChange = debounce(this.handleChange, 300, false, this)
     }
   }
 </script>

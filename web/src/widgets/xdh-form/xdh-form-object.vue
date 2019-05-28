@@ -1,5 +1,5 @@
 <template>
-  <div class="xdh-form-sub xdh-form-array" :class="classes" v-if="isActive">
+  <div class="xdh-form-sub xdh-form-object" :class="classes" v-if="isActive">
     <div v-if="tool" class="xdh-form-sub__tool">
       <slot name="tool">
         <el-button @click="handleAdd" icon="el-icon-plus" size="mini"></el-button>
@@ -16,13 +16,14 @@
     </transition>
   </div>
 </template>
+
 <script>
   /**
-   * 表单项数组
-   * @module widgets/xdh-form-array
+   * 表单项对象
+   * @module widgets/xdh-form-object
    *
    */
-  import subForm from '../helper/mixins/subform'
+  import subForm from './mixins/subform'
   import {isEqual} from '@/utils/util'
 
   /**
@@ -33,7 +34,7 @@
    */
 
   export default {
-    name: 'XdhFormArray',
+    name: 'XdhFormObject',
     componentName: 'ElForm',
     mixins: [subForm],
     /**
@@ -57,23 +58,27 @@
       prop: {
         type: [String, Number],
         required: true
+      },
+      label: {
+        type: String,
+        default: ''
       }
     },
     data() {
       return {
-        currentModel: []
+        currentModel: {}
       }
     },
     computed: {
       model() {
         if (this.parent.currentModel) {
-          return this.parent.currentModel[this.prop] || []
+          return this.parent.currentModel[this.prop] || {}
         }
         return {}
       },
       initModel() {
-        const model = this.parent.model[this.prop] || []
-        return [...model]
+        const model = this.parent.model[this.prop] || {}
+        return {...model}
       }
     },
     watch: {
@@ -87,7 +92,7 @@
            * @param {Object} old 旧实体
            */
           this.$emit('change', val, old)
-          this.$set(this.parent.currentModel, this.prop, [...val])
+          this.$set(this.parent.currentModel, this.prop, {...val})
         }
       },
       initModel: {
@@ -101,7 +106,7 @@
     },
     methods: {
       setModel(val) {
-        const model = [...val]
+        const model = {...val}
         this.currentModel = model
         this.$set(this.parent.currentModel, this.prop, model)
       }

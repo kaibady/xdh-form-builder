@@ -1,5 +1,5 @@
 <template>
-  <div class="xdh-form-sub xdh-form-object" :class="classes" v-if="isActive">
+  <div class="xdh-form-sub xdh-form-group" :class="classes" v-if="isActive" :style="styles">
     <div v-if="tool" class="xdh-form-sub__tool">
       <slot name="tool">
         <el-button @click="handleAdd" icon="el-icon-plus" size="mini"></el-button>
@@ -19,12 +19,11 @@
 
 <script>
   /**
-   * 表单项对象
-   * @module widgets/xdh-form-object
+   * 表单分组
+   * @module widgets/xdh-form-group
    *
    */
-  import subForm from '../helper/mixins/subform'
-  import {isEqual} from '@/utils/util'
+  import subForm from './mixins/subform'
 
   /**
    * 插槽
@@ -34,13 +33,14 @@
    */
 
   export default {
-    name: 'XdhFormObject',
-    componentName: 'ElForm',
+    name: 'XdhFormGroup',
     mixins: [subForm],
     /**
      *  属性参数
      *  @member props
-     *  @property {string|number} prop 表单域字段名称
+     *  @property {boolean} [block=true] 是否独占行显示，如需要按列显示，需要设置为false，并且设置宽度width
+     *  @property {string} [width] 显示宽度，支持百分比，像素需要带单位
+     *  @property {string} [height] 显示高度
      *  @property {boolean} [inline] 内部表单项显示方式采用内行
      *  @property {String} [inlineSize]  inline模式的字段域宽度尺寸，可选值 'large', 'medium', 'small'
      *  @property {string} [size] 内部表单项尺寸，可选值 medium / small / mini
@@ -55,64 +55,22 @@
      *  @property {boolean} [tool=false] 是否显示工具按钮
      */
     props: {
-      prop: {
-        type: [String, Number],
-        required: true
+      block: {
+        type: Boolean,
+        default: true
       },
-      label: {
-        type: String,
-        default: ''
-      }
-    },
-    data() {
-      return {
-        currentModel: {}
-      }
+      width: String,
+      height: String
     },
     computed: {
-      model() {
-        if (this.parent.currentModel) {
-          return this.parent.currentModel[this.prop] || {}
-        }
-        return {}
-      },
-      initModel() {
-        const model = this.parent.model[this.prop] || {}
-        return {...model}
-      }
-    },
-    watch: {
-      currentModel: {
-        deep: true,
-        handler(val, old) {
-          /**
-           * 表单值发生改变时触发
-           * @event change
-           * @param {Object} val 新实体
-           * @param {Object} old 旧实体
-           */
-          this.$emit('change', val, old)
-          this.$set(this.parent.currentModel, this.prop, {...val})
-        }
-      },
-      initModel: {
-        deep: true,
-        handler(val) {
-          if (!isEqual(val, this.currentModel)) {
-            this.setModel(val)
-          }
+      styles() {
+        return {
+          width: this.width,
+          height: this.height,
+          'vertical-align': this.block ? null : 'top',
+          display: this.block ? 'block' : 'inline-block'
         }
       }
-    },
-    methods: {
-      setModel(val) {
-        const model = {...val}
-        this.currentModel = model
-        this.$set(this.parent.currentModel, this.prop, model)
-      }
-    },
-    created() {
-      this.setModel(this.initModel)
     }
   }
 </script>

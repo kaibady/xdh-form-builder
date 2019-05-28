@@ -1,16 +1,22 @@
-// let formData = [{
-//   label: '字段中文名称',
-//   name:'表单域字段名',
-//   type: '输入框类型：radio / checkbox / input /  select / datePicker / dateTimePicker / upload',
-//   props: {}, // 实例化参数选项
-//   rules: [],// 验证规则
-//   group: {
-//     // 分组
-//   }
-// }]
+import Form from './xdh-form.vue'
 
-import XdhForm from './xdh-form.vue'
-XdhForm.install = function (Vue) {
-  Vue.component(XdhForm.name, XdhForm)
+import FormItem from './xdh-form-item'
+import FormArray from './xdh-form-array'
+import FormObject from './xdh-form-object'
+import FormGroup from './xdh-form-group'
+import FormDivider from './xdh-form-divider'
+
+Form.install = function (Vue) {
+  Vue.component(Form.name, Form)
 }
-export default XdhForm
+
+export default Form
+
+
+export const XdhForm = Form
+export const XdhFormItem = FormItem
+export const XdhFormArray = FormArray
+export const XdhFormObject = FormObject
+export const XdhFormGroup = FormGroup
+export const XdhFormDivider = FormDivider
+

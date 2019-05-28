@@ -53,7 +53,7 @@
   import editor from './items/editor'
   import inputTag from './items/input-tag'
   import tree from './items/tree'
-  import {getParent, getExtendAttrs, normalOptions} from '../helper/utils'
+  import {getParent, getExtendAttrs, normalOptions} from './utils'
   import {getPropByPath} from 'element-ui/src/utils/util'
 
   const components = {
@@ -103,7 +103,10 @@
      * @property {*} [dependValue] 依赖字段的值，依赖字段的值如果与设置的一致即显示
      * @property {Boolean} [block=false] 是否独占行显示
      * @property {Object|Array} [rules] 验证规则, 继承el-form-item
-     * @property {string} [size] 组件尺寸，继承el-form-item
+     * @property {string} [size] 内部表单项尺寸，可选值 medium / small / mini
+     * @property {string} [labelPosition] 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 label-width
+     * @property {string} [labelWidth] 表单域标签的宽度，例如 '50px'。作为 Form 直接子元素的 form-item 会继承该值。支持 auto。
+     * @property {string} [labelSuffix]  表单域标签的后缀
      * @property {string} [label-width] 标签宽度，继承el-form-item
      * @property {string|number} prop 表单域 model 字段，在使用 validate、resetFields 方法的情况下，该属性是必填的，继承el-form-item
      * @property {string} [label] 标签文本, 继承el-form-item
@@ -178,14 +181,14 @@
         get() {
           const model = this.parent.currentModel
           if (model) {
-            return getPropByPath(model, this.prop, true).v
+            return getPropByPath(model, this.prop.toString(), true).v
 
           }
           return null
         },
         set(val) {
           const model = this.parent.currentModel
-          const prop = getPropByPath(model, this.prop)
+          const prop = getPropByPath(model, this.prop.toString())
           this.$set(prop.o, prop.k, val)
         }
       },

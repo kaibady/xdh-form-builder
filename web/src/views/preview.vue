@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import XdhForm from '@/components/xdh-form'
+  import XdhForm from '@/widgets/xdh-form'
   import FormMixin from '@/base/mixin/forms'
   import {LOCAL_STORAGE} from '@/config'
   import {getForms} from '@/helper/storage'

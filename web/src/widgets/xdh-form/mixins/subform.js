@@ -1,5 +1,5 @@
 import Emitter from 'element-ui/lib/mixins/emitter'
-import {getParent, getParentGroup, getExtendAttrs} from '@/helper/utils'
+import {getParent, getParentGroup, getExtendAttrs} from '../utils'
 
 export default {
   mixins: [Emitter],

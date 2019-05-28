@@ -11,8 +11,8 @@
 </template>
 
 <script>
-  import XdhForm from '../xdh-form'
-  import XdhFormItem from '../xdh-form-item'
+  import XdhForm from '@/widgets/xdh-form'
+  import XdhFormItem from '@/widgets/xdh-form/xdh-form-item'
   import {mapGetters, mapState} from 'vuex'
 
   export default {

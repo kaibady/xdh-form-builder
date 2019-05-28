@@ -86,7 +86,7 @@ export function listToTree(list, parentId, level = 0, map) {
 export function buildTree(list = [], parentId = null, idKey = 'id', parentIdKey = 'parentId') {
   let temp = Object.create(null), tree = []
   list.forEach(item => {
-    temp[item[idKey]] = item
+    temp[item[idKey]] = {...item}
   })
   
   for (let key in temp) {

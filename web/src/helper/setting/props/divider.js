@@ -1,4 +1,4 @@
-import Divider from '@/components/items/divider'
+import Divider from '@/widgets/xdh-form/items/divider'
 
 export default {
   ...Divider.props,

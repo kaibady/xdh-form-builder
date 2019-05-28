@@ -39,8 +39,8 @@
 
 <script>
   import XdhList from '@/widgets/xdh-list'
-  import XdhForm from '@/components/xdh-form'
-  import XdhFormItem from '@/components/xdh-form-item'
+  import XdhForm from '@/widgets/xdh-form'
+  import XdhFormItem from '@/widgets/xdh-form/xdh-form-item'
   import FormMixin from '@/base/mixin/forms'
   import {LOCAL_STORAGE} from '@/config'
   import {fetchForms, addForms, updateForms, removeForms} from '@/helper/storage'
