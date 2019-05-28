@@ -2,6 +2,7 @@
   <xdh-form @change="handleChange"
             @submit="handleSubmit"
             style="padding: 20px"
+            :model="model"
             :inline="false">
     <xdh-form-array prop="arr">
       <xdh-form-object v-for="(item,index) in list" :key="index" :prop="index">
@@ -23,7 +24,38 @@
                    v-model="model.name"
                    :rules="{required:true}"></xdh-form-item>
 
+    <xdh-form-item prop="title"></xdh-form-item>
 
+    <xdh-form-divider content="分隔" content-position="left"></xdh-form-divider>
+    <xdh-form-array prop="arr">
+      <el-table
+        :data="model.arr"
+        style="width: 100%">
+        <el-table-column
+          prop="date"
+          label="日期"
+          width="180">
+          <template slot-scope="{row}">
+            <xdh-form-item v-model="row.date" :prop="`0.date`" :rules="{required:true}"></xdh-form-item>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="姓名"
+          width="180">
+          <template slot-scope="{row}">
+            <xdh-form-item v-model="row.name" :prop="`0.name`" :rules="{required:true}"></xdh-form-item>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="address"
+          label="地址">
+          <template slot-scope="{row}">
+            <xdh-form-item v-model="row.address" :prop="`0.address`" :rules="{required:true}"></xdh-form-item>
+          </template>
+        </el-table-column>
+      </el-table>
+    </xdh-form-array>
   </xdh-form>
 
 
@@ -37,7 +69,7 @@
   import XdhFormGroup from '@/components/xdh-form-group'
   import XdhFormDivider from '@/components/xdh-form-divider'
   import userMixin from '@/base/mixin/user'
-
+  import {getPropByPath} from 'element-ui/src/utils/util'
 
   function createTree() {
     const tree = []
@@ -86,9 +118,12 @@
     },
     data() {
       return {
+        tableData: [],
         rules: {},
         model: {
-          name: [1, 2]
+          arr: [{
+            date: '2016-05-02', name: '王小虎', address: '上海市普陀区金沙江路 1518 弄'
+          }]
         },
         list: [{type: 'input'}]
       }
@@ -114,6 +149,12 @@
         // this.model.obj.name = 'sam'
         this.model.name = [323, 4343]
       }, 3000)
+
+      const model = {arr: [{a: 1, b: 2}]}
+
+      const r = getPropByPath(model, 'arr.5.a')
+      r.o.a = 9
+      console.log(r, model)
 
     }
   }

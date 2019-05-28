@@ -54,6 +54,7 @@
   import inputTag from './items/input-tag'
   import tree from './items/tree'
   import {getParent, getExtendAttrs, normalOptions} from '../helper/utils'
+  import {getPropByPath} from 'element-ui/src/utils/util'
 
   const components = {
     switch: Switch,
@@ -118,7 +119,8 @@
         }
       },
       prop: {
-        type: [String, Number]
+        type: [String, Number],
+        required: true
       },
       // 字典值编码
       dict: String,
@@ -176,13 +178,15 @@
         get() {
           const model = this.parent.currentModel
           if (model) {
-            return model[this.prop]
+            return getPropByPath(model, this.prop, true).v
+
           }
           return null
         },
         set(val) {
           const model = this.parent.currentModel
-          this.$set(model, this.prop, val)
+          const prop = getPropByPath(model, this.prop)
+          this.$set(prop.o, prop.k, val)
         }
       },
       itemClasses() {
