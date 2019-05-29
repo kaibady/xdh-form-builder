@@ -10,7 +10,7 @@
                 :closable="closableTag"
                 @click="handelTagClick"
                 disable-transitions
-                @close="deleteTag($event, tags[0])">
+                @close="deleteTag(0, tags[0])">
                     <span class="el-select__tags-text">{{tags[0]}}</span>
         </el-tag>
         <el-tag

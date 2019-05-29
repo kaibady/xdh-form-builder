@@ -4,6 +4,7 @@
             style="padding: 20px"
             :model="model"
             :inline="false">
+    <xdh-form-item prop="tree" type="tree" :options="tree" :props="{multiple:true,collapseTags:true}"></xdh-form-item>
     <xdh-form-array prop="arr">
       <xdh-form-object v-for="(item,index) in list" :key="index" :prop="index">
         <xdh-form-group :inline="true" inline-size="small">
@@ -76,14 +77,14 @@
     for (let i = 0; i < 10; i++) {
       tree.push({
         id: i.toString(),
-        label: '选项选项选项选项选项选项选' + i,
+        label: '选项' + i,
         value: i.toString(),
         parentId: null
       })
       for (let j = 0; j < 10; j++) {
         tree.push({
           id: `${i}-${j}`,
-          label: '选项选项选项选项选项选项选项' + i + '-' + j,
+          label: '选项' + i + '-' + j,
           value: i.toString(),
           parentId: i.toString()
         })
@@ -91,7 +92,7 @@
         for (let k = 0; k < 10; k++) {
           tree.push({
             id: `${i}-${j}-${k}`,
-            label: '选项选项选项' + i + '-' + j + '-' + k,
+            label: '选项' + i + '-' + j + '-' + k,
             value: k.toString(),
             parentId: `${i}-${j}`
           })
@@ -118,6 +119,7 @@
     },
     data() {
       return {
+        tree: tree,
         tableData: [],
         rules: {},
         model: {
