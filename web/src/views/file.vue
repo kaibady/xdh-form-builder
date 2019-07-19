@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-   <pre><code class="html" ref="code">{{code}}</code>
+    <div class="header"> 开启生成JSON配置模式
+      <el-switch v-model="json"></el-switch>
+    </div>
+    <pre v-if="reRender"><code class="html" ref="code">{{code}}</code>
    </pre>
   </div>
 </template>
@@ -8,7 +11,8 @@
 <script>
   import hljs from 'highlight.js'
   import 'highlight.js/styles/darcula.css'
-  import render from '@/helper/setting/template'
+  import renderJSON from '@/helper/setting/template'
+  import renderTemplate from '@/helper/setting/vue-template'
   import {mapState, mapGetters} from 'vuex'
   import FormMixin from '@/base/mixin/forms'
   import {LOCAL_STORAGE} from '@/config'
@@ -19,16 +23,49 @@
     return str ? str.replace(/'/g, '\\\'').replace(/"/g, '\'') : ''
   }
 
+  function bindProps(props) {
+    let attrs = []
+    Object.keys(props).forEach(key => {
+        const value = props[key]
+        if (typeof value === 'string') {
+          attrs.push(`${key}="${value}"`)
+        } else if (typeof value === 'object') {
+          attrs.push(`:${key}="${stringify(value)}"`)
+        } else {
+          attrs.push(`:${key}="${value}"`)
+        }
+      }
+    )
+    return attrs.join(' ')
+  }
+
   export default {
     mixins: [FormMixin],
     data() {
       return {
-        code: null
+        code: null,
+        json: false,
+        reRender: true
       }
     },
     computed: {
       ...mapState(['fields', 'formModel']),
       ...mapGetters(['model'])
+    },
+    watch: {
+      json() {
+        this.reRender = false
+        setTimeout(() => {
+          this.renderCode()
+        }, 10)
+
+      },
+      code(val) {
+        this.reRender = true;
+        this.$nextTick(() => {
+          hljs.highlightBlock(this.$refs.code)
+        })
+      }
     },
     methods: {
       clean(data) {
@@ -44,10 +81,14 @@
         return obj
       },
       renderCode() {
+        const render = this.json ? renderJSON : renderTemplate;
         this.code = render({
           config: stringify(this.clean(this.formModel) || {}),
+          formModel: this.clean(this.formModel) || {},
           fields: stringify(this.clean(this.fields) || []),
-          model: stringify(this.model || [])
+          fieldsArray: this.clean(this.fields) || [],
+          model: stringify(this.model || []),
+          bindProps: bindProps
         })
         this.$nextTick(() => {
           hljs.highlightBlock(this.$refs.code)
@@ -79,4 +120,12 @@
   .container {
     padding: 0 20px;
   }
+
+  .header {
+    height: 40px;
+    background: #efefef;
+    line-height: 40px;
+    padding-left: 20px;
+  }
+
 </style>
