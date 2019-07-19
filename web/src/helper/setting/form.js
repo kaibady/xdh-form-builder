@@ -6,10 +6,10 @@ const formFields = [
     value: false
   },
   {
-    label: '显示必填标识',
+    label: '隐藏必填标识',
     prop: 'hideRequiredAsterisk',
     type: 'switch',
-    value: true
+    value: false
   },
   {
     label: '显示底部边框',
